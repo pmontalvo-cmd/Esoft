@@ -1,15 +1,12 @@
 const mysql = require("mysql2");
 
-//  Conexion con la Base de Datos
-const db = mysql.createConnection({ host: "", user: "remote", password: "Cema5586", database: "pp" });
-
-db.connect((err) => {
-    if (err) {
-        console.error("DB connection error:", err);
-        return;
-    }
-    console.log("Database connected");
+const pool = mysql.createPool({
+  host: process.env.DB_HOST,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_NAME,
+  waitForConnections: true,
+  connectionLimit: 10
 });
 
-
-module.exports = db;
+module.exports = pool.promise();
