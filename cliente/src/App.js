@@ -57,7 +57,7 @@ function App() {
         
         <Route path="/singin" element={<SingIn onLoginSuccess={handleLoginSuccess} />} />
 
-        <Route path="/students" element={<StudentManagement />} />
+        <Route path="/alumnos" element={<StudentManagement />} />
       </Routes>
     </Router>
   );
