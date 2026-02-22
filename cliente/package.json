@@ -2,6 +2,7 @@
   "name": "cliente",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://ecumentis.org",
   "dependencies": {
     "axios": "^1.7.9",
     "bootstrap": "^5.3.3",
@@ -12,11 +13,12 @@
     "react-dom": "^18.2.0",
     "react-router-dom": "^7.1.5",
     "react-scripts": "5.0.1",
+    "serve": "^14.2.1",
     "sweetalert2": "^11.15.10",
     "web-vitals": "^4.2.4"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "serve -s build -l $PORT",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
