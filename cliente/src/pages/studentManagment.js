@@ -135,9 +135,102 @@ function StudentManagement() {
   };
 
   return (
-    // 👇 TODO lo de abajo se queda igual
     <div className='container'>
-      ...
+      <div className="card text-center">
+        <div className="card-header">
+          GESTIÓN DE ALUMNOS
+        </div>
+
+        <div className="card-body">
+
+          <input className="form-control mb-2" placeholder="First Name"
+            value={first_name}
+            onChange={(e) => setFirst_name(e.target.value)} />
+
+          <input className="form-control mb-2" placeholder="Middle Name"
+            value={middle_name}
+            onChange={(e) => setMiddle_name(e.target.value)} />
+
+          <input className="form-control mb-2" placeholder="Last Name"
+            value={last_name}
+            onChange={(e) => setLast_name(e.target.value)} />
+
+          <input className="form-control mb-2" placeholder="Username"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)} />
+
+          <input className="form-control mb-2" placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)} />
+
+          <input type="number" className="form-control mb-2" placeholder="Age"
+            value={age}
+            onChange={(e) => setAge(e.target.value)} />
+
+          <input type="number" className="form-control mb-2" placeholder="Grade"
+            value={grade}
+            onChange={(e) => setGrade(e.target.value)} />
+
+          <button className="btn btn-secondary m-1"
+            onClick={() => setTakes_math(takes_math === 1 ? 0 : 1)}>
+            {takes_math === 1 ? "Math ON" : "Math OFF"}
+          </button>
+
+          <button className="btn btn-secondary m-1"
+            onClick={() => setTakes_lenguage(takes_lenguage === 1 ? 0 : 1)}>
+            {takes_lenguage === 1 ? "Language ON" : "Language OFF"}
+          </button>
+
+        </div>
+
+        <div className="card-footer">
+          {editar ? (
+            <>
+              <button className='btn btn-warning m-2' onClick={update}>Actualizar</button>
+              <button className='btn btn-info m-2' onClick={limpiarCampos}>Cancelar</button>
+            </>
+          ) : (
+            <button className='btn btn-success' onClick={add}>Registrar</button>
+          )}
+        </div>
+      </div>
+
+      <button className='btn btn-primary mt-3' onClick={getAlumnos}>Cargar Alumnos</button>
+
+      <table className="table table-striped mt-3">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>First Name</th>
+            <th>Username</th>
+            <th>Age</th>
+            <th>Grade</th>
+            <th>Math</th>
+            <th>Language</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          {alumnosList.map((val) => (
+            <tr key={val.id}>
+              <td>{val.id}</td>
+              <td>{val.first_name}</td>
+              <td>{val.username}</td>
+              <td>{val.age}</td>
+              <td>{val.grade}</td>
+              <td>{val.takes_math}</td>
+              <td>{val.takes_lenguage}</td>
+              <td>
+                <button className="btn btn-info m-1"
+                  onClick={() => editarAlumno(val)}>Editar</button>
+                <button className="btn btn-danger m-1"
+                  onClick={() => deleteAlumno(val)}>Eliminar</button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+
     </div>
   );
 }
