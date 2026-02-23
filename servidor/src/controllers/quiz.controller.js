@@ -34,13 +34,16 @@ function nextQuestion(req, res) {
 function submitAnswer(req, res) {
     const { userId, questionId, userAnswer } = req.body;
 
-    const question = questions.find((q) => q.id === questionId);
+    const qId = Number(questionId);
+    const uId = Number(userId);
+
+    const question = questions.find((q) => q.id === qId);
     if (!question) return res.status(404).json({ error: "Question not found" });
 
     const isCorrect = question.answer === userAnswer;
 
     db.query(
-        "SELECT * FROM datos_usuario WHERE id = ?",[userId],(err, rows) => {
+        "SELECT * FROM datos_usuario WHERE id = ?",[uId],(err, rows) => {
             if (err) return res.status(500).json({ error: "DB error" });
             if (rows.length === 0)
                 return res.status(404).json({ error: "User not found" });
@@ -55,7 +58,7 @@ function submitAnswer(req, res) {
             // Update User Difficulty
             db.query(
                 "UPDATE datos_usuario SET current_difficulty=? WHERE id=?",
-                [newDiff, userId],
+                [newDiff, uId],
                 (err2) => {
                     if (err2)return res.status(500).json({ error: "Error updating user difficulty" });
 
