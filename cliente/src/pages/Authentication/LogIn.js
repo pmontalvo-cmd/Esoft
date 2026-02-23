@@ -7,8 +7,6 @@ function Login({ onLoginSuccess }) {
   const [password, setPassword] = useState("");
   const [errorMsg, setErrorMsg] = useState("");
   const [successMsg, setSuccessMsg] = useState("");
-  
-  const vprueba = "Welcome";
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -19,7 +17,7 @@ function Login({ onLoginSuccess }) {
     try {
       console.log("Attempting login with:", username, password);
 
-      const response = await fetch("http://192.168.100.6:3002/login", {
+      const response = await fetch(`${process.env.REACT_APP_API_URL}/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ username, password }),
@@ -35,6 +33,10 @@ function Login({ onLoginSuccess }) {
       }
 
       const data = await response.json();
+      localStorage.setItem("userId", String(data.id));
+      localStorage.setItem("username", data.username);
+      localStorage.setItem("grade", String(data.grade));
+
       console.log("Received JSON data:", data);
 
       // Provide some UI feedback
@@ -50,7 +52,7 @@ function Login({ onLoginSuccess }) {
       // If the parent passed in onLoginSuccess, call it with user data
       if (onLoginSuccess) {
         console.log("Datos"+data)
-        onLoginSuccess(data,vprueba);
+        onLoginSuccess(data, "Welcome");
       }
     } catch (error) {
       console.error("Login failed:", error);
@@ -58,7 +60,7 @@ function Login({ onLoginSuccess }) {
     }
   };
 
- 
+
   return (
     <div className="container d-flex justify-content-center align-items-center" style={{ height: "100vh" }}>
     <div className="card shadow p-4" style={{ width: "350px" }}>

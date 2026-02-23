@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import Axios from 'axios';
 import Swal from 'sweetalert2';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import api from "../../api";
 
 function StudentManagement() {
   let[id,setId]=useState(0)
@@ -17,10 +17,11 @@ function StudentManagement() {
   let[takes_lenguage,setTakes_lenguage]=useState(0);
   let[alumnosList, setAlumnos]= useState([]);
 
+  console.log(api.defaults.baseURL);
 
 
-
-  const add=()=>{Axios.post("http://192.168.100.6:3002/create",
+// CREATE USER
+  const add=()=>{api.post("/create",
   {first_name:first_name,
     middle_name:middle_name,
     last_name:last_name,
@@ -39,13 +40,13 @@ function StudentManagement() {
         timer:3000
     })});}
 
-
-    const getAlumnos = () => {Axios.get("http://192.168.100.6:3002/alumnos").then((response) => {
+// GET ALL USERS
+    const getAlumnos = () => {api.get("/alumnos").then((response) => {
         setAlumnos(response.data);
         (console.log((response.data)));});}
 
-
-    const update=()=>{Axios.put("http://192.168.100.6:3002/update",
+// UPDATE USER
+    const update=()=>{api.put("/update",
       {id:id,
         first_name:first_name,
         middle_name:middle_name,
@@ -65,7 +66,8 @@ function StudentManagement() {
             icon:'success',
             timer:3000
         })});}
- 
+
+// DELETE USER
   const deleteAlumno = (val) => {
     Swal.fire({
       title: "Confirmar eliminado?",
@@ -77,7 +79,7 @@ function StudentManagement() {
       confirmButtonText: "Si, eliminarlo!"
     }).then((result) => {
       if (result.isConfirmed) {
-        Axios.delete(`http://192.168.100.6:3002/delete/${val.id}`).then(() => {
+        api.delete(`/delete/${val.id}`).then(() => {
           limpiarCampos();
           getAlumnos();
           Swal.fire(

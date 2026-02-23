@@ -8,12 +8,12 @@ function Navbar({ vprueba, user }) {
     return (
         <nav className="navbar">
             <img 
-                src="https://i.postimg.cc/v8WZJF25/Captura-de-pantalla-2025-03-05-105550.png"
+                src="https://i.postimg.cc/v8WZJF25/Captura-de-pantalla-2025-03-05-105550.png" //Imagen: Logo
                 alt="Software Logo"
                 style={{ width: "50px", height: "50px", marginRight: "0px", borderRadius: "10%" }}
             />
             
-            <Link to="/students" style={{ textDecoration: "none", display: "flex", alignItems: "center", fontSize: "2.2rem" }}>
+            <Link to="/alumnos" style={{ textDecoration: "none", display: "flex", alignItems: "center", fontSize: "2.2rem" }}>
                 <span style={{ color: "Red" }}>Math</span>
                 <span style={{ backgroundColor: "white", color: "#1E1E2F", padding: "8px 12px", borderRadius: "10px", marginLeft: "5px", fontWeight: "bold" }}>Pro</span>
             </Link>
