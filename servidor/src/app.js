@@ -24,7 +24,16 @@ app.use(cors({
 
 app.options("*", cors());
 
-app.get("/health", (req, res) => res.status(200).json({ ok: true }));
+app.get("/health", (req, res) => res.status(200).json({ ok: true })); //Backend Healt test
+
+// Backend DB connection test
+app.get("/db-test", (req, res) => {
+  db.query("SELECT 1 AS ok", (err, rows) => {
+    if (err) return res.status(500).json({ ok: false, err: String(err) });
+    return res.json({ ok: true, rows });
+  });
+});
+
 app.use(authRoutes);
 app.use(userRoutes);
 app.use(quizRoutes);
