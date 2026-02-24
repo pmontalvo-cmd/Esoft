@@ -22,27 +22,22 @@ function Login() {
 
       const data = response.data;
 
-      // Guardar datos
-      localStorage.setItem("userId", String(data.id));
+      // Guardamos usuario para que el navbar lo detecte
       localStorage.setItem("username", data.username);
-      localStorage.setItem("grade", String(data.grade));
+      localStorage.setItem("userId", data.id);
 
-      // Alerta visual
       Swal.fire({
         title: `Bienvenido, ${data.username} 👋`,
         icon: "success",
-        timer: 2000,
+        timer: 1500,
         showConfirmButton: false,
       });
 
-      // Redirigir al dashboard
       setTimeout(() => {
         navigate("/dashboard");
-      }, 2000);
+      }, 1500);
 
     } catch (error) {
-      console.error(error);
-
       if (error.response && error.response.data) {
         setErrorMsg(error.response.data.message || "Credenciales incorrectas");
       } else {
@@ -52,10 +47,7 @@ function Login() {
   };
 
   return (
-    <div
-      className="container d-flex justify-content-center align-items-center"
-      style={{ height: "100vh" }}
-    >
+    <div className="container d-flex justify-content-center align-items-center" style={{ height: "100vh" }}>
       <div className="card shadow p-4" style={{ width: "350px" }}>
         <div className="card-body">
           <h2 className="text-center mb-4">Login</h2>
