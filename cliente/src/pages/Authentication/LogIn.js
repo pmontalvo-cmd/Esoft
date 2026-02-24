@@ -1,22 +1,20 @@
-// Login.js
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
-import API from "../../services/api"; // ⚠️ Ajusta la ruta si api.js está en otra carpeta
+import API from "../../services/api";
 
-function Login({ onLoginSuccess }) {
+function Login() {
+  const navigate = useNavigate();
+
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [errorMsg, setErrorMsg] = useState("");
-  const [successMsg, setSuccessMsg] = useState("");
 
   const handleLogin = async (e) => {
     e.preventDefault();
     setErrorMsg("");
-    setSuccessMsg("");
 
     try {
-      console.log("Attempting login with:", username);
-
       const response = await API.post("/login", {
         username,
         password,
@@ -24,45 +22,53 @@ function Login({ onLoginSuccess }) {
 
       const data = response.data;
 
+      // Guardar datos
       localStorage.setItem("userId", String(data.id));
       localStorage.setItem("username", data.username);
       localStorage.setItem("grade", String(data.grade));
 
-      setSuccessMsg(`Login successful! Welcome, ${data.username}.`);
-
+      // Alerta visual
       Swal.fire({
-        title: "Registro exitoso",
-        text: "Login successful!",
+        title: `Bienvenido, ${data.username} 👋`,
         icon: "success",
-        timer: 3000,
+        timer: 2000,
+        showConfirmButton: false,
       });
 
-      if (onLoginSuccess) {
-        onLoginSuccess(data);
-      }
+      // Redirigir al dashboard
+      setTimeout(() => {
+        navigate("/dashboard");
+      }, 2000);
+
     } catch (error) {
-      console.error("Login failed:", error);
+      console.error(error);
 
       if (error.response && error.response.data) {
-        setErrorMsg(error.response.data.message || "Invalid credentials");
+        setErrorMsg(error.response.data.message || "Credenciales incorrectas");
       } else {
-        setErrorMsg("Server connection error");
+        setErrorMsg("Error de conexión con el servidor");
       }
     }
   };
 
   return (
-    <div className="container d-flex justify-content-center align-items-center" style={{ height: "100vh" }}>
+    <div
+      className="container d-flex justify-content-center align-items-center"
+      style={{ height: "100vh" }}
+    >
       <div className="card shadow p-4" style={{ width: "350px" }}>
         <div className="card-body">
           <h2 className="text-center mb-4">Login</h2>
 
-          {errorMsg && <div className="alert alert-danger">{errorMsg}</div>}
-          {successMsg && <div className="alert alert-success">{successMsg}</div>}
+          {errorMsg && (
+            <div className="alert alert-danger text-center">
+              {errorMsg}
+            </div>
+          )}
 
           <form onSubmit={handleLogin}>
             <div className="mb-3">
-              <label className="form-label">Username:</label>
+              <label className="form-label">Usuario:</label>
               <input
                 type="text"
                 className="form-control"
@@ -73,7 +79,7 @@ function Login({ onLoginSuccess }) {
             </div>
 
             <div className="mb-3">
-              <label className="form-label">Password:</label>
+              <label className="form-label">Contraseña:</label>
               <input
                 type="password"
                 className="form-control"
@@ -84,7 +90,7 @@ function Login({ onLoginSuccess }) {
             </div>
 
             <button className="btn btn-primary w-100" type="submit">
-              Log In
+              Iniciar sesión
             </button>
           </form>
         </div>
@@ -94,4 +100,3 @@ function Login({ onLoginSuccess }) {
 }
 
 export default Login;
-
