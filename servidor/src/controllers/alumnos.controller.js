@@ -27,7 +27,7 @@ exports.createAlumno = async (req, res) => {
     } = req.body;
 
     await db.query(
-      "INSERT INTO alumnos (first_name, middle_name, last_name, username, password, age, grade, takes_math, takes_lenguage) VALUES (?,?,?,?,?,?,?,?,?)",
+      "INSERT INTO  datos_usuario (first_name, middle_name, last_name, username, password, age, grade, takes_math, takes_lenguage) VALUES (?,?,?,?,?,?,?,?,?)",
       [first_name, middle_name, last_name, username, password, age, grade, takes_math, takes_lenguage]
     );
 
