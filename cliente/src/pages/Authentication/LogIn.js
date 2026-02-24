@@ -94,8 +94,4 @@ function Login({ onLoginSuccess }) {
 }
 
 export default Login;
-  </div>
-);
-}
 
-export default Login;
