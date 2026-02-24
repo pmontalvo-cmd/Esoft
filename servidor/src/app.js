@@ -24,6 +24,7 @@ app.use(cors({
 
 app.options("*", cors());
 
+app.get("/health", (req, res) => res.status(200).json({ ok: true }));
 app.use(authRoutes);
 app.use(userRoutes);
 app.use(quizRoutes);
