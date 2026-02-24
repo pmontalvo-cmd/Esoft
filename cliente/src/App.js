@@ -1,66 +1,121 @@
-// App.js
-import React, { useState } from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import './App.css';
-import 'bootstrap/dist/css/bootstrap.min.css';
+// Login.js
 
+import React, { useState } from "react";
+import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
 
-import StudentManagement from './pages/studentManagment';
-import SingIn from './pages/LogIn';
-import Navbar from './components/navbar';
-import Home from './pages/home';
-import Dashboard from './components/Dashboard';
-import Quiz from './components/QuizComponents/quiz';
-import QuizIn from './components/QuizComponents/quizInstrucciones';
+function Login({ onLoginSuccess }) {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [errorMsg, setErrorMsg] = useState("");
+  const [successMsg, setSuccessMsg] = useState("");
 
-import LB_BM from './components/QuizComponents/Learning_Blocks/LB_BM';
-import LB_AM from './components/QuizComponents/Learning_Blocks/LB_AM';
-import LB_BL from './components/QuizComponents/Learning_Blocks/LB_BL';
-import LB_AL from './components/QuizComponents/Learning_Blocks/LB_AL';
+  const navigate = useNavigate();
 
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    setErrorMsg("");
+    setSuccessMsg("");
 
-function App() {
+    try {
+      console.log("Attempting login with:", username, password);
 
-  const [vprueba, setVprueba] = useState("");
+      const response = await fetch("https://api.ecumentis.org/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ username, password })
+      });
 
-  const [scores, setScores] = useState({ math: 0, language: 0 });
-  
-  // Add user state here
-  const [user, setUser] = useState(null);
+      console.log("Response status code:", response.status);
 
-  const handleQuizCompletion = (quizScores) => {
-    setScores(quizScores);
+      if (!response.ok) {
+        const errorText = await response.text();
+        console.log("Server returned an error:", errorText);
+        throw new Error(errorText || "Server error");
+      }
+
+      const data = await response.json();
+      console.log("Received JSON data:", data);
+
+      // Guardar datos en localStorage
+      localStorage.setItem("userId", String(data.id));
+      localStorage.setItem("username", data.username);
+      localStorage.setItem("grade", String(data.grade));
+
+      setSuccessMsg(`Login successful! Welcome, ${data.username}.`);
+
+      Swal.fire({
+        title: "Login exitoso",
+        text: `Bienvenido ${data.username}`,
+        icon: "success",
+        timer: 2000,
+        showConfirmButton: false
+      });
+
+      // Si el padre recibe datos
+      if (onLoginSuccess) {
+        onLoginSuccess(data);
+      }
+
+      // Redirigir al dashboard
+      navigate("/dashboard");
+
+    } catch (error) {
+      console.error("Login failed:", error);
+      setErrorMsg(error.message || "Invalid credentials");
+    }
   };
 
-  // A function for when login is successful
-  const handleLoginSuccess = (loggedInUser, pruebaValue) => {
-    console.log("User logged in:", loggedInUser);
-    setUser(loggedInUser);
-    setVprueba(pruebaValue);
-  };
   return (
-    <Router>
-      <Navbar vprueba={vprueba} user={user}/>
-      <Routes>
-      <Route path="/" element={<Navigate to="/home" />} />
-        <Route path="/home" element={<Home />} />
-{/*Cursos */}
-        <Route path="/mateBasico" element={<LB_BM />} />
-        <Route path="/mateAvanzado" element={<LB_AM />} />
-        <Route path="/lenguajeBasico" element={<LB_BL />} />
-        <Route path="/lenguajeAvanzado" element={<LB_AL />} />
-{/*Final Cursos*/}
-        <Route path="/quizIn" element={<QuizIn />} />
-        <Route path="/quiz" element={user? <Quiz userId={user.id} onComplete={handleQuizCompletion} />: <div>Please log in before taking the quiz.</div>}/>
+    <div
+      className="container d-flex justify-content-center align-items-center"
+      style={{ height: "100vh" }}
+    >
+      <div className="card shadow p-4" style={{ width: "350px" }}>
+        <div className="card-body">
+          <h2 className="text-center mb-4">Login</h2>
 
-        <Route path="/dashboard" element={<Dashboard scores={scores} />} />
-        
-        <Route path="/singin" element={<SingIn onLoginSuccess={handleLoginSuccess} />} />
+          {errorMsg && (
+            <div className="alert alert-danger">{errorMsg}</div>
+          )}
 
-        <Route path="/alumnos" element={<StudentManagement />} />
-      </Routes>
-    </Router>
+          {successMsg && (
+            <div className="alert alert-success">{successMsg}</div>
+          )}
+
+          <form onSubmit={handleLogin}>
+            <div className="mb-3">
+              <label className="form-label">Username:</label>
+              <input
+                type="text"
+                className="form-control"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+                required
+              />
+            </div>
+
+            <div className="mb-3">
+              <label className="form-label">Password:</label>
+              <input
+                type="password"
+                className="form-control"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+              />
+            </div>
+
+            <button className="btn btn-primary w-100" type="submit">
+              Log In
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
   );
 }
 
-export default App;
+export default Login;
