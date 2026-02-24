@@ -1,5 +1,6 @@
 const express = require("express");
 const cors = require("cors");
+const db = require("./config/database")
 
 const authRoutes = require("./routes/auth.routes");
 const userRoutes = require("./routes/users.routes");
@@ -26,7 +27,7 @@ app.use(cors({
 app.options("*", cors());
 
 app.get("/health", (req, res) => res.status(200).json({ ok: true })); // Health Tets
-const db = require("/config/database")
+
 // DB Test
 app.get("/db-test", async (req, res) => {
   try {
