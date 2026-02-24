@@ -1,4 +1,4 @@
-const db = require("../config/database");
+const {db} = require("../config/database");
 
 // 🔹 GET
 exports.getAlumnos = async (req, res) => {
