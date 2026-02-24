@@ -16,6 +16,7 @@ import QuizIn from '../pages/Quiz/quizInstrucciones';
 
 
 function App() {
+  const [vprueba, setVprueba] = useState("");
   // Add user state here
   const [user, setUser] = useState(null);
   
