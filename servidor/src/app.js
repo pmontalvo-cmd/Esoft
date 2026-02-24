@@ -10,6 +10,10 @@ const alumnosRoutes = require("./routes/alumnos.routes");
 
 const app = express();
 
+/* ===========================
+   CORS CONFIGURACIÓN CORRECTA
+=========================== */
+
 const allowedOrigins = [
   "http://localhost:3000",
   "https://ecumentis.org",
@@ -17,23 +21,45 @@ const allowedOrigins = [
 ];
 
 app.use(cors({
-  origin: allowedOrigins,
+  origin: function (origin, callback) {
+    // Permite requests sin origin (ej: Postman)
+    if (!origin) return callback(null, true);
+
+    if (allowedOrigins.includes(origin)) {
+      return callback(null, true);
+    } else {
+      return callback(new Error("Not allowed by CORS"));
+    }
+  },
   credentials: true
 }));
 
-app.options("*", cors({
-  origin: allowedOrigins,
-  credentials: true
-}));
+/* ===========================
+   MIDDLEWARES
+=========================== */
 
 app.use(express.json());
 
-app.get("/health", (req, res) => res.status(200).json({ ok: true }));
+/* ===========================
+   HEALTH CHECK
+=========================== */
+
+app.get("/health", (req, res) => {
+  res.status(200).json({ ok: true });
+});
+
+/* ===========================
+   RUTAS
+=========================== */
 
 app.use(authRoutes);
 app.use(userRoutes);
 app.use(quizRoutes);
 app.use(dashboardRoutes);
 app.use(alumnosRoutes);
+
+/* ===========================
+   EXPORT
+=========================== */
 
 module.exports = app;
