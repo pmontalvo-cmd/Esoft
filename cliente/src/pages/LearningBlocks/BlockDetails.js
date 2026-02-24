@@ -3,6 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { Container, Card, Button, Spinner, Alert, Badge, Form } from "react-bootstrap";
 import API from "../../services/api";
 
+/* ---------- utils ---------- */
 function safeParseJSON(v) {
   if (v == null) return null;
   if (typeof v !== "string") return v;
@@ -33,9 +34,9 @@ function SectionTypeBadge({ type }) {
   );
 }
 
+/* ---------- sections ---------- */
 function TextSection({ section }) {
   const text = (section?.markdown ?? "").toString();
-  // Markdown "lite": respetamos saltos de línea. Si luego quieres markdown real, lo agregamos.
   return (
     <div style={{ marginBottom: 16 }}>
       {text.split("\n").map((line, i) => (
@@ -50,10 +51,7 @@ function TextSection({ section }) {
 function LinkSection({ section }) {
   const url = section?.url;
   const label = section?.label || url;
-
-  if (!url) {
-    return <Alert variant="warning">Link inválido: falta "url".</Alert>;
-  }
+  if (!url) return <Alert variant="warning">Link inválido: falta "url".</Alert>;
 
   return (
     <Card className="mb-3">
@@ -72,10 +70,7 @@ function LinkSection({ section }) {
 function ImageSection({ section }) {
   const url = section?.url;
   const caption = section?.caption;
-
-  if (!url) {
-    return <Alert variant="warning">Imagen inválida: falta "url".</Alert>;
-  }
+  if (!url) return <Alert variant="warning">Imagen inválida: falta "url".</Alert>;
 
   return (
     <Card className="mb-3">
@@ -100,33 +95,26 @@ function VideoSection({ section }) {
   const url = section?.url;
   const title = section?.title;
 
-  if (!url) {
-    return <Alert variant="warning">Video inválido: falta "url".</Alert>;
-  }
-
-  // Soporte simple:
-  // - Si es YouTube, intenta embed
-  // - Si no, muestra un link y un iframe genérico (puede fallar por CORS/X-Frame-Options)
+  // ✅ hook siempre al inicio del componente (no condicional)
   const embedUrl = useMemo(() => {
+    if (!url) return null;
     try {
       const u = new URL(url);
 
-      // youtube.com/watch?v=ID
       if (u.hostname.includes("youtube.com") && u.searchParams.get("v")) {
         return `https://www.youtube.com/embed/${u.searchParams.get("v")}`;
       }
-
-      // youtu.be/ID
       if (u.hostname.includes("youtu.be")) {
         const id = u.pathname.replace("/", "");
         if (id) return `https://www.youtube.com/embed/${id}`;
       }
-
       return null;
     } catch {
       return null;
     }
   }, [url]);
+
+  if (!url) return <Alert variant="warning">Video inválido: falta "url".</Alert>;
 
   return (
     <Card className="mb-3">
@@ -154,26 +142,10 @@ function VideoSection({ section }) {
           </div>
         ) : (
           <>
-            <p className="text-muted mb-2">
-              No se pudo generar embed automáticamente. Abre el link:
-            </p>
+            <p className="text-muted mb-2">No se pudo generar embed. Abre el link:</p>
             <a href={url} target="_blank" rel="noreferrer">
               {url}
             </a>
-            <div className="mt-3" style={{ position: "relative", width: "100%", paddingTop: "56.25%" }}>
-              <iframe
-                title={title || "Video"}
-                src={url}
-                style={{
-                  position: "absolute",
-                  inset: 0,
-                  width: "100%",
-                  height: "100%",
-                  border: 0,
-                  borderRadius: 12,
-                }}
-              />
-            </div>
           </>
         )}
       </Card.Body>
@@ -191,13 +163,7 @@ function ExerciseSection({ section }) {
 
   const check = () => {
     const userAns = normalizeStr(value);
-
-    // si no hay "answer" guardada, no podemos validar
-    if (!answer) {
-      setStatus("bad");
-      return;
-    }
-
+    if (!answer) return setStatus("bad");
     setStatus(userAns === answer ? "ok" : "bad");
   };
 
@@ -248,13 +214,6 @@ function ExerciseSection({ section }) {
             <span className="text-muted"> </span>
           )}
         </div>
-
-        {/* opcional: mostrar respuesta si está mal */}
-        {status === "bad" && answer ? (
-          <div className="text-muted mt-2">
-            Pista: revisa el concepto y vuelve a intentar.
-          </div>
-        ) : null}
       </Card.Body>
     </Card>
   );
@@ -290,10 +249,12 @@ function RenderSection({ section }) {
   }
 }
 
+/* ---------- page ---------- */
 export default function BlockDetail() {
   const { id } = useParams();
   const navigate = useNavigate();
 
+  // ✅ hooks siempre arriba
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [block, setBlock] = useState(null);
@@ -323,9 +284,11 @@ export default function BlockDetail() {
     };
   }, [id]);
 
+  // ✅ hooks antes de returns
   const contentObj = useMemo(() => normalizeContent(block?.content), [block]);
-  const sections = contentObj.sections || [];
+  const sections = useMemo(() => contentObj.sections || [], [contentObj]);
 
+  /* ---------- renders ---------- */
   if (loading) {
     return (
       <Container className="mt-5 d-flex justify-content-center">
@@ -358,7 +321,6 @@ export default function BlockDetail() {
         <Button variant="outline-secondary" onClick={() => navigate(-1)}>
           ← Volver
         </Button>
-
         <div className="text-muted">ID: {block.id}</div>
       </div>
 
@@ -379,11 +341,7 @@ export default function BlockDetail() {
         {sections.length === 0 ? (
           <p className="text-muted">Este learning block no tiene secciones.</p>
         ) : (
-          sections.map((section, idx) => (
-            <div key={idx}>
-              <RenderSection section={section} />
-            </div>
-          ))
+          sections.map((section, idx) => <RenderSection key={idx} section={section} />)
         )}
       </Card>
     </Container>
