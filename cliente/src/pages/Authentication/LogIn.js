@@ -1,9 +1,6 @@
-/ Login.js
+// Login.js
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import Swal from "sweetalert2";
-import API from "../../services/api";
-
+import Swal from 'sweetalert2';
 
 function Login({ onLoginSuccess }) {
   const [username, setUsername] = useState("");
@@ -19,11 +16,12 @@ function Login({ onLoginSuccess }) {
 
     try {
       console.log("Attempting login with:", username, password);
-      const response = await API.post("/login", {
-        username,
-        password,
-      });
 
+      const response = await fetch("https://api.ecumentis.org/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ username, password }),
+      });
 
       console.log("Response status code:", response.status);
 
@@ -107,4 +105,5 @@ function Login({ onLoginSuccess }) {
 }
 
 export default Login;
+
 
