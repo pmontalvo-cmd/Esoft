@@ -38,4 +38,3 @@ function Navbar({ vprueba, user }) {
 }
 
 export default Navbar;
-
