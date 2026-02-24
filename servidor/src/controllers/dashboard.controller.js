@@ -94,29 +94,21 @@ function dbQuery(sql, params) {
 }
 
 async function fetchBlocksForSubject({ subject, grade, targetLevel, limit }) {
-  // Intentos: primero target y target-1; si no hay, expandimos.
-  const levelPlans = [
-    [targetLevel, Math.max(1, targetLevel - 1)],
-    [targetLevel, Math.max(1, targetLevel - 1), Math.min(4, targetLevel + 1)],
-    [Math.max(1, targetLevel - 2), Math.max(1, targetLevel - 1), targetLevel, Math.min(4, targetLevel + 1), Math.min(4, targetLevel + 2)],
-  ];
+  const minL = Math.max(1, targetLevel - 2);
+  const maxL = Math.min(4, targetLevel + 2);
 
-  for (const levels of levelPlans) {
-    const placeholders = levels.map(() => "?").join(",");
-    const rows = await dbQuery(
-      `SELECT id, subject, level, title, summary, estimated_minutes, tags_json
-       FROM learning_blocks
-       WHERE subject = ?
-         AND ? BETWEEN grade_min AND grade_max
-         AND level IN (${placeholders})
-       ORDER BY ABS(level - ?) ASC, id ASC
-       LIMIT ?`,
-      [subject, grade, ...levels, targetLevel, limit]
-    );
+  const rows = await dbQuery(
+    `SELECT id, subject, level, title, summary, estimated_minutes, tags_json
+     FROM learning_blocks
+     WHERE subject = ?
+       AND grade_min <= ? AND grade_max >= ?
+       AND level BETWEEN ? AND ?
+     ORDER BY ABS(level - ?) ASC, id ASC
+     LIMIT ?`,
+    [subject, grade, grade, minL, maxL, targetLevel, limit]
+  );
 
-    if (rows.length > 0) return rows;
-  }
-  return [];
+  return rows;
 }
 
 function parseTags(tags_json) {
