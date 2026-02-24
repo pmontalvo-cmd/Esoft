@@ -1,4 +1,4 @@
-const db = require("../config/database")
+const {pool} = require("../config/database")
 const {questions} = require("../data/quizData")
 const quizService =require("../services/quiz.service")
 
@@ -6,7 +6,7 @@ function nextQuestion(req, res) {
     const userId = req.params.userId;
     console.log(`Fetching next question for userId: ${userId}`);
 
-    db.query("SELECT * FROM datos_usuario WHERE id = ?",[userId],(err, rows) => {
+    pool.query("SELECT * FROM datos_usuario WHERE id = ?",[userId],(err, rows) => {
             if (err) {
                 console.error("Error: Database error while fetching user:", err);
                 return res.status(500).json({ error: "DB error" });
@@ -42,7 +42,7 @@ function submitAnswer(req, res) {
 
     const isCorrect = question.answer === userAnswer;
 
-    db.query(
+    pool.query(
         "SELECT * FROM datos_usuario WHERE id = ?",[uId],(err, rows) => {
             if (err) return res.status(500).json({ error: "DB error" });
             if (rows.length === 0)
@@ -56,7 +56,7 @@ function submitAnswer(req, res) {
             });
 
             // Update User Difficulty
-            db.query(
+            pool.query(
                 "UPDATE datos_usuario SET current_difficulty=? WHERE id=?",
                 [newDiff, uId],
                 (err2) => {
@@ -79,13 +79,13 @@ function submitQuiz(req,res){
         });
     }
     //Check if userId exist in the Database
-    db.query("SELECT * FROM datos_usuario WHERE id = ?", [userId], (err,rows) => {
+    pool.query("SELECT * FROM datos_usuario WHERE id = ?", [userId], (err,rows) => {
         if (err) return res.status(500).json({ error: "DB error" });
         if (rows.length === 0) return res.status(404).json({ error: "User not found" });
     
 
     // Save math_score and language_score in DB
-    db.query("UPDATE datos_usuario SET math_score=?, language_score=? WHERE id=?", [math_score, language_score, userId], (err,response) => {
+    pool.query("UPDATE datos_usuario SET math_score=?, language_score=? WHERE id=?", [math_score, language_score, userId], (err,response) => {
         if (err) return res.status(500).json({ error: "DB error" });
         if (response.affectedRows === 0) return res.status(404).json({ error: "User not found" });
     //Response to Client
