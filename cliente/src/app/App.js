@@ -16,18 +16,23 @@ import QuizIn from '../pages/Quiz/quizInstrucciones';
 
 
 function App() {
-
-  const [vprueba, setVprueba] = useState("");
-  
   // Add user state here
   const [user, setUser] = useState(null);
+  
+  useEffect(() => {
+    const id = localStorage.getItem("userId");
+    const username = localStorage.getItem("username");
+    const grade = localStorage.getItem("grade");
 
+    if (id) {
+      setUser({ id: Number(id), username, grade: grade ? Number(grade) : null });
+    }
+  }, []);
 
   // A function for when login is successful
   const handleLoginSuccess = (loggedInUser, pruebaValue) => {
     console.log("User logged in:", loggedInUser);
     setUser(loggedInUser);
-    setVprueba(pruebaValue);
   };
   return (
     <Router>
