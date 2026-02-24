@@ -22,9 +22,28 @@ app.use(cors({
   credentials: true
 }));
 
+
 app.options("*", cors());
 
-app.get("/health", (req, res) => res.status(200).json({ ok: true }));
+app.get("/health", (req, res) => res.status(200).json({ ok: true })); // Health Tets
+const db = require("/config/database")
+// DB Test
+app.get("/db-test", async (req, res) => {
+  try {
+    const [rows] = await db.query("SELECT 1 AS ok");
+    return res.json({ ok: true, rows });
+  } catch (err) {
+    console.error("DB TEST ERROR:", err);
+    return res.status(500).json({
+      ok: false,
+      name: err.name,
+      code: err.code,
+      errno: err.errno,
+      message: err.message,
+    });
+  }
+});
+
 app.use(authRoutes);
 app.use(userRoutes);
 app.use(quizRoutes);
