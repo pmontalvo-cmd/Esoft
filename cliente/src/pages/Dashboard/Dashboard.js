@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { Container, Row, Col, Card, Button, Spinner } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-import api from "../../api";
+import API from "../services/api";
 
 const Dashboard = () => {
   const navigate = useNavigate();
