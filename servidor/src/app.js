@@ -27,11 +27,20 @@ app.options("*", cors());
 app.get("/health", (req, res) => res.status(200).json({ ok: true })); //Backend Healt test
 
 // Backend DB connection test
-app.get("/db-test", (req, res) => {
-  db.query("SELECT 1 AS ok", (err, rows) => {
-    if (err) return res.status(500).json({ ok: false, err: String(err) });
+app.get("/db-test", async (req, res) => {
+  try {
+    const [rows] = await db.query("SELECT 1 AS ok");
     return res.json({ ok: true, rows });
-  });
+  } catch (err) {
+    console.error("DB TEST ERROR:", err);
+    return res.status(500).json({
+      ok: false,
+      name: err.name,
+      code: err.code,
+      errno: err.errno,
+      message: err.message,
+    });
+  }
 });
 
 app.use(authRoutes);
