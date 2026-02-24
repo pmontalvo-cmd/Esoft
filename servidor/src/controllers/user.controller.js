@@ -1,4 +1,4 @@
-const db = require("../config/database");
+const {db} = require("../config/database");
 
 // Register New User
 async function createUser(req, res) {
