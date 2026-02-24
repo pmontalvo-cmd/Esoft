@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { Container, Card, Button, Spinner, ProgressBar } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-import api from "../../services/api";
+import API from "../../services/api";
 
 const QUIZ_SECONDS = 60;      // ajusta si quieres
 const TOTAL_QUESTIONS = 10;   // ajusta si quieres
@@ -59,7 +59,7 @@ const Quiz = () => {
       setSelectedOption(null);
       setFeedback(null);
 
-      const res = await api.get(`/api/nextQuestion/${id}`);
+      const res = await API.get(`/api/nextQuestion/${id}`);
       setQuestion(res.data);
     } catch (e) {
       console.error(e);
@@ -75,7 +75,7 @@ const Quiz = () => {
     setSelectedOption(option);
 
     try {
-      const res = await api.post("/api/submitAnswer", {
+      const res = await API.post("/api/submitAnswer", {
         userId: Number(userId),
         questionId: Number(question.id),
         userAnswer: option,
@@ -115,7 +115,7 @@ const Quiz = () => {
       setLoading(true);
       setError("");
 
-      await api.post("/api/diagnostic/submit", {
+      await API.post("/api/diagnostic/submit", {
         userId: Number(id),
         math_score: mathScore,
         language_score: languageScore,
