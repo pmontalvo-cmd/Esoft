@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import API from '../services/api';
 import Swal from 'sweetalert2';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import api from "../../api";
 
 function StudentManagement() {
 
