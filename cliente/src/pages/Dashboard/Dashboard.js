@@ -23,7 +23,7 @@ const Dashboard = () => {
 
         if (!userId) throw new Error("No hay userId en localStorage.");
 
-        const res = await api.get(`/api/dashboard/${userId}`);
+        const res = await API.get(`/api/dashboard/${userId}`);
         if (!res.data?.ok) throw new Error("Respuesta del servidor no OK.");
 
         setUser(res.data.user);
