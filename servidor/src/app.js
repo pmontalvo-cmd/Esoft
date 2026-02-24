@@ -18,7 +18,7 @@ app.use(cors({
     "https://www.ecumentis.org"
     "https://api.ecumentis.org"
   ],
-  methods: ["GET", "POST", "PUT", "DELETE"],
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
   allowedHeaders: ["Content-Type", "Authorization"],
   credentials: true
 }));
