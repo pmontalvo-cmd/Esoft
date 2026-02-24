@@ -17,7 +17,7 @@ function Login({ onLoginSuccess }) {
     try {
       console.log("Attempting login with:", username, password);
 
-      const response = await fetch("https://api.ecumentis.org/api/login", {
+      const response = await fetch("https://api.ecumentis.org/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ username, password }),
