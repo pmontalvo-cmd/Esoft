@@ -11,46 +11,55 @@
   padding:0 20px;
 }
 
-.nav-left{
-  display:flex;
-  align-items:center;
-  gap:12px;
-}
+.nav-left{ display:flex; align-items:center; gap:12px; }
+.nav-logo{ width:44px; height:44px; border-radius:12px; object-fit:cover; }
 
-.nav-logo{
-  width:44px;
-  height:44px;
-  border-radius:12px;
-  object-fit:cover;
-}
-
-.brand{
-  display:flex;
-  align-items:baseline;
-  gap:8px;
-  font-weight:700;
-  letter-spacing:.2px;
-}
-
-.brand .brand-math{ color:var(--danger-600); }
+.brand{ display:flex; align-items:baseline; gap:8px; font-weight:800; letter-spacing:.2px; }
+.brand .brand-math{ color:var(--danger-500); }
 .brand .brand-pro{
   background:var(--warning-500);
-  color:#111827;
+  color:#0B1020;
   padding:6px 10px;
   border-radius:12px;
-  font-weight:800;
+  font-weight:900;
+}
+
+/* LINKS DESKTOP */
+.nav-links{
+  display:flex;
+  align-items:center;
+  gap:22px;
+  font-weight:600;
+}
+
+.nav-links a{
+  color:var(--text);
+  opacity:.9;
+  padding:8px 10px;
+  border-radius:12px;
+}
+
+.nav-links a:hover{
+  background:rgba(59,130,246,.14);
+  opacity:1;
+}
+
+.nav-cta{
+  border:1px solid var(--border);
+  background:rgba(255,255,255,.04);
 }
 
 .menu-toggle{
   display:none;
   border:1px solid var(--border);
-  background:var(--surface);
+  background:rgba(255,255,255,.04);
+  color:var(--text);
   border-radius:12px;
   padding:10px 12px;
   cursor:pointer;
 }
 
-/* Sidebar */
+/* Sidebar móvil */
 .sidebar{
   position:fixed;
   top:0;
@@ -63,48 +72,21 @@
   padding:18px;
   transition:right .2s ease;
 }
-
 .sidebar.open{ right:0; }
 
-.sidebar-links{
-  list-style:none;
-  margin:0;
-  padding:0;
-  display:flex;
-  flex-direction:column;
-  gap:10px;
-}
-
-.sidebar-links a{
-  display:block;
-  padding:10px 12px;
-  border-radius:12px;
-  color:var(--text);
-}
-
-.sidebar-links a:hover{
-  background:rgba(37,99,235,.08); /* suave con el azul */
-}
+.sidebar-links{ list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:10px; }
+.sidebar-links a{ display:block; padding:10px 12px; border-radius:12px; color:var(--text); }
+.sidebar-links a:hover{ background:rgba(59,130,246,.14); }
 
 .cta-button{
   background:var(--primary-600);
   color:white !important;
-  font-weight:600;
+  font-weight:700;
 }
+.cta-button:hover{ background:var(--primary-700); }
 
-.cta-button:hover{
-  background:var(--primary-700);
-}
-
-.user-info{
-  margin-top:10px;
-  padding:10px 12px;
-  border:1px solid var(--border);
-  border-radius:12px;
-  color:var(--muted);
-}
-
-/* Mobile */
+/* Mobile: ocultar links desktop y mostrar botón */
 @media (max-width:768px){
+  .nav-links{ display:none; }
   .menu-toggle{ display:block; }
 }
