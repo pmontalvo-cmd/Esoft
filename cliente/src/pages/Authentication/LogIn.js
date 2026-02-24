@@ -16,12 +16,11 @@ function Login({ onLoginSuccess }) {
 
     try {
       console.log("Attempting login with:", username, password);
-
-      const response = await fetch(`${process.env.REACT_APP_API_URL}/login`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ username, password }),
+      const response = await API.post("/login", {
+        username,
+        password,
       });
+
 
       console.log("Response status code:", response.status);
 
