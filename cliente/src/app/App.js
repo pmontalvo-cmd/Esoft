@@ -12,8 +12,7 @@ import Home from '../pages/Home/home';
 import Dashboard from '../pages/Dashboard/Dashboard';
 import Quiz from '../pages/Quiz/quiz';
 import QuizIn from '../pages/Quiz/quizInstrucciones';
-
-
+import BlockDetail from '../pages/LearningBlocks/BlockDetails';
 
 function App() {
   const [vprueba, setVprueba] = useState("");
@@ -47,6 +46,7 @@ function App() {
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/singin" element={<SingIn onLoginSuccess={handleLoginSuccess} />} />
         <Route path="/alumnos" element={<StudentManagement />} />
+        <Route path="/blocks/:id" element={<BlockDetail/>}/>
       </Routes>
     </Router>
   );
