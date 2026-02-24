@@ -1,0 +1,26 @@
+:root{
+  /* Brand */
+  --primary-700:#1E40AF;
+  --primary-600:#2563EB;
+  --primary-500:#3B82F6;
+
+  --warning-600:#D97706; /* amarillo/ámbar */
+  --warning-500:#F59E0B;
+
+  --danger-600:#DC2626;  /* rojo */
+  --danger-500:#EF4444;
+
+  /* Neutrales (IXL vibes) */
+  --bg:#F8FAFC;
+  --surface:#FFFFFF;
+  --text:#0F172A;
+  --muted:#64748B;
+  --border:#E2E8F0;
+
+  /* Layout */
+  --radius:16px;
+  --shadow:0 6px 20px rgba(0,0,0,.06);
+
+  /* Navbar */
+  --nav-h:64px;
+}

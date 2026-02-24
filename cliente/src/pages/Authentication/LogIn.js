@@ -45,7 +45,6 @@ function Login({ onLoginSuccess }) {
       localStorage.setItem("grade", String(data.grade));
 
       setSuccessMsg(`Login successful! Welcome, ${data.username}.`);
-
       Swal.fire({
         title: "Login exitoso",
         text: `Bienvenido ${data.username}`,
