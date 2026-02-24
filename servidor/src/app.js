@@ -44,7 +44,13 @@ app.get("/db-test", async (req, res) => {
     });
   }
 });
-
+// Forces Timeout
+app.use((req, res, next) => {
+  res.setTimeout(15000, () => {   // 15s
+    return res.status(504).json({ ok: false, message: "Request timeout" });
+  });
+  next();
+});
 app.use(authRoutes);
 app.use(userRoutes);
 app.use(quizRoutes);
