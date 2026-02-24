@@ -23,6 +23,7 @@ app.use(cors({
 }));
 
 app.options("*", cors());
+const db = require("../config/database");
 
 app.get("/health", (req, res) => res.status(200).json({ ok: true })); //Backend Healt test
 
