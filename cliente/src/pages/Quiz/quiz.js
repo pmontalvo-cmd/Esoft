@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { Container, Card, Button, Spinner, ProgressBar } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-import api from "../../api";
+import api from "../../services/api";
 
 const QUIZ_SECONDS = 60;      // ajusta si quieres
 const TOTAL_QUESTIONS = 10;   // ajusta si quieres
