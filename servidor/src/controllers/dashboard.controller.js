@@ -117,6 +117,19 @@ try { return JSON.parse(tags_json); } catch { return tags_json; }
 }
 
 async function getDashboard(req, res) {
+  try {
+    const userId = Number(req.params.userId);
+    const rows = await dbQuery(
+      "SELECT id, grade FROM datos_usuario WHERE id=?",
+      [userId]
+    );
+    return res.json({ ok: true, step: "user", rows });
+  } catch (err) {
+    return res.status(500).json({ ok: false, where: "user", message: err.message, code: err.code });
+  }
+}
+/*
+async function getDashboard(req, res) {
 try {
     const userId = Number(req.params.userId);
     if (!userId) return res.status(400).json({ ok: false, message: "Missing/invalid userId" });
@@ -226,3 +239,4 @@ try {
 
 
 module.exports = {getAllBlocks, getBlockById, getDashboard}
+*/
