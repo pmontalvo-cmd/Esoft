@@ -22,3 +22,9 @@
   .hero{ grid-template-columns:1fr; }
   .hero h1{ font-size:36px; }
 }
+
+@media (max-width: 900px){
+  .section .container > div[style*="grid-template-columns: repeat(3, 1fr)"]{
+    grid-template-columns: 1fr !important;
+  }
+}
