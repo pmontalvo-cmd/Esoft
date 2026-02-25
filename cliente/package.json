@@ -12,12 +12,13 @@
     "react-bootstrap": "^2.10.7",
     "react-dom": "^18.2.0",
     "react-router-dom": "^7.1.5",
-    "react-scripts": "5.0.1",
+    "react-scripts": "^5.0.1",
     "serve": "^14.2.1",
     "sweetalert2": "^11.15.10",
     "web-vitals": "^4.2.4"
   },
   "scripts": {
+    "dev": "react-scripts start",
     "start": "serve -s build --listen tcp://0.0.0.0:$PORT",
     "build": "react-scripts build",
     "test": "react-scripts test",

@@ -1,7 +1,6 @@
 // App.js
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 
@@ -15,7 +14,7 @@ import QuizIn from '../pages/Quiz/quizInstrucciones';
 import BlockDetail from '../pages/LearningBlocks/BlockDetails';
 
 function App() {
-  const [vprueba, setVprueba] = useState("");
+  const [vprueba,] = useState("");
   // Add user state here
   const [user, setUser] = useState(null);
   

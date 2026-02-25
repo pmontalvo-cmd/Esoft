@@ -1,5 +1,4 @@
 import React from 'react';
-import './home.css'
 import { Link } from 'react-router-dom';
 
 function Home() {
@@ -9,7 +8,7 @@ function Home() {
         <h1>Knowledge Adapted for You</h1>
         <p>Start, transform, and enhance your learning journey with courseware tailored to your strengths and needs,
             powered by our community-driven platform.</p>
-        <Link to="/students"><a class="cta-button">Get Started</a></Link>
+        <Link to="/students" class="btn-primary">Get Started</Link>
     </div>
     <img 
         src="https://i.postimg.cc/wMS5RKJX/Captura-de-pantalla-2025-03-05-111057.png"
