@@ -1,0 +1,24 @@
+.section{ padding:56px 0; }
+
+.hero{
+  display:grid;
+  grid-template-columns:1.1fr .9fr;
+  gap:36px;
+  align-items:center;
+}
+
+.hero h1{
+  font-size:44px;
+  line-height:1.06;
+  margin:0 0 14px;
+}
+.hero p{
+  margin:0 0 22px;
+  color:var(--muted);
+  max-width:58ch;
+}
+
+@media (max-width:900px){
+  .hero{ grid-template-columns:1fr; }
+  .hero h1{ font-size:36px; }
+}

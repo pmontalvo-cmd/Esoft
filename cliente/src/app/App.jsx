@@ -13,6 +13,12 @@ import Quiz from '../pages/Quiz/quiz';
 import QuizIn from '../pages/Quiz/quizInstrucciones';
 import BlockDetail from '../pages/LearningBlocks/BlockDetails';
 
+import "../styles/tokens.css";
+import "../styles/global.css";
+import "../styles/components.css";
+import "../styles/pages.css";
+
+
 function App() {
   const [vprueba,] = useState("");
   // Add user state here

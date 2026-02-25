@@ -1,35 +1,29 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import "./navbar.css";
 
-function Navbar({ vprueba, user }) {
+export default function Navbar() {
     const [menuOpen, setMenuOpen] = useState(false);
 
     return (
     <nav className="app-navbar">
-        <div className="nav-container">
-        <div className="nav-left">
-            <img className="nav-logo" src="" alt="Logo" />
-            <Link to="/home" className="brand">
-            <span className="brand-math">ECUMENTIS</span>
+        <div className="container nav-inner">
+        <Link to="/home" className="brand">
+        <span>ECUMENTIS</span>
         </Link>
-        </div>
 
         {/* LINKS DESKTOP */}
         <div className="nav-links">
             <Link to="/home">Home</Link>
             <Link to="/quizIn">Quiz</Link>
             <Link to="/dashboard">Dashboard</Link>
-            <Link to="/alumnos" className="nav-cta">Sign In</Link>
-            <Link to="/singin" className="nav-cta">Log In</Link>
+            <Link to="/alumnos">Sign In</Link>
+            <Link to="/singin">Log In</Link>
         </div>
 
         {/* BOTÓN MÓVIL */}
-        <button
-            className="menu-toggle"
-            onClick={() => setMenuOpen(!menuOpen)}
-            aria-label="Menu"
-            >
-            <span>{menuOpen ? '✕' : '☰'}</span>
+        <button className="menu-toggle" onClick={() => setMenuOpen(v => !v)} aria-label="Menu">
+        {menuOpen ? "✕" : "☰"}
         </button>
 
         {/* SIDEBAR MÓVIL */}
@@ -38,13 +32,11 @@ function Navbar({ vprueba, user }) {
             <li><Link to="/home" onClick={() => setMenuOpen(false)}>Home</Link></li>
             <li><Link to="/quizIn" onClick={() => setMenuOpen(false)}>Quiz</Link></li>
             <li><Link to="/dashboard" onClick={() => setMenuOpen(false)}>Dashboard</Link></li>
-            <li><Link to="/alumnos" className="cta-button" onClick={() => setMenuOpen(false)}>Sign In</Link></li>
-            <li><Link to="/singin" className="cta-button" onClick={() => setMenuOpen(false)}>Log In</Link></li>
+            <li><Link to="/alumnos" onClick={() => setMenuOpen(false)}>Sign In</Link></li>
+            <li><Link to="/singin" onClick={() => setMenuOpen(false)}>Log In</Link></li>
             </ul>
         </div>
         </div>
     </nav>
     );
 }
-
-export default Navbar;

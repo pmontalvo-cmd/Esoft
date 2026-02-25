@@ -1,0 +1,28 @@
+:root{
+  /* Tipografía */
+  --font: "Montserrat", system-ui, -apple-system, Segoe UI, Roboto, Arial;
+
+  /* Paleta (azul / amarillo / rojo) en tonos “pro” */
+  --blue-600:#2563eb;
+  --blue-700:#1d4ed8;
+
+  --yellow-400:#fbbf24;
+  --yellow-500:#f59e0b;
+
+  --red-500:#ef4444;
+  --red-600:#dc2626;
+
+  /* Neutros */
+  --bg:#f6f8fc;
+  --surface:#ffffff;
+  --text:#0f172a;
+  --muted:#475569;
+  --border:#e2e8f0;
+
+  /* Layout */
+  --radius:14px;
+  --shadow:0 10px 30px rgba(15,23,42,.10);
+  --shadow-sm:0 6px 16px rgba(15,23,42,.08);
+
+  --container:1100px;
+}

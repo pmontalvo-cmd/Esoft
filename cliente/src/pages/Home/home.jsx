@@ -1,48 +1,48 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import "./home.css";
+export default function Home(){
+return (
+    <div className="section">
+    <div className="container">
+        <div className="hero">
+        <div>
+            <h1>Knowledge Adapted for You</h1>
+            <p>
+            Plataforma educativa con rutas y bloques recomendados según tu nivel,
+            con enfoque claro, rápido y práctico.
+            </p>
 
-function Home() {
-  return (
-    <div class="hero">
-    <div class="hero-content">
-        <h1>Knowledge Adapted for You</h1>
-        <p>Start, transform, and enhance your learning journey with courseware tailored to your strengths and needs,
-            powered by our community-driven platform.</p>
-        <Link to="/students" class="btn-primary">Get Started</Link>
-    </div>
-    <img 
-        src="https://i.postimg.cc/wMS5RKJX/Captura-de-pantalla-2025-03-05-111057.png"
-        alt="Software Logo"
-        style={{width: "400px",height: "400px",marginRight: "10px",borderRadius: "10%",
-        }}/>
-{/*\Features_Section*/}
-<section class="features">
-    <div class="feature-list">
-            <div class="feature-item">
-                <i class="fas fa-user-friends"></i>
-                <h3>Personalized Learning</h3>
-                <p>AI-driven profiles create individualized learning paths based on your strengths and areas for
-                    improvement.</p>
-            </div>
-            <div class="feature-item">
-                <i class="fas fa-chart-line"></i>
-                <h3>Progress Tracking</h3>
-                <p>Monitor your progress with detailed analytics and insights to keep you motivated and on track.</p>
-            </div>
-            <div class="feature-item">
-                <i class="fas fa-brain"></i>
-                <h3>Adaptive AI</h3>
-                <p>Our intelligent system assigns tasks that match your unique learning needs, ensuring optimal growth.
-                </p>
+            <div style={{display:"flex", gap:"12px", flexWrap:"wrap"}}>
+            <Link to="/quizIn" className="btn btn-primary">Empezar diagnóstico</Link>
+            <Link to="/dashboard" className="btn btn-outline">Ver dashboard</Link>
             </div>
         </div>
-        {/*Footer*/}
-        <footer class="footer">
-        <p>&copy; 2025 esoft. All rights reserved.</p>
-    </footer>
-  </section>  
-</div>
-  );
-}
 
-export default Home;
+        <div className="hero-media">
+            {/* Pon aquí tu imagen actual o una ilustración propia */}
+            <img
+            src="https://i.postimg.cc/wMS5RKJX/Captura-de-pantalla-2025-03-05-111057.png"
+            alt="EcuMentis"
+            />
+        </div>
+        </div>
+
+        <div className="feature-grid">
+        <div className="card feature">
+            <h3>Personalización</h3>
+            <p>Recomendaciones por nivel y materia para avanzar sin perder tiempo.</p>
+        </div>
+        <div className="card feature">
+            <h3>Seguimiento</h3>
+            <p>Progreso visible y claro: qué dominas y qué necesitas reforzar.</p>
+        </div>
+        <div className="card feature">
+            <h3>Bloques cortos</h3>
+            <p>Aprendizaje en piezas pequeñas, directo al grano (estilo plataforma).</p>
+        </div>
+        </div>
+    </div>
+    </div>
+);
+}
