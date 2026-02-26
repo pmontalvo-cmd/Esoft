@@ -17,17 +17,18 @@
   transition: transform .12s ease, box-shadow .12s ease, background .12s ease, border-color .12s ease;
 }
 
-.btn-primary{
-  background:var(--red-600);
-  color:#fff;
-  box-shadow:var(--shadow-sm);
+.btn.btn-primary{
+  background: var(--brand-blue) !important;
+  border-color: rgba(0,0,0,0.06) !important;
+  box-shadow: var(--shadow-sm) !important;
+  color: #fff !important;
 }
-.btn-primary:hover{
+.btn .btn-primary:hover{
   background:var(--red-700);
   transform:translateY(-1px);
 }
 
-.btn-outline{
+.btn .btn-outline{
   background:transparent;
   border-color:var(--border);
   color:var(--text);
