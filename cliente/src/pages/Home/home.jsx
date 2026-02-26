@@ -15,6 +15,7 @@ const subjects = [
 { title: "Sociales", desc: "Historia, ciudadanía, geografía.", tag: "Contexto", tone: "tone-blue" },
 { title: "Tecnología", desc: "Lógica, conceptos digitales, herramientas.", tag: "Habilidad", tone: "tone-yellow" },
 { title: "Finanzas", desc: "Ahorro, interés, decisiones financieras.", tag: "Vida real", tone: "tone-red" },
+{ title: "Logica", desc: "Ahorro, interés, decisiones financieras.", tag: "Vida real", tone: "tone-blue" },
 ];
 
 const popular = [
@@ -35,10 +36,6 @@ return (
     <div className="home-hero__grid">
         <div>
         <h1>Conocimiento educativo, claro y organizado.</h1>
-        <p>
-            Consulta rápida estilo enciclopedia + diagnóstico para recomendar bloques por materia y nivel.
-        </p>
-
         <div className="home-search card">
             <input
             className="home-search__input"
@@ -90,8 +87,7 @@ return (
     <div className="container">
     <div className="home-sectionHead">
             <div>
-            <h2>Explorar por materia</h2>
-            <p>Estructura clara para navegar rápido (consulta estilo enciclopedia).</p>
+            <h2>Explorar bloques por area</h2>
             </div>
             <div className="home-sectionHead__actions">
             <button className="btn btn-outline">Ver todo</button>
@@ -99,63 +95,78 @@ return (
             </div>
         </div>
 
-        <div className="home-subjects">
-            {subjects.map((s) => (
-            <div key={s.title} className="card home-subject">
-                <div className={`home-subject__top ${s.tone}`}>
-                <div className="home-subject__row">
-                    <h3>{s.title}</h3>
-                    <span className="home-pill">{s.tag}</span>
-                </div>
-                <p>{s.desc}</p>
-                </div>
+    <div className="home-twoCol">
+    <div className="card home-levels">
+        <h3>Explorar por área</h3>
 
-                <div className="home-subject__actions">
-                <button className="btn btn-outline btn-sm">Temas</button>
-                <button className="btn btn-outline btn-sm">Niveles</button>
-                <button className="btn btn-primary btn-sm">Empezar</button>
-                </div>
+        <div className="home-quick__list" style={{ marginTop: 10 }}>
+        {[
+            { label: "Finanzas", note: "Bloques organizados", tone: "tone-blue" },
+            { label: "Matemáticas", note: "Bloques organizados", tone: "tone-yellow" },
+            { label: "Lenguaje", note: "Bloques organizados", tone: "tone-red" },
+            { label: "Lógica", note: "Bloques organizados", tone: "tone-blue" },
+            { label: "Ciencias", note: "Bloques organizados", tone: "tone-yellow" },
+            { label: "Tecnología", note: "Bloques organizados", tone: "tone-blue" },
+            { label: "Estudios Sociales", note: "Bloques organizados", tone: "tone-red" },
+        ].map((x) => (
+            <div key={x.label} className={`home-quick__item ${x.tone}`}>
+            <div>
+                <div className="home-quick__title">{x.label}</div>
+                <div className="home-quick__note">{x.note}</div>
             </div>
-            ))}
+            <button className="btn btn-outline btn-sm">Abrir</button>
+            </div>
+        ))}
         </div>
+    </div>
+
+    <div className="card home-levels">
+        <h3>Explorar por nivel</h3>
+
+        <div className="home-quick__list" style={{ marginTop: 10 }}>
+        {[
+            { label: "Nivel 1", note: "Bases", tone: "tone-blue" },
+            { label: "Nivel 2", note: "Intermedio", tone: "tone-yellow" },
+            { label: "Nivel 3", note: "Aplicación", tone: "tone-red" },
+            { label: "Nivel 4", note: "Profundización", tone: "tone-blue" },
+        ].map((x) => (
+            <div key={x.label} className={`home-quick__item ${x.tone}`}>
+            <div>
+                <div className="home-quick__title">{x.label}</div>
+                <div className="home-quick__note">{x.note}</div>
+            </div>
+            <button className="btn btn-outline btn-sm">Abrir</button>
+            </div>
+        ))}
+        </div>
+    </div>
+    </div>
+
     </div>
 </div>
 
-    {/* TEMAS POPULARES */}
-    <section className="section section--tint-red">
-        <div className="container">
-        <h2>Temas populares</h2>
-        <p className="home-muted">Acceso directo a contenidos buscados con frecuencia (consulta rápida).</p>
+    {/* Porque Nosotros */}
+<section className="section section--tint-red">
+<div className="container">
+    <h2>Porque EcuMentis</h2>
+    <p className="home-muted">Una enciclopedia gratuita para entender temas en minutos.</p>
 
-        <div className="home-twoCol">
-            <div className="card home-list">
-            {popular.map((x) => (
-                <div key={x.t} className="home-list__item">
-                <div>
-                    <div className="home-list__title">{x.t}</div>
-                    <div className="home-list__meta">{x.m} • {x.n}</div>
-                </div>
-                <button className="btn btn-outline btn-sm">Abrir</button>
-                </div>
-            ))}
-            </div>
-
-            <div className="card home-levels">
-            <h3>Explorar por nivel</h3>
-            {["Nivel 1 (Bases)", "Nivel 2 (Intermedio)", "Nivel 3 (Aplicación)", "Nivel 4 (Profundización)"].map((lvl) => (
-                <button key={lvl} className="btn btn-outline home-levelBtn">{lvl}</button>
-            ))}
-            </div>
-        </div>
-        </div>
-    </section>
+    <div className="card home-list" style={{ marginTop: 14 }}>
+    <p>
+        EcuMentis organiza el conocimiento en <strong>bloques cortos</strong>, claros y ordenados por
+        <strong> área</strong> y <strong>nivel</strong>. Puedes explorar libremente o usar el
+        <strong> diagnóstico</strong> para recibir recomendaciones según tu base y avanzar con una progresión definida.
+    </p>
+    </div>
+</div>
+</section>
 
     {/* CTA FINAL */}
     <section className="section section--tint-blue">
         <div className="container">
         <div className="card home-final">
             <div>
-            <h2>¿Listo para tu ruta recomendada?</h2>
+            <h2>Empieza Según tu Objetivo</h2>
             <p>Diagnóstico → dashboard → bloques sugeridos. O explora cualquier tema como consulta.</p>
             </div>
             <div className="home-final__actions">

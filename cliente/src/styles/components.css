@@ -14,15 +14,18 @@
   border:1px solid transparent;
   font-weight:700;
   cursor:pointer;
-  transition:transform .12s ease, box-shadow .12s ease, background .12s ease;
+  transition: transform .12s ease, box-shadow .12s ease, background .12s ease, border-color .12s ease;
 }
 
 .btn-primary{
-  background:var(--blue-600);
-  color:white;
+  background:var(--red-600);
+  color:#fff;
   box-shadow:var(--shadow-sm);
 }
-.btn-primary:hover{ background:var(--blue-700); transform:translateY(-1px); }
+.btn-primary:hover{
+  background:var(--red-700);
+  transform:translateY(-1px);
+}
 
 .btn-outline{
   background:transparent;

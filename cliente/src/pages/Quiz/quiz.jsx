@@ -163,7 +163,10 @@ const Quiz = () => {
   const progressQuestions = (questionCount / TOTAL_QUESTIONS) * 100;
 
   return (
-    <Container className="mt-5">
+<div className="page">
+  <div className="container">
+    <div className="quiz-shell">
+      <Container className="mt-5">
       <Card className="p-4 shadow">
         <h3 className="mb-2">Diagnostic Quiz</h3>
 
@@ -215,6 +218,9 @@ const Quiz = () => {
         </div>
       </Card>
     </Container>
+    </div>
+  </div>
+</div>
   );
 };
 

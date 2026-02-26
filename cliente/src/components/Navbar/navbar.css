@@ -16,9 +16,10 @@
 .brand{
   display:flex;
   align-items:center;
-  gap:12px;
+  gap:10px;
   font-weight:800;
-  letter-spacing:.4px;
+  letter-spacing:.3px;
+  color:var(--brand-blue);
 }
 
 .nav-links{
@@ -28,11 +29,10 @@
   color:var(--muted);
   font-weight:600;
 }
-.nav-links a:hover{ color:var(--text); }
+.nav-links a:hover{ color:var(--brand-blue); }
 
 .menu-toggle{ display:none; }
-
-.sidebar{ display:none; } /* importantísimo: evita bullets en desktop */
+.sidebar{ display:none; } /* evita bullets en desktop */
 
 @media (max-width: 768px){
   .nav-links{ display:none; }
@@ -74,5 +74,5 @@
     border-radius:12px;
     color:var(--text);
   }
-  .sidebar-links a:hover{ background:rgba(37,99,235,.08); }
+  .sidebar-links a:hover{ background: rgba(11,45,91,.06); }
 }

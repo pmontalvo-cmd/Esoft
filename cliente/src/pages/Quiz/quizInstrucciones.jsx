@@ -22,12 +22,12 @@ function QuizIn() {
 
           <div>
             <Link to="/quiz">
-              <Button variant="success" className="me-2">
+              <Button variant="primary" className="me-2">
                 Sí, comenzar la prueba
               </Button>
             </Link>
             <Link to="/home">
-              <Button variant="danger">
+              <Button variant="outline-primary">
                 No, regresar al inicio
               </Button>
             </Link>

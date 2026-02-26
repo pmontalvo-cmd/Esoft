@@ -1,5 +1,3 @@
-// Login.js
-
 import React, { useState } from "react";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
@@ -68,10 +66,9 @@ function Login({ onLoginSuccess }) {
   };
 
   return (
-    <div
-      className="container d-flex justify-content-center align-items-center"
-      style={{ height: "100vh" }}
-    >
+<div className="page page--center">
+  <div className="container">
+    <div className="auth-shell">
       <div className="card shadow p-4" style={{ width: "350px" }}>
         <div className="card-body">
           <h2 className="text-center mb-4">Login</h2>
@@ -114,6 +111,8 @@ function Login({ onLoginSuccess }) {
         </div>
       </div>
     </div>
+  </div>
+</div>
   );
 }
 

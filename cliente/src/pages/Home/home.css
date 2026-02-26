@@ -253,12 +253,57 @@ flex-wrap: wrap;
 }
 
 /* Popular + Levels */
+.area-grid {
+display: grid;
+grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+gap: 16px;
+margin-top: 24px;
+}
+
+.area-card {
+background: white;
+border: 1px solid #e3e8ef;
+padding: 18px;
+border-radius: 12px;
+font-weight: 600;
+color: #0b2a4a;
+transition: all 0.2s ease;
+cursor: pointer;
+}
+
+.area-card:hover {
+transform: translateY(-3px);
+box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+border-color: #0b2a4a;
+}
+
 .home-twoCol{
 display: grid;
 grid-template-columns: 1.2fr 0.8fr;
 gap: 16px;
 align-items: start;
 margin-top: 14px;
+}
+
+.level-grid {
+display: grid;
+grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+gap: 16px;
+margin-top: 24px;
+}
+
+.level-card {
+background: #f7f9fc;
+border: 1px solid #d9e2ec;
+padding: 16px;
+border-radius: 10px;
+font-weight: 500;
+transition: all 0.2s ease;
+}
+
+.level-card:hover {
+background: #e8f0f7;
+border-color: #0b2a4a;
 }
 
 .home-list{ padding: 14px; }
@@ -301,6 +346,11 @@ gap: 10px;
 flex-wrap: wrap;
 }
 
+.home-muted{
+color: #64748B;
+font-size: 13px;
+margin-top: 6px;
+}
 /* Footer */
 .site-footer{
 background: #ffffff;
