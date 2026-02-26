@@ -60,7 +60,7 @@ const Dashboard = () => {
   }
 
   return (
-    <Container className="mt-4">
+    <Container className="page dashboard-page">
       <Row className="mb-3">
         <Col>
           <h2>Dashboard</h2>
@@ -68,7 +68,7 @@ const Dashboard = () => {
         </Col>
       </Row>
 
-      <Row>
+      <Row className="dashboard-grid">
         {/* Recommended Blocks */}
         <Col md={8}>
           <h4 className="mb-3">Recommended Learning Blocks</h4>
@@ -76,7 +76,7 @@ const Dashboard = () => {
           <Row xs={1} md={2} className="g-3">
             {recommendedBlocks.map((block) => (
               <Col key={block.id}>
-                <Card className="h-100 shadow-sm">
+                <Card className="panel block-card">
                   <Card.Body>
                     <Card.Title>{block.title}</Card.Title>
                     <Card.Subtitle className="mb-2 text-muted">
@@ -122,9 +122,9 @@ const Dashboard = () => {
         </Col>
 
         {/* Scores */}
-        <Col md={4}>
+        <Col className="dashboard-side" md={4}>
           <h4 className="mb-3">Scores</h4>
-          <Card className="p-3 shadow-sm">
+          <Card className="panel scores-panel">
             {scores ? (
               <>
                 <p><strong>Math:</strong> {scores.math}</p>

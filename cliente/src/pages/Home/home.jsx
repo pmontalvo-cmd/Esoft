@@ -187,9 +187,6 @@ return (
         Plataforma educativa para consulta rápida estilo enciclopedia + rutas recomendadas por diagnóstico.
         </p>
         <div style={{ display:"flex", gap:10, flexWrap:"wrap" }}>
-        <span className="chip chip--blue">Azul</span>
-        <span className="chip chip--yellow">Amarillo</span>
-        <span className="chip chip--red">Rojo</span>
         </div>
     </div>
 
@@ -223,7 +220,6 @@ return (
 
     <div className="footer-bottom">
     <div>© {new Date().getFullYear()} Ecumentis. All rights reserved.</div>
-    <div>Hecho para consulta rápida y aprendizaje guiado.</div>
     </div>
 </div>
 </footer>

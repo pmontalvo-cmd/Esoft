@@ -125,6 +125,23 @@
   font-size: 13px;
 }
 
+.tag{
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.tag--blue{ background: color-mix(in srgb, var(--brand-blue) 12%, white); }
+.tag--yellow{ background: color-mix(in srgb, var(--brand-yellow) 18%, white); }
+.tag--red{ background: color-mix(in srgb, var(--brand-red) 12%, white); }
+
 @media (max-width: 920px){
   .footer-grid{ grid-template-columns: 1fr 1fr; }
 }

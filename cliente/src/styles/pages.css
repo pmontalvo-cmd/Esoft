@@ -63,6 +63,71 @@ color: var(--muted);
 max-width: 70ch;
 }
 
+/*Dashboard*/
+
+.dashboard-page{
+padding-top: 28px;
+padding-bottom: 48px;
+}
+
+.dashboard-page h1,
+.dashboard-page h2,
+.dashboard-page h3{
+letter-spacing: -0.01em;
+}
+
+.dashboard-grid{
+align-items: flex-start;
+row-gap: 16px;
+}
+
+.dashboard-side{
+position: sticky;
+top: 88px; /* ajusta si tu navbar es más alto/bajo */
+}
+
+.panel{
+background: var(--surface);
+border: 1px solid var(--border);
+border-radius: var(--radius-md);
+box-shadow: var(--shadow-sm);
+}
+
+.block-card{
+height: 100%;
+}
+
+.block-title{
+font-weight: 800;
+color: var(--text);
+margin: 0 0 2px;
+}
+
+.block-meta{
+font-size: 12px;
+color: var(--muted);
+margin: 0 0 8px;
+}
+
+.block-desc{
+font-size: 13px;
+color: var(--muted);
+margin: 0 0 10px;
+}
+
+.scores-panel{
+padding: 14px;
+}
+
+.scores-panel p{
+margin: 0;
+font-size: 13px;
+color: var(--muted);
+}
+
+.scores-panel b{
+color: var(--text);
+}
 
 @media (max-width:900px){
 .hero{ grid-template-columns:1fr; }
