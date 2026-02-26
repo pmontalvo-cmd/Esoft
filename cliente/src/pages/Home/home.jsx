@@ -41,7 +41,7 @@ return (
             className="home-search__input"
             placeholder="Buscar temas: interés compuesto, Newton, fotosíntesis..."
             />
-            <button className="btn btn-primary">Buscar</button>
+            <Link to="/dashboard" className="btn btn-primary">Buscar</Link>
         </div>
 
         <div className="home-cta">
@@ -193,27 +193,27 @@ return (
     <div>
         <div className="footer-title">Producto</div>
         <div className="footer-links">
-        <a href="/home">Inicio</a>
-        <a href="/quizIn">Diagnóstico</a>
-        <a href="/dashboard">Dashboard</a>
+        <Link to="/home">Inicio</Link>
+        <Link to="/quizIn">Diagnóstico</Link>
+        <Link to="/dashboard">Inicio</Link>
         </div>
     </div>
 
     <div>
         <div className="footer-title">Recursos</div>
         <div className="footer-links">
-        <a href="#">Catálogo de temas</a>
-        <a href="#">Metodología</a>
-        <a href="#">Soporte</a>
+        <Link to="#">Catálogo de temas</Link>
+        <Link to="#">Metodología</Link>
+        <Link to="#">Soporte</Link>
         </div>
     </div>
 
     <div>
         <div className="footer-title">Legal</div>
         <div className="footer-links">
-        <a href="#">Privacidad</a>
-        <a href="#">Términos</a>
-        <a href="#">Contacto</a>
+        <Link to="#">Privacidad</Link>
+        <Link to="#">Términos</Link>
+        <Link to="#">Contacto</Link>
         </div>
     </div>
     </div>
