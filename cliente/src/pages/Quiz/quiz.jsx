@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import API from "../../services/api";
 
 const QUIZ_SECONDS = 60;      // ajusta si quieres
-const TOTAL_QUESTIONS = 10;   // ajusta si quieres
+const TOTAL_QUESTIONS = 40;   // ajusta si quieres
 
 const Quiz = () => {
   const navigate = useNavigate();
@@ -209,9 +209,6 @@ const Quiz = () => {
         </div>
 
         <div className="mt-4 d-flex justify-content-between">
-          <div>
-            <small>Math: {mathScore} | Language: {languageScore}</small>
-          </div>
           <Button variant="outline-dark" onClick={() => finishQuiz(userId)}>
             Terminar
           </Button>
