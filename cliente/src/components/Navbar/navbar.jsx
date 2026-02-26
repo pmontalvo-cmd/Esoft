@@ -9,7 +9,8 @@ export default function Navbar() {
     <nav className="app-navbar">
         <div className="container nav-inner">
         <Link to="/home" className="brand">
-        <span>ECUMENTIS</span>
+        <span className="brand-mark">EM</span>
+        <span className="brand-text">ECUMENTIS</span>
         </Link>
 
         {/* LINKS DESKTOP */}
