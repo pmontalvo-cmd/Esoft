@@ -139,3 +139,49 @@ color: var(--text);
     grid-template-columns: 1fr !important;
 }
 }
+
+.dashboard-page{
+position: relative;
+}
+
+/* Barras laterales fijas (no afectan el layout) */
+.dashboard-page::before,
+.dashboard-page::after{
+content:"";
+position: fixed;
+top: 64px;              /* ajusta si tu navbar es más alto/bajo */
+bottom: 0;
+width: clamp(12px, 3vw, 28px);
+pointer-events: none;
+z-index: 0;
+opacity: 0.9;           /* súbelo/bájalo para más/menos presencia */
+}
+
+/* Izquierda: azul estructural */
+.dashboard-page::before{
+left: 0;
+background: rgba(0, 90, 140, 0.18); /* azul profundo suave */
+border-right: 1px solid rgba(15, 23, 42, 0.06);
+}
+
+/* Derecha: rojo acción (muted) */
+.dashboard-page::after{
+right: 0;
+background: rgba(180, 50, 60, 0.14); /* rojo apagado suave */
+border-left: 1px solid rgba(15, 23, 42, 0.06);
+}
+
+/* Asegura que el contenido quede por encima */
+.dashboard-page > *{
+position: relative;
+z-index: 1;
+}
+
+/* En móvil: reduce impacto */
+@media (max-width: 640px){
+.dashboard-page::before,
+.dashboard-page::after{
+    width: 10px;
+    opacity: 0.7;
+}
+}

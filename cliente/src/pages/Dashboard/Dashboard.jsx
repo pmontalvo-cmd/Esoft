@@ -60,6 +60,7 @@ const Dashboard = () => {
   }
 
   return (
+<div className="dashboard-page">
     <Container className="page dashboard-page">
       <Row className="mb-3">
         <Col>
@@ -142,6 +143,8 @@ const Dashboard = () => {
         </Col>
       </Row>
     </Container>
+    
+</div>
   );
 };
 
