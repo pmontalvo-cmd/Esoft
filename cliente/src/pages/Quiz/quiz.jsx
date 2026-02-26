@@ -27,7 +27,7 @@ const Quiz = () => {
   const [scienceScore, setScienceScore] = useState(0);
   const [logicScore, setLogicScore] = useState(0);
   const [techScore, setTechScore] = useState(0);
-  const [SocialScore, setSocialScore] = useState(0);
+  const [socialScore, setSocialScore] = useState(0);
 
   useEffect(() => {
     const id = localStorage.getItem("userId");
@@ -127,6 +127,11 @@ const Quiz = () => {
         userId: Number(id),
         math_score: mathScore,
         language_score: languageScore,
+        science_score: scienceScore,
+        social_score: socialScore,
+        tech_score: techScore,
+        finance_score: financeScore,
+        logic_score: logicScore,
       });
     } catch (e) {
       console.error(e);
