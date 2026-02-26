@@ -3,8 +3,8 @@ import { Container, Card, Button, Spinner, ProgressBar } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import API from "../../services/api";
 
-const QUIZ_SECONDS = 60;      // ajusta si quieres
-const TOTAL_QUESTIONS = 40;   // ajusta si quieres
+const QUIZ_SECONDS = 60;
+const TOTAL_QUESTIONS = 40; 
 
 const Quiz = () => {
   const navigate = useNavigate();
@@ -23,6 +23,11 @@ const Quiz = () => {
 
   const [mathScore, setMathScore] = useState(0);
   const [languageScore, setLanguageScore] = useState(0);
+  const [financeScore, setFinanceScore] = useState(0);
+  const [scienceScore, setScienceScore] = useState(0);
+  const [logicScore, setLogicScore] = useState(0);
+  const [techScore, setTechScore] = useState(0);
+  const [SocialScore, setSocialScore] = useState(0);
 
   useEffect(() => {
     const id = localStorage.getItem("userId");
@@ -83,10 +88,14 @@ const Quiz = () => {
       const correct = !!res.data?.correct;
       setFeedback(correct ? "Correcto ✅" : "Incorrecto ❌");
 
-      // Tu backend solo maneja math/language en quizData :contentReference[oaicite:4]{index=4}
       if (correct) {
         if (question.category === "math") setMathScore((s) => s + 1);
         if (question.category === "language") setLanguageScore((s) => s + 1);
+        if (question.category === "science") setScienceScore((s) => s + 1);
+        if (question.category === "social") setSocialScore((s) => s + 1);
+        if (question.category === "tech") setTechScore((s) => s + 1);
+        if (question.category === "finance") setFinanceScore((s) => s + 1);
+        if (question.category === "logic") setLogicScore((s) => s + 1);
       }
 
       // Avanza conteo
@@ -209,6 +218,9 @@ const Quiz = () => {
         </div>
 
         <div className="mt-4 d-flex justify-content-between">
+          <div>
+            <small>Math: {mathScore} | Language: {languageScore} | Finance: {}</small>
+          </div>
           <Button variant="outline-dark" onClick={() => finishQuiz(userId)}>
             Terminar
           </Button>
