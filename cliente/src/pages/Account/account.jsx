@@ -1,12 +1,10 @@
 
-import React, {useEffect} from "react";
+import React from "react";
 
 const Account = ({ user }) => {
 if (!user) {
     return <div>No autorizado</div>;
 }
-
-useEffect()
 
 return (
     <div className="account-container">
