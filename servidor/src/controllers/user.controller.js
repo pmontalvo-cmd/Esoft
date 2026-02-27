@@ -50,6 +50,31 @@ async function getAllUsers(req, res) {
   }
 }
 
+// Get User By Id
+async function getUser(req, res) {
+  try {
+    const { id } = req.params;
+
+    if (!id) {
+      return res.status(400).json({ message: "User id is required" });
+    }
+
+    const [rows] = await db.query(
+      "SELECT * FROM datos_usuario WHERE id = ?",
+      [id]
+    );
+
+    if (rows.length === 0) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    res.json(rows[0]); // solo un usuario
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("DB error");
+  }
+}
+
 // Update User Info
 async function updateUser(req, res) {
   try {
@@ -92,6 +117,7 @@ async function deleteUser(req, res) {
 module.exports = {
   createUser,
   getAllUsers,
+  getUser,
   updateUser,
-  deleteUser
+  deleteUser,
 };
