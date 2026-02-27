@@ -79,7 +79,7 @@ function submitQuiz(req,res){
         if(userId == null || math_score == null || language_score == null || science_score == null || social_score == null || tech_score == null || finance_score == null || logic_score == null){
             return res.status(400).json({
                 ok: false,
-                message: "Mising fields: userId, MathScore, LanguageScore"
+                message: "Mising fields: userId, Scores"
         });
     }
     //Check if userId exist in the Database

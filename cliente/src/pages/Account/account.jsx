@@ -1,17 +1,20 @@
-import React from "react";
+
+import React, {useEffect} from "react";
 
 const Account = ({ user }) => {
 if (!user) {
     return <div>No autorizado</div>;
 }
 
+useEffect()
+
 return (
     <div className="account-container">
     <h2>Mi Cuenta</h2>
 
     <div className="account-card">
-        <p><strong>Nombre:</strong> {user.name}</p>
-        <p><strong>Email:</strong> {user.email}</p>
+        <p><strong>Username:</strong> {user.username}</p>
+        <p><strong>Grade:</strong> {user.grade}</p>
         <p><strong>ID:</strong> {user.id}</p>
     </div>
     </div>
