@@ -224,7 +224,7 @@ const Quiz = () => {
 
         <div className="mt-4 d-flex justify-content-between">
           <div>
-            <small>Math: {mathScore} | Language: {languageScore} | Finance: {financeScore} | Logic: {logicScore} | Science: {scienceScore} | Social: {SocialScore} | Tech: {techScore}</small>
+            <small>Math: {mathScore} | Language: {languageScore} | Finance: {financeScore} | Logic: {logicScore} | Science: {scienceScore} | Social: {socialScore} | Tech: {techScore}</small>
           </div>
           <Button variant="outline-dark" onClick={() => finishQuiz(userId)}>
             Terminar
