@@ -15,7 +15,14 @@ import BlockDetail from '../pages/LearningBlocks/BlockDetails';
 import Account from '../pages/Account/account';
 
 
-const handleLogout = () => {
+
+
+
+function App() {
+  const [vprueba,] = useState("");
+  const [user, setUser] = useState(null);
+  
+  const handleLogout = () => {
   localStorage.removeItem("user");
   localStorage.removeItem("userId");
   localStorage.removeItem("username");
@@ -23,12 +30,6 @@ const handleLogout = () => {
 
   setUser(null);
 };
-
-
-function App() {
-  const [vprueba,] = useState("");
-  const [user, setUser] = useState(null);
-  
   useEffect(() => {
     const id = localStorage.getItem("userId");
     const username = localStorage.getItem("username");
