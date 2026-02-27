@@ -14,6 +14,17 @@ import QuizIn from '../pages/Quiz/quizInstrucciones';
 import BlockDetail from '../pages/LearningBlocks/BlockDetails';
 import Account from '../pages/Account/account';
 
+
+const handleLogout = () => {
+  localStorage.removeItem("user");
+  localStorage.removeItem("userId");
+  localStorage.removeItem("username");
+  localStorage.removeItem("grade");
+
+  setUser(null);
+};
+
+
 function App() {
   const [vprueba,] = useState("");
   const [user, setUser] = useState(null);
@@ -34,7 +45,7 @@ function App() {
   };
   return (
     <Router>
-      <Navbar vprueba={vprueba} user={user} />
+      <Navbar vprueba={vprueba} user={user} onLogout={handleLogout} />
       <Routes>
       <Route path="/" element={<Navigate to="/home" />} />
         <Route path="/home" element={<Home />} />

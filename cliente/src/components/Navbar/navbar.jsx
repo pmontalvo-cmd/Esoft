@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import "./navbar.css";
 
-export default function Navbar({user}) {
+export default function Navbar({user,  onLogout}) {
     const [menuOpen, setMenuOpen] = useState(false);
 
     return (
@@ -21,7 +21,10 @@ export default function Navbar({user}) {
             {!user ? (<>
             <Link to="/alumnos">Sign In</Link>
             <Link to="/singin">Log In</Link>
-            </>) : (<Link to="/account" className="nav-right-link">Account</Link>)}
+            </>) : (<>
+                <Link to="/account" className="nav-right-link">Account</Link>
+                <button onClick={onLogout} className="logout-btn">Logout</button>
+                    </>)}
         </div>
 
         {/* BOTÓN MÓVIL */}
