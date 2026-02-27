@@ -5,6 +5,7 @@ const quizService =require("../services/quiz.service")
 function nextQuestion(req, res) {
     const userId = req.params.userId;
     console.log(`Fetching next question for userId: ${userId}`);
+    console.log("category:", result.question.category);
 
     pool.query("SELECT * FROM datos_usuario WHERE id = ?",[userId],(err, rows) => {
             if (err) {
