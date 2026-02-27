@@ -41,6 +41,7 @@ function Login({ onLoginSuccess }) {
       localStorage.setItem("userId", String(data.id));
       localStorage.setItem("username", data.username);
       localStorage.setItem("grade", String(data.grade));
+      localStorage.setItem("user", JSON.stringify(data));
 
       setSuccessMsg(`Login successful! Welcome, ${data.username}.`);
       Swal.fire({

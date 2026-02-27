@@ -12,10 +12,10 @@ import Dashboard from '../pages/Dashboard/Dashboard';
 import Quiz from '../pages/Quiz/quiz';
 import QuizIn from '../pages/Quiz/quizInstrucciones';
 import BlockDetail from '../pages/LearningBlocks/BlockDetails';
+import Account from '../pages/Account/account';
 
 function App() {
   const [vprueba,] = useState("");
-  // Add user state here
   const [user, setUser] = useState(null);
   
   useEffect(() => {
@@ -28,14 +28,13 @@ function App() {
     }
   }, []);
 
-  // A function for when login is successful
-  const handleLoginSuccess = (loggedInUser, pruebaValue) => {
-    console.log("User logged in:", loggedInUser);
+  const handleLoginSuccess = (loggedInUser) => {
     setUser(loggedInUser);
+    localStorage.setItem("user", JSON.stringify(loggedInUser)); // <-- importante
   };
   return (
     <Router>
-      <Navbar vprueba={vprueba} user={user}/>
+      <Navbar vprueba={vprueba} user={user} />
       <Routes>
       <Route path="/" element={<Navigate to="/home" />} />
         <Route path="/home" element={<Home />} />
@@ -46,6 +45,7 @@ function App() {
         <Route path="/singin" element={<SingIn onLoginSuccess={handleLoginSuccess} />} />
         <Route path="/alumnos" element={<StudentManagement />} />
         <Route path="/blocks/:id" element={<BlockDetail/>}/>
+        <Route path="/account" element={user ? <Account user={user} /> : <Navigate to="/singin" />}/>
       </Routes>
     </Router>
   );

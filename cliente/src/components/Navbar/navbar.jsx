@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import "./navbar.css";
 
-export default function Navbar() {
+export default function Navbar({user}) {
     const [menuOpen, setMenuOpen] = useState(false);
 
     return (
@@ -18,8 +18,10 @@ export default function Navbar() {
             <Link to="/home">Home</Link>
             <Link to="/quizIn">Quiz</Link>
             <Link to="/dashboard">Dashboard</Link>
+            {!user ? (<>
             <Link to="/alumnos">Sign In</Link>
             <Link to="/singin">Log In</Link>
+            </>) : (<Link to="/account" className="nav-right-link">Account</Link>)}
         </div>
 
         {/* BOTÓN MÓVIL */}
@@ -33,11 +35,15 @@ export default function Navbar() {
             <li><Link to="/home" onClick={() => setMenuOpen(false)}>Home</Link></li>
             <li><Link to="/quizIn" onClick={() => setMenuOpen(false)}>Quiz</Link></li>
             <li><Link to="/dashboard" onClick={() => setMenuOpen(false)}>Dashboard</Link></li>
-            <li><Link to="/alumnos" onClick={() => setMenuOpen(false)}>Sign In</Link></li>
-            <li><Link to="/singin" onClick={() => setMenuOpen(false)}>Log In</Link></li>
+            {!user ? (<>
+                <li><Link to="/alumnos" onClick={() => setMenuOpen(false)}>Sign In</Link></li>
+                <li><Link to="/singin" onClick={() => setMenuOpen(false)}>Log In</Link>
+                </li></>) : (<li><Link to="/account" onClick={() => setMenuOpen(false)}>Account</Link></li>
+            )}
             </ul>
         </div>
         </div>
     </nav>
     );
 }
+
