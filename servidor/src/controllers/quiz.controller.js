@@ -3,32 +3,35 @@ const {questions} = require("../data/quizData")
 const quizService =require("../services/quiz.service")
 
 function nextQuestion(req, res) {
-    const userId = req.params.userId;
-    console.log(`Fetching next question for userId: ${userId}`);
-    console.log("category:", result.question.category);
+const userId = Number(req.params.userId);
+console.log(`Fetching next question for userId: ${userId}`);
 
-    pool.query("SELECT * FROM datos_usuario WHERE id = ?",[userId],(err, rows) => {
-            if (err) {
-                console.error("Error: Database error while fetching user:", err);
-                return res.status(500).json({ error: "DB error" });
-            }
-            if (rows.length === 0) {
-                console.log(`Warning: User with ID ${userId} NOT FOUND in database!`);
-                return res.status(404).json({ error: "User not found" });
-            }
+pool.query("SELECT * FROM datos_usuario WHERE id = ?", [userId], (err, rows) => {
+    if (err) {
+    console.error("DB error while fetching user:", err);
+    return res.status(500).json({ error: "DB error" });
+    }
+    if (rows.length === 0) {
+    return res.status(404).json({ error: "User not found" });
+    }
 
-            const user = rows[0];
+    const user = rows[0];
 
-            const result = quizService.selectNextQuestion({
-                userId, user, questions,
-            });
+    try {
+    const result = quizService.selectNextQuestion({ userId, user, questions });
 
-            if(result.error){
-                return res.status(500).json({error:result.error});
-            }
+    if (result?.error) {
+        console.warn("selectNextQuestion returned error:", result.error);
+        return res.status(500).json({ error: result.error });
+    }
 
-            res.json(result.question);
-        });
+    console.log("Next question category:", result.question.category);
+    return res.json(result.question);
+    } catch (e) {
+    console.error("selectNextQuestion crashed:", e);
+    return res.status(500).json({ error: "selectNextQuestion crashed" });
+    }
+});
 }
 
 // Submit Answer
