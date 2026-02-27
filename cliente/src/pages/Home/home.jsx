@@ -53,7 +53,6 @@ return (
         <div className="home-quick card">
         <div className="home-quick__head">
             <h3>Accesos rápidos</h3>
-            <span>Contenido de prueba</span>
         </div>
 
         <div className="home-quick__list">
