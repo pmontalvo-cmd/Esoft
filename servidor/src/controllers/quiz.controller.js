@@ -86,7 +86,7 @@ function submitQuiz(req,res){
 
     // Save math_score and language_score in DB
     pool.query("UPDATE datos_usuario SET math_score=?, language_score=?, science_score=?, social_score=?, tech_score=?, finance_score=?, logic_score=? WHERE id=?",
-    [math_score, language_score,, science_score, social_score, tech_score, finance_score, logic_score, userId], (err,response) => {
+    [math_score, language_score, science_score, social_score, tech_score, finance_score, logic_score, userId], (err,response) => {
         if (err) return res.status(500).json({ error: "DB error" });
         if (response.affectedRows === 0) return res.status(404).json({ error: "User not found" });
     //OK Response to Client
