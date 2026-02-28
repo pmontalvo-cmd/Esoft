@@ -3,6 +3,8 @@ import React, { useEffect, useState, useRef } from "react";
 import { Container, Row, Col, Card, Button, Spinner, Form } from "react-bootstrap";
 import { useNavigate, useLocation } from "react-router-dom";
 import API from "../../services/api";
+import { t, subjectLabel } from "../../i18n";
+
 
 const Dashboard = () => {
   const navigate = useNavigate();
@@ -107,9 +109,9 @@ const runSearch = async (e) => {
     return (
       <Container className="mt-5">
         <Card className="p-4">
-          <h3>Error</h3>
+          <h3>{t("msg_error")}</h3>
           <p>{error}</p>
-          <Button onClick={() => window.location.reload()}>Reintentar</Button>
+          <Button onClick={() => window.location.reload()}>{t("msg_retry")}</Button>
         </Card>
       </Container>
     );
@@ -121,7 +123,7 @@ const runSearch = async (e) => {
         {/* Header */}
         <Row className="mb-3">
           <Col>
-            <h2>Dashboard</h2>
+            <h2>{t("dash_title")}</h2>
             {user && <p>Usuario ID: {user.id} | Grado: {user.grade}</p>}
           </Col>
         </Row>
@@ -135,10 +137,10 @@ const runSearch = async (e) => {
                   <Form.Control
                     value={searchQ}
                     onChange={(e) => setSearchQ(e.target.value)}
-                    placeholder="Buscar learning blocks (ej: physics, interés, motion...)"
+                    placeholder={t("dash_search_placeholder")}
                   />
                   <Button type="submit" disabled={searching}>
-                    {searching ? "Buscando..." : "Buscar"}
+                    {t("dash_search_btn")}
                   </Button>
                 </div>
               </Form>
@@ -147,7 +149,7 @@ const runSearch = async (e) => {
 
               {searchResults.length > 0 && (
                 <div style={{ marginTop: 14 }}>
-                  <h5 className="mb-2">Resultados</h5>
+                  <h5 className="mb-2">{t("dash_results")}</h5>
                   <Row xs={1} md={2} className="g-3">
                     {searchResults.map((block) => (
                       <Col key={block.id}>
@@ -155,7 +157,7 @@ const runSearch = async (e) => {
                           <Card.Body>
                             <Card.Title>{block.title}</Card.Title>
                             <Card.Subtitle className="mb-2 text-muted">
-                              {block.subject} · Nivel {block.level} · {block.estimated_minutes} min
+                              {block.subject} · {t("level")} {block.level} · {block.estimated_minutes} {t("minutes")}
                             </Card.Subtitle>
                             <Card.Text>{block.summary}</Card.Text>
 
@@ -178,7 +180,7 @@ const runSearch = async (e) => {
 
                           <Card.Footer style={{ background: "transparent" }}>
                             <Button className="w-100" onClick={() => navigate(`/blocks/${block.id}`)}>
-                              Abrir
+                              {t("btn_open")}
                             </Button>
                           </Card.Footer>
                         </Card>
@@ -194,7 +196,7 @@ const runSearch = async (e) => {
         {/* Recommended */}
         <Row className="dashboard-grid">
           <Col md={8}>
-            <h4 className="mb-3">Recommended Learning Blocks</h4>
+            <h4 className="mb-3">{t("dash_recomended")}</h4>
 
             <Row xs={1} md={2} className="g-3">
               {recommendedBlocks.map((block) => (
@@ -203,7 +205,7 @@ const runSearch = async (e) => {
                     <Card.Body>
                       <Card.Title>{block.title}</Card.Title>
                       <Card.Subtitle className="mb-2 text-muted">
-                        {block.subject} · Nivel {block.level} · {block.estimated_minutes} min
+                        {block.subject} · {t("level")} {block.level} · {block.estimated_minutes} {t("minutes")}
                       </Card.Subtitle>
                       <Card.Text>{block.summary}</Card.Text>
 
@@ -226,7 +228,7 @@ const runSearch = async (e) => {
 
                     <Card.Footer style={{ background: "transparent" }}>
                       <Button className="w-100" onClick={() => navigate(`/blocks/${block.id}`)}>
-                        Empezar
+                        {t("btn_start")}
                       </Button>
                     </Card.Footer>
                   </Card>
@@ -236,7 +238,7 @@ const runSearch = async (e) => {
 
             {recommendedBlocks.length === 0 && (
               <Card className="p-3">
-                <p className="mb-0">No hay bloques recomendados todavía.</p>
+                <p className="mb-0">{t("dash_recomended_negate")}</p>
               </Card>
             )}
           </Col>

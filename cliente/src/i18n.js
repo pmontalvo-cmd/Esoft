@@ -10,6 +10,7 @@ es: {
 
     dash_title: "Panel",
     dash_recommended: "Bloques recomendados",
+    dash_recommended_negate: "No Hay Bloques Recomendados",
     dash_search_placeholder: "Buscar bloques (ej: física, interés, motion...)",
     dash_search_btn: "Buscar",
     dash_results: "Resultados",
@@ -40,6 +41,7 @@ en: {
 
     dash_title: "Dashboard",
     dash_recommended: "Recommended Learning Blocks",
+    dash_recommended_negate: "No Recomended Learning Blocks",
     dash_search_placeholder: "Search learning blocks (e.g., physics, interest, motion...)",
     dash_search_btn: "Search",
     dash_results: "Results",
