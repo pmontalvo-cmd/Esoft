@@ -3,9 +3,9 @@ import { Link } from "react-router-dom";
 import "./home.css";
 
 const quickRoutes = [
-{ label: "Matemáticas • Nivel 2", note: "Aritmética → interés", tone: "tone-blue" },
-{ label: "Ciencias • Nivel 3", note: "Fuerza y movimiento", tone: "tone-yellow" },
-{ label: "Lenguaje • Nivel 2", note: "Lectura crítica", tone: "tone-red" },
+{ label: "Matemáticas • Nivel 2", note: "Aritmética → interés", tone: "tone-blue", query: "level:2"},
+{ label: "Ciencias • Nivel 3", note: "Fuerza y movimiento", tone: "tone-yellow", query: "level:3" },
+{ label: "Lenguaje • Nivel 2", note: "Lectura crítica", tone: "tone-red", query: "level:2" },
 ];
 
 const subjects = [
@@ -61,7 +61,7 @@ return (
                 <div className="home-quick__title">{x.label}</div>
                 <div className="home-quick__note">{x.note}</div>
                 </div>
-                <button className="btn btn-outline btn-sm">Abrir</button>
+                <button onClick={() => navigate(`/dashboard?q=${x.query}`)} className="btn btn-outline btn-sm">Abrir</button>
             </div>
             ))}
         </div>
