@@ -18,14 +18,10 @@ const subjects = [
 { title: "Logica", desc: "Ahorro, interés, decisiones financieras.", tag: "Vida real", tone: "tone-blue" },
 ];
 
-const popular = [
-{ t: "Interés compuesto", m: "Finanzas", n: "Nivel 2 • 12 min" },
-{ t: "Leyes de Newton", m: "Ciencias", n: "Nivel 3 • 20 min" },
-{ t: "Ecuaciones lineales", m: "Matemáticas", n: "Nivel 2 • 15 min" },
-{ t: "Revolución Francesa", m: "Sociales", n: "Nivel 3 • 18 min" },
-];
 
 export default function Home() {
+
+let [query, setQuery] = useState("");
 return (
 <div className="home">
 
@@ -38,10 +34,13 @@ return (
         <h1>Conocimiento educativo, claro y organizado.</h1>
         <div className="home-search card">
             <input
+            type="text"
             className="home-search__input"
             placeholder="Buscar temas: interés compuesto, Newton, fotosíntesis..."
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
             />
-            <Link to="/dashboard" className="btn btn-primary">Buscar</Link>
+            <Link to={`/dashboard?q=${encodeURIComponent(query)}`} className="btn btn-primary">Buscar</Link>
         </div>
 
         <div className="home-cta">
