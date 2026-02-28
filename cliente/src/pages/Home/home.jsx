@@ -113,7 +113,7 @@ return (
                 <div className="home-quick__title">{x.label}</div>
                 <div className="home-quick__note">{x.note}</div>
             </div>
-            <button onClick={() => navigate(`/dashboard${x.query}`)} className="btn btn-outline btn-sm">Abrir</button>
+            <button onClick={() => navigate(`/dashboard?q=${x.query}`)} className="btn btn-outline btn-sm">Abrir</button>
             </div>
         ))}
         </div>
@@ -134,7 +134,7 @@ return (
                 <div className="home-quick__title">{x.label}</div>
                 <div className="home-quick__note">{x.note}</div>
             </div>
-            <button onClick={() => navigate(`/dashboard${x.query}`)} className="btn btn-outline btn-sm">Abrir</button>
+            <button onClick={() => navigate(`/dashboard?q=${x.query}`)} className="btn btn-outline btn-sm">Abrir</button>
             </div>
         ))}
         </div>
