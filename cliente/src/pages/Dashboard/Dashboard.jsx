@@ -121,26 +121,6 @@ const Dashboard = () => {
             </Card>
           )}
         </Col>
-
-        {/* Scores */}
-        <Col className="dashboard-side" md={4}>
-          <h4 className="mb-3">Scores</h4>
-          <Card className="panel scores-panel">
-            {scores ? (
-              <>
-                <p><strong>Math:</strong> {scores.math}</p>
-                <p><strong>Science:</strong> {scores.science}</p>
-                <p><strong>Language:</strong> {scores.language}</p>
-                <p><strong>Social:</strong> {scores.social}</p>
-                <p><strong>Tech:</strong> {scores.tech}</p>
-                <p><strong>Finance:</strong> {scores.finance}</p>
-                <p className="mb-0"><strong>Logic:</strong> {scores.logic}</p>
-              </>
-            ) : (
-              <p className="mb-0">No hay scores.</p>
-            )}
-          </Card>
-        </Col>
       </Row>
     </Container>
     
