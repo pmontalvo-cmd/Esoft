@@ -1,6 +1,6 @@
-// Dashboard.js
+// Dashboard.jsx
 import React, { useEffect, useState } from "react";
-import { Container, Row, Col, Card, Button, Spinner } from "react-bootstrap";
+import { Container, Row, Col, Card, Button, Spinner, Form } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import API from "../../services/api";
 
@@ -13,9 +13,42 @@ const Dashboard = () => {
   const [scores, setScores] = useState(null);
   const [recommendedBlocks, setRecommendedBlocks] = useState([]);
 
-  useEffect(() => {
-    const userId = localStorage.getItem("userId");
+  // Barra de búsqueda
+  const [searchQ, setSearchQ] = useState("");
+  const [searching, setSearching] = useState(false);
+  const [searchResults, setSearchResults] = useState([]);
+  const [searchErr, setSearchErr] = useState("");
 
+  const userId = localStorage.getItem("userId");
+
+  const runSearch = async (e) => {
+    e?.preventDefault?.();
+    try {
+      setSearchErr("");
+      setSearching(true);
+
+      if (!userId) throw new Error("No hay userId en localStorage.");
+
+      const q = searchQ.trim();
+      if (!q) {
+        setSearchResults([]);
+        return;
+      }
+
+      const res = await API.get(`/api/dashboard/${userId}/search`, {
+        params: { q, limit: 12 },
+      });
+
+      if (!res.data?.ok) throw new Error("Respuesta del servidor no OK.");
+      setSearchResults(res.data.blocks ?? []);
+    } catch (err) {
+      setSearchErr(err.message || "Error buscando");
+    } finally {
+      setSearching(false);
+    }
+  };
+
+  useEffect(() => {
     const fetchDashboard = async () => {
       try {
         setLoading(true);
@@ -37,7 +70,7 @@ const Dashboard = () => {
     };
 
     fetchDashboard();
-  }, []);
+  }, [userId]);
 
   if (loading) {
     return (
@@ -60,71 +93,133 @@ const Dashboard = () => {
   }
 
   return (
-<div className="dashboard-page">
-    <Container className="page dashboard-page">
-      <Row className="mb-3">
-        <Col>
-          <h2>Dashboard</h2>
-          {user && <p>Usuario ID: {user.id} | Grado: {user.grade}</p>}
-        </Col>
-      </Row>
+    <div className="dashboard-page">
+      <Container className="page dashboard-page">
+        {/* Header */}
+        <Row className="mb-3">
+          <Col>
+            <h2>Dashboard</h2>
+            {user && <p>Usuario ID: {user.id} | Grado: {user.grade}</p>}
+          </Col>
+        </Row>
 
-      <Row className="dashboard-grid">
-        {/* Recommended Blocks */}
-        <Col md={8}>
-          <h4 className="mb-3">Recommended Learning Blocks</h4>
+        {/* Search */}
+        <Row className="mb-4">
+          <Col>
+            <Card className="panel p-3">
+              <Form onSubmit={runSearch}>
+                <div style={{ display: "flex", gap: 10 }}>
+                  <Form.Control
+                    value={searchQ}
+                    onChange={(e) => setSearchQ(e.target.value)}
+                    placeholder="Buscar learning blocks (ej: physics, interés, motion...)"
+                  />
+                  <Button type="submit" disabled={searching}>
+                    {searching ? "Buscando..." : "Buscar"}
+                  </Button>
+                </div>
+              </Form>
 
-          <Row xs={1} md={2} className="g-3">
-            {recommendedBlocks.map((block) => (
-              <Col key={block.id}>
-                <Card className="panel block-card">
-                  <Card.Body>
-                    <Card.Title>{block.title}</Card.Title>
-                    <Card.Subtitle className="mb-2 text-muted">
-                      {block.subject} · Nivel {block.level} · {block.estimated_minutes} min
-                    </Card.Subtitle>
-                    <Card.Text>{block.summary}</Card.Text>
+              {searchErr && <p style={{ marginTop: 10, color: "#b42318" }}>{searchErr}</p>}
 
-                    <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
-                      {(block.tags ?? []).map((t) => (
-                        <span
-                          key={t}
-                          style={{
-                            fontSize: 12,
-                            padding: "2px 8px",
-                            border: "1px solid #ddd",
-                            borderRadius: 999,
-                          }}
-                        >
-                          {t}
-                        </span>
-                      ))}
-                    </div>
-                  </Card.Body>
+              {searchResults.length > 0 && (
+                <div style={{ marginTop: 14 }}>
+                  <h5 className="mb-2">Resultados</h5>
+                  <Row xs={1} md={2} className="g-3">
+                    {searchResults.map((block) => (
+                      <Col key={block.id}>
+                        <Card className="panel block-card">
+                          <Card.Body>
+                            <Card.Title>{block.title}</Card.Title>
+                            <Card.Subtitle className="mb-2 text-muted">
+                              {block.subject} · Nivel {block.level} · {block.estimated_minutes} min
+                            </Card.Subtitle>
+                            <Card.Text>{block.summary}</Card.Text>
 
-                  <Card.Footer style={{ background: "transparent" }}>
-                    <Button
-                      className="w-100"
-                      onClick={() => navigate(`/blocks/${block.id}`)}
-                    >
-                      Empezar
-                    </Button>
-                  </Card.Footer>
-                </Card>
-              </Col>
-            ))}
-          </Row>
+                            <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
+                              {(block.tags ?? []).map((t) => (
+                                <span
+                                  key={t}
+                                  style={{
+                                    fontSize: 12,
+                                    padding: "2px 8px",
+                                    border: "1px solid #ddd",
+                                    borderRadius: 999,
+                                  }}
+                                >
+                                  {t}
+                                </span>
+                              ))}
+                            </div>
+                          </Card.Body>
 
-          {recommendedBlocks.length === 0 && (
-            <Card className="p-3">
-              <p className="mb-0">No hay bloques recomendados todavía.</p>
+                          <Card.Footer style={{ background: "transparent" }}>
+                            <Button className="w-100" onClick={() => navigate(`/blocks/${block.id}`)}>
+                              Abrir
+                            </Button>
+                          </Card.Footer>
+                        </Card>
+                      </Col>
+                    ))}
+                  </Row>
+                </div>
+              )}
             </Card>
-          )}
-        </Col>
-      </Row>
-    </Container>
-    
-</div>
+          </Col>
+        </Row>
+
+        {/* Recommended */}
+        <Row className="dashboard-grid">
+          <Col md={8}>
+            <h4 className="mb-3">Recommended Learning Blocks</h4>
+
+            <Row xs={1} md={2} className="g-3">
+              {recommendedBlocks.map((block) => (
+                <Col key={block.id}>
+                  <Card className="panel block-card">
+                    <Card.Body>
+                      <Card.Title>{block.title}</Card.Title>
+                      <Card.Subtitle className="mb-2 text-muted">
+                        {block.subject} · Nivel {block.level} · {block.estimated_minutes} min
+                      </Card.Subtitle>
+                      <Card.Text>{block.summary}</Card.Text>
+
+                      <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
+                        {(block.tags ?? []).map((t) => (
+                          <span
+                            key={t}
+                            style={{
+                              fontSize: 12,
+                              padding: "2px 8px",
+                              border: "1px solid #ddd",
+                              borderRadius: 999,
+                            }}
+                          >
+                            {t}
+                          </span>
+                        ))}
+                      </div>
+                    </Card.Body>
+
+                    <Card.Footer style={{ background: "transparent" }}>
+                      <Button className="w-100" onClick={() => navigate(`/blocks/${block.id}`)}>
+                        Empezar
+                      </Button>
+                    </Card.Footer>
+                  </Card>
+                </Col>
+              ))}
+            </Row>
+
+            {recommendedBlocks.length === 0 && (
+              <Card className="p-3">
+                <p className="mb-0">No hay bloques recomendados todavía.</p>
+              </Card>
+            )}
+          </Col>
+        </Row>
+      </Container>
+    </div>
   );
 };
 

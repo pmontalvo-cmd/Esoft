@@ -222,7 +222,7 @@ try {
     }
     }
 
-    // Contrato fijo para tu compañero ✅
+    // Respuesta a Cliente
     return res.status(200).json({
     ok: true,
     user: { id: u.id, grade: u.grade },
@@ -236,5 +236,68 @@ try {
 }
 }
 
+async function searchBlocks(req, res) {
+try {
+    const userId = Number(req.params.userId);
+    if (!userId) return res.status(400).json({ ok: false, message: "Missing/invalid userId" });
 
-module.exports = {getAllBlocks, getBlockById, getDashboard}
+    const qRaw = (req.query.q ?? "").toString().trim();
+    const subject = (req.query.subject ?? "").toString().trim(); // opcional
+    const level = req.query.level != null && req.query.level !== "" ? Number(req.query.level) : null; // opcional
+    const limit = req.query.limit != null ? Math.min(50, Math.max(1, Number(req.query.limit))) : 12;
+
+    // Si no hay query, no busques nada (evita retornar todo el catálogo)
+    if (!qRaw) return res.status(200).json({ ok: true, blocks: [] });
+
+    // Trae grade del usuario (para filtrar por grade_min/grade_max)
+    const uRows = await dbQuery(`SELECT id, grade FROM datos_usuario WHERE id = ?`, [userId]);
+    if (uRows.length === 0) return res.status(404).json({ ok: false, message: "User not found" });
+
+    const grade = uRows[0].grade;
+
+    const like = `%${qRaw}%`;
+
+    // SQL dinámico simple
+    let sql = `
+    SELECT id, subject, level, title, summary, estimated_minutes, tags_json
+    FROM learning_blocks
+    WHERE ? BETWEEN grade_min AND grade_max
+        AND (
+        title LIKE ? OR summary LIKE ? OR tags_json LIKE ?
+        )
+    `;
+    const params = [grade, like, like, like];
+
+    if (subject) {
+    sql += ` AND subject = ?`;
+    params.push(subject);
+    }
+    if (Number.isFinite(level)) {
+    sql += ` AND level = ?`;
+    params.push(level);
+    }
+
+    sql += ` ORDER BY id ASC LIMIT ?`;
+    params.push(limit);
+
+    const rows = await dbQuery(sql, params);
+
+    const blocks = rows.map((b) => ({
+    id: b.id,
+    subject: b.subject,
+    level: b.level,
+    title: b.title,
+    summary: b.summary,
+    estimated_minutes: b.estimated_minutes,
+    tags: parseTags(b.tags_json) ?? []
+    }));
+
+    return res.status(200).json({ ok: true, blocks });
+} catch (err) {
+    console.error(err);
+    return res.status(500).json({ ok: false, message: "Internal server error: " + err.message });
+}
+}
+
+
+module.exports = {getAllBlocks, getBlockById, getDashboard, searchBlocks}
