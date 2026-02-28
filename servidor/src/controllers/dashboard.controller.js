@@ -36,7 +36,7 @@ try {
 
 
 function getAllBlocks(req, res){
- pool.query("SELECT * FROM learning_blocks", (err, rows) => {
+pool.query("SELECT * FROM learning_blocks", (err, rows) => {
     if (err) return res.status(500).json({ ok: false, error: "DB error" });
 
     return res.status(200).json({ ok: true, blocks: rows });
@@ -89,35 +89,35 @@ if (score <= 87) return 7;
 return 8; */
 }
 function dbQuery(sql, params) {
-  return new Promise((resolve, reject) => {
+return new Promise((resolve, reject) => {
     pool.query(sql, params, (err, rows) => (err ? reject(err) : resolve(rows)));
-  });
+});
 }
 
 async function fetchBlocksForSubject({ subject, grade, targetLevel, limit }) {
-  // Intentos: primero target y target-1; si no hay, expandimos.
-  const levelPlans = [
+// Intentos: primero target y target-1; si no hay, expandimos.
+const levelPlans = [
     [targetLevel, Math.max(1, targetLevel - 1)],
     [targetLevel, Math.max(1, targetLevel - 1), Math.min(4, targetLevel + 1)],
     [Math.max(1, targetLevel - 2), Math.max(1, targetLevel - 1), targetLevel, Math.min(4, targetLevel + 1), Math.min(4, targetLevel + 2)],
-  ];
+];
 
-  for (const levels of levelPlans) {
+for (const levels of levelPlans) {
     const placeholders = levels.map(() => "?").join(",");
     const rows = await dbQuery(
-      `SELECT id, subject, level, title, summary, estimated_minutes, tags_json
-       FROM learning_blocks
-       WHERE subject = ?
-         AND ? BETWEEN grade_min AND grade_max
-         AND level IN (${placeholders})
-       ORDER BY ABS(level - ?) ASC, id ASC
-       LIMIT ?`,
-      [subject, grade, ...levels, targetLevel, limit]
+    `SELECT id, subject, level, title, summary, estimated_minutes, tags_json
+    FROM learning_blocks
+    WHERE subject = ?
+        AND ? BETWEEN grade_min AND grade_max
+        AND level IN (${placeholders})
+    ORDER BY ABS(level - ?) ASC, id ASC
+    LIMIT ?`,
+    [subject, grade, ...levels, targetLevel, limit]
     );
 
     if (rows.length > 0) return rows;
-  }
-  return [];
+}
+return [];
 }
 
 function parseTags(tags_json) {
@@ -130,7 +130,6 @@ try {
     const userId = Number(req.params.userId);
     if (!userId) return res.status(400).json({ ok: false, message: "Missing/invalid userId" });
 
-    // Ajusta nombres de columnas si aún no las creas todas (pero esta es la meta final)
     const rows = await dbQuery(
     `SELECT id, grade,
             math_score, science_score, language_score, social_score, tech_score, finance_score, logic_score
@@ -186,8 +185,9 @@ try {
     }
 
     // Buscar bloques por subject, max 2 por materia
-    const recommendedBlocks = [];
+    let recommendedBlocks = [];
     const perSubjectCount = new Map();
+    const seen = new Set();
 
     for (const item of plan) {
     if (recommendedBlocks.length >= TOTAL) break;
@@ -204,6 +204,9 @@ try {
 
     for (const b of rowsBlocks) {
         if (recommendedBlocks.length >= TOTAL) break;
+        if (seen.has(b.id)) continue;
+
+        seen.add(b.id);
 
         recommendedBlocks.push({
         id: b.id,
