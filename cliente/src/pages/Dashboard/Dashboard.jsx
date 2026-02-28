@@ -196,7 +196,7 @@ const runSearch = async (e) => {
         {/* Recommended */}
         <Row className="dashboard-grid">
           <Col md={8}>
-            <h4 className="mb-3">{t("dash_recomended")}</h4>
+            <h4 className="mb-3">{t("dash_recommended")}</h4>
 
             <Row xs={1} md={2} className="g-3">
               {recommendedBlocks.map((block) => (
@@ -238,7 +238,7 @@ const runSearch = async (e) => {
 
             {recommendedBlocks.length === 0 && (
               <Card className="p-3">
-                <p className="mb-0">{t("dash_recomended_negate")}</p>
+                <p className="mb-0">{t("dash_recommended_negate")}</p>
               </Card>
             )}
           </Col>
