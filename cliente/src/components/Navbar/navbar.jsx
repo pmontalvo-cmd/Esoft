@@ -1,7 +1,15 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import "./navbar.css";
+import { getLang, setLang, t } from "../../i18n";
+const [lang, setLangState] = useState(getLang());
 
+const toggleLang = () => {
+const next = lang === "es" ? "en" : "es";
+setLang(next);
+setLangState(next);
+window.location.reload(); 
+};
 export default function Navbar({user,  onLogout}) {
     const [menuOpen, setMenuOpen] = useState(false);
 
@@ -15,16 +23,17 @@ export default function Navbar({user,  onLogout}) {
 
         {/* LINKS DESKTOP */}
         <div className="nav-links">
-            <Link to="/home">Home</Link>
-            <Link to="/quizIn">Quiz</Link>
-            <Link to="/dashboard">Dashboard</Link>
+            <Link to="/home">{t("nav_home")}</Link>
+            <Link to="/quizIn">{t("nav_quiz")}</Link>
+            <Link to="/dashboard">{t("nav_dashboard")}</Link>
             {!user ? (<>
-            <Link to="/alumnos">Sign In</Link>
-            <Link to="/singin">Log In</Link>
-            </>) : (<>
-                <Link to="/account" className="nav-right-link">Account</Link>
-                <button onClick={onLogout} className="logout-btn">Logout</button>
-                    </>)}
+                <Link to="/alumnos">{t("nav_signup")}</Link>
+                <Link to="/singin">{t("nav_login")}</Link>
+                </>) : (<>
+                    <Link to="/account" className="nav-right-link">{t("nav_account")}</Link>
+                    <button onClick={onLogout} className="logout-btn">{t("nav_logout")}</button>
+            </>)}
+            <Link className="lang-btn" onClick={toggleLang}> {lang === "es" ? "EN" : "ES"}</Link>
         </div>
 
         {/* BOTÓN MÓVIL */}
@@ -35,16 +44,17 @@ export default function Navbar({user,  onLogout}) {
         {/* SIDEBAR MÓVIL */}
         <div className={menuOpen ? "sidebar open" : "sidebar"}>
             <ul className="sidebar-links">
-            <li><Link to="/home" onClick={() => setMenuOpen(false)}>Home</Link></li>
-            <li><Link to="/quizIn" onClick={() => setMenuOpen(false)}>Quiz</Link></li>
-            <li><Link to="/dashboard" onClick={() => setMenuOpen(false)}>Dashboard</Link></li>
+            <li><Link to="/home" onClick={() => setMenuOpen(false)}>{t("nav_home")}</Link></li>
+            <li><Link to="/quizIn" onClick={() => setMenuOpen(false)}>{t("nav_quiz")}</Link></li>
+            <li><Link to="/dashboard" onClick={() => setMenuOpen(false)}>{t("nav_dashboard")}</Link></li>
             {!user ? (<>
-                <li><Link to="/alumnos" onClick={() => setMenuOpen(false)}>Sign In</Link></li>
-                <li><Link to="/singin" onClick={() => setMenuOpen(false)}>Log In</Link>
+                <li><Link to="/alumnos" onClick={() => setMenuOpen(false)}>{t("nav_signup")}</Link></li>
+                <li><Link to="/singin" onClick={() => setMenuOpen(false)}>{t("nav_login")}</Link>
                 </li></>) : (<>
-                    <li><Link to="/account" onClick={() => setMenuOpen(false)}>Account</Link></li>
-                    <li><button className="logout-btn" onClick={() => { setMenuOpen(false); onLogout(); }}>Logout</button></li>
-                    </>)}
+                <li><Link to="/account" onClick={() => setMenuOpen(false)}>{t("nav_account")}</Link></li>
+                <li><button className="logout-btn" onClick={() => { setMenuOpen(false); onLogout(); }}>{t("nav_logout")}</button></li>
+            </>)}
+                <li><Link className="lang-btn" onClick={toggleLang}> {lang === "es" ? "EN" : "ES"}</Link></li>
             </ul>
         </div>
         </div>
