@@ -18,37 +18,46 @@ const Dashboard = () => {
   const [searching, setSearching] = useState(false);
   const [searchResults, setSearchResults] = useState([]);
   const [searchErr, setSearchErr] = useState("");
+  const [searchReqId, setSearchReqId] = useState(0);
+  const searchReqRef = useRef(0);
 
   const userId = localStorage.getItem("userId");
 
-  const runSearch = async (e) => {
-    e?.preventDefault?.();
-    try {
-      setSearchErr("");
-      setSearching(true);
+const runSearch = async (e) => {
+  e?.preventDefault?.();
 
-      if (!userId) throw new Error("No hay userId en localStorage.");
+  const reqId = ++searchReqRef.current;
 
-      const q = searchQ.trim();
-      if (!q) {
-        setSearchResults([]);
-        return;
-      }
+  try {
+    setSearchErr("");
+    setSearching(true);
+    setSearchResults([]); // limpia SIEMPRE
 
-      const res = await API.get(`/api/dashboard/${userId}/search`, {
-        params: { q, limit: 12 },
-      });
+    if (!userId) throw new Error("No hay userId en localStorage.");
 
-      if (!res.data?.ok) throw new Error("Respuesta del servidor no OK.");
-      setSearchResults(res.data.blocks ?? []);
-    } catch (err) {
-      setSearchErr(err.message || "Error buscando");
-    } finally {
-      setSearching(false);
-    }
-  };
+    const q = searchQ.trim();
+    if (!q) return;
+
+    const res = await API.get(`/api/dashboard/${userId}/search`, {
+      params: { q, limit: 12 }
+    });
+
+    if (reqId !== searchReqRef.current) return; // llegó tarde -> ignora
+
+    const blocks = res.data.blocks ?? [];
+    const unique = Array.from(new Map(blocks.map(b => [b.id, b])).values());
+    setSearchResults(unique);
+  } catch (err) {
+    if (reqId !== searchReqRef.current) return;
+    setSearchErr(err.message || "Error buscando");
+  } finally {
+    if (reqId !== searchReqRef.current) return;
+    setSearching(false);
+  }
+};
 
   useEffect(() => {
+      if (!searchQ.trim()) setSearchResults([]);
     const fetchDashboard = async () => {
       try {
         setLoading(true);
@@ -70,7 +79,7 @@ const Dashboard = () => {
     };
 
     fetchDashboard();
-  }, [userId]);
+  }, [userId], [searchQ] );
 
   if (loading) {
     return (

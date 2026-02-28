@@ -282,7 +282,10 @@ try {
 
     const rows = await dbQuery(sql, params);
 
-    const blocks = rows.map((b) => ({
+    const dedupeById = (arr) =>
+    Array.from(new Map(arr.map((b) => [b.id, b])).values());
+
+    const blocks = dedupeById(rows.map((b) => ({
     id: b.id,
     subject: b.subject,
     level: b.level,
@@ -290,7 +293,7 @@ try {
     summary: b.summary,
     estimated_minutes: b.estimated_minutes,
     tags: parseTags(b.tags_json) ?? []
-    }));
+    })));
 
     return res.status(200).json({ ok: true, blocks });
 } catch (err) {
