@@ -100,20 +100,20 @@ return (
 
         <div className="home-quick__list" style={{ marginTop: 10 }}>
         {[
-            { label: "Finanzas", note: "Bloques organizados", tone: "tone-blue" },
-            { label: "Matemáticas", note: "Bloques organizados", tone: "tone-yellow" },
-            { label: "Lenguaje", note: "Bloques organizados", tone: "tone-red" },
-            { label: "Lógica", note: "Bloques organizados", tone: "tone-blue" },
-            { label: "Ciencias", note: "Bloques organizados", tone: "tone-yellow" },
-            { label: "Tecnología", note: "Bloques organizados", tone: "tone-blue" },
-            { label: "Estudios Sociales", note: "Bloques organizados", tone: "tone-red" },
+            { label: "Finanzas", note: "Bloques organizados", tone: "tone-blue", query: "Finance" },
+            { label: "Matemáticas", note: "Bloques organizados", tone: "tone-yellow", query: "Math" },
+            { label: "Lenguaje", note: "Bloques organizados", tone: "tone-red", query: "Language"},
+            { label: "Lógica", note: "Bloques organizados", tone: "tone-blue", query: "Logic"},
+            { label: "Ciencias", note: "Bloques organizados", tone: "tone-yellow", query: "Science" },
+            { label: "Tecnología", note: "Bloques organizados", tone: "tone-blue", query: "Tech"},
+            { label: "Estudios Sociales", note: "Bloques organizados", tone: "tone-red", query: "Social" },
         ].map((x) => (
             <div key={x.label} className={`home-quick__item ${x.tone}`}>
             <div>
                 <div className="home-quick__title">{x.label}</div>
                 <div className="home-quick__note">{x.note}</div>
             </div>
-            <button className="btn btn-outline btn-sm">Abrir</button>
+            <button onClick={() => navigate(`/dashboard${x.query}`)} className="btn btn-outline btn-sm">Abrir</button>
             </div>
         ))}
         </div>
@@ -124,17 +124,17 @@ return (
 
         <div className="home-quick__list" style={{ marginTop: 10 }}>
         {[
-            { label: "Nivel 1", note: "Bases", tone: "tone-blue" },
-            { label: "Nivel 2", note: "Intermedio", tone: "tone-yellow" },
-            { label: "Nivel 3", note: "Aplicación", tone: "tone-red" },
-            { label: "Nivel 4", note: "Profundización", tone: "tone-blue" },
+            { label: "Nivel 1", note: "Bases", tone: "tone-blue", query: "Level: 1" },
+            { label: "Nivel 2", note: "Intermedio", tone: "tone-yellow", query: "Level: 2" },
+            { label: "Nivel 3", note: "Aplicación", tone: "tone-red", query: "Level: 3"},
+            { label: "Nivel 4", note: "Profundización", tone: "tone-blue", query: "Level: 4" },
         ].map((x) => (
             <div key={x.label} className={`home-quick__item ${x.tone}`}>
             <div>
                 <div className="home-quick__title">{x.label}</div>
                 <div className="home-quick__note">{x.note}</div>
             </div>
-            <button className="btn btn-outline btn-sm">Abrir</button>
+            <button onClick={() => navigate(`/dashboard${x.query}`)} className="btn btn-outline btn-sm">Abrir</button>
             </div>
         ))}
         </div>
