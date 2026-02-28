@@ -41,8 +41,10 @@ export default function Navbar({user,  onLogout}) {
             {!user ? (<>
                 <li><Link to="/alumnos" onClick={() => setMenuOpen(false)}>Sign In</Link></li>
                 <li><Link to="/singin" onClick={() => setMenuOpen(false)}>Log In</Link>
-                </li></>) : (<li><Link to="/account" onClick={() => setMenuOpen(false)}>Account</Link></li>
-            )}
+                </li></>) : (<>
+                    <li><Link to="/account" onClick={() => setMenuOpen(false)}>Account</Link></li>
+                    <li><button className="logout-btn" onClick={() => { setMenuOpen(false); onLogout(); }}>Logout</button></li>
+                    </>)}
             </ul>
         </div>
         </div>

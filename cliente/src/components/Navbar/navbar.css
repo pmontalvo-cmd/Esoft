@@ -87,3 +87,19 @@
   }
   .sidebar-links a:hover{ background: rgba(11,45,91,.06); }
 }
+
+.sidebar-links .logout-btn{
+  width: 100%;
+  background: transparent;
+  border: 0;
+  padding: 10px 10px;
+  text-align: left;
+  border-radius: 12px;
+  cursor: pointer;
+  font: inherit;
+  color: inherit;
+}
+
+.sidebar-links .logout-btn:hover{
+  background: rgba(11,45,91,0.06);
+}
