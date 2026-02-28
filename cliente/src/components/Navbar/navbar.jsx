@@ -2,16 +2,17 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import "./navbar.css";
 import { getLang, setLang, t } from "../../i18n";
-const [lang, setLangState] = useState(getLang());
 
-const toggleLang = () => {
-const next = lang === "es" ? "en" : "es";
-setLang(next);
-setLangState(next);
-window.location.reload(); 
-};
 export default function Navbar({user,  onLogout}) {
     const [menuOpen, setMenuOpen] = useState(false);
+    const [lang, setLangState] = useState(getLang());
+
+    const toggleLang = () => {
+    const next = lang === "es" ? "en" : "es";
+    setLang(next);
+    setLangState(next);
+    window.location.reload(); 
+    };
 
     return (
     <nav className="app-navbar">
