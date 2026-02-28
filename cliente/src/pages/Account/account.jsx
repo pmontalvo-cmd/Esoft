@@ -35,7 +35,7 @@ if (!dbUser) return <div>No hay datos del usuario.</div>;
 
 return (
 <div className="account-page">
-<section className="section section--accent">
+<section className="section section--accent section--tint-blue">
     <div className="container">
     <header className="account-head">
         <h1 className="section-title">Mi Cuenta</h1>

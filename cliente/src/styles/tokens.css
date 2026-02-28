@@ -14,6 +14,11 @@
 --muted: #475569;
 --border: #E3EAF4;
 
+/* Tints */
+--tint-blue:   #AED9EF;
+--tint-yellow: #F7F0DA;
+--tint-red:    #F4E4E4;
+
 /* Brand */
 --brand-blue:  #0B2D5B; /* dominant (structure) */
 --brand-red:   #C24A4A; /* action (primary CTAs) */

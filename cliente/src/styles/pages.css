@@ -261,6 +261,10 @@ color: var(--text);
 font-weight: 900;
 }
 
+.account-scoreRow:nth-child(3n+1){ background: color-mix(in srgb, var(--brand-blue) 10%, white); }
+.account-scoreRow:nth-child(3n+2){ background: color-mix(in srgb, var(--brand-yellow) 18%, white); }
+.account-scoreRow:nth-child(3n){   background: color-mix(in srgb, var(--brand-red) 10%, white); }
+
 @media (max-width: 900px){
 .account-grid{ grid-template-columns: 1fr; }
 }
