@@ -34,27 +34,60 @@ if (error) return <div style={{ color: "crimson" }}>{error}</div>;
 if (!dbUser) return <div>No hay datos del usuario.</div>;
 
 return (
-    <div className="account-container">
-    <h2>Mi Cuenta</h2>
+<div className="account-page">
+<section className="section section--accent">
+    <div className="container">
+    <header className="account-head">
+        <h1 className="section-title">Mi Cuenta</h1>
+        <p className="section-subtitle">
+        Datos del perfil y puntajes del diagnóstico.
+        </p>
+    </header>
 
-    <div className="account-card">
-        <p><strong>Username:</strong> {dbUser.username}</p>
-        <p><strong>Nombre:</strong> {dbUser.first_name} {dbUser.middle_name} {dbUser.last_name}</p>
-        <p><strong>Grade:</strong> {dbUser.grade}</p>
-        <p><strong>ID:</strong> {dbUser.id}</p>
-    </div>
+    <div className="account-grid">
+        <div className="card account-card">
+        <div className="account-card__title">Perfil</div>
 
-    <h3 style={{ marginTop: 16 }}>Scores</h3>
-    <div className="account-card">
-        <p><strong>Math:</strong> {dbUser.math_score ?? "—"}</p>
-        <p><strong>Science:</strong> {dbUser.science_score ?? "—"}</p>
-        <p><strong>Language:</strong> {dbUser.language_score ?? "—"}</p>
-        <p><strong>Social:</strong> {dbUser.social_score ?? "—"}</p>
-        <p><strong>Tech:</strong> {dbUser.tech_score ?? "—"}</p>
-        <p><strong>Finance:</strong> {dbUser.finance_score ?? "—"}</p>
-        <p><strong>Logic:</strong> {dbUser.logic_score ?? "—"}</p>
+        <div className="account-kv">
+            <span className="account-k">Username</span>
+            <span className="account-v">{dbUser.username}</span>
+        </div>
+
+        <div className="account-kv">
+            <span className="account-k">Nombre</span>
+            <span className="account-v">
+            {dbUser.first_name} {dbUser.middle_name} {dbUser.last_name}
+            </span>
+        </div>
+
+        <div className="account-kv">
+            <span className="account-k">Grade</span>
+            <span className="account-v">{dbUser.grade}</span>
+        </div>
+
+        <div className="account-kv">
+            <span className="account-k">ID</span>
+            <span className="account-v">{dbUser.id}</span>
+        </div>
+        </div>
+
+        <div className="card account-card">
+        <div className="account-card__title">Scores</div>
+
+        <div className="account-scores">
+            <div className="account-scoreRow"><span>Math</span><b>{dbUser.math_score ?? "—"}</b></div>
+            <div className="account-scoreRow"><span>Science</span><b>{dbUser.science_score ?? "—"}</b></div>
+            <div className="account-scoreRow"><span>Language</span><b>{dbUser.language_score ?? "—"}</b></div>
+            <div className="account-scoreRow"><span>Social</span><b>{dbUser.social_score ?? "—"}</b></div>
+            <div className="account-scoreRow"><span>Tech</span><b>{dbUser.tech_score ?? "—"}</b></div>
+            <div className="account-scoreRow"><span>Finance</span><b>{dbUser.finance_score ?? "—"}</b></div>
+            <div className="account-scoreRow"><span>Logic</span><b>{dbUser.logic_score ?? "—"}</b></div>
+        </div>
+        </div>
     </div>
     </div>
+</section>
+</div>
 );
 };
 
