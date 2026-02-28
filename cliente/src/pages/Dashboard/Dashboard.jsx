@@ -1,11 +1,12 @@
 // Dashboard.jsx
 import React, { useEffect, useState, useRef } from "react";
 import { Container, Row, Col, Card, Button, Spinner, Form } from "react-bootstrap";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import API from "../../services/api";
 
 const Dashboard = () => {
   const navigate = useNavigate();
+  const location = useLocation();
 
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -80,6 +81,19 @@ const runSearch = async (e) => {
 
     fetchDashboard();
   }, [userId], [searchQ] );
+
+  useEffect(() => {
+  const params = new URLSearchParams(location.search);
+  const qFromUrl = params.get("q");
+
+  if (qFromUrl) {
+    setSearchQ(qFromUrl);
+    // Ejecutar búsqueda automática
+    setTimeout(() => {
+      runSearch();
+    }, 0);
+  }
+}, [location.search]);
 
   if (loading) {
     return (
