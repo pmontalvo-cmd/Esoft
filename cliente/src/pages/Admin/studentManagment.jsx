@@ -206,27 +206,27 @@ function StudentManagement() {
           </button>
 
           <button className="btn btn-secondary m-1"
-            onClick={() => setTakes_lenguage(takes_lenguage === 1 ? 0 : 1)}>
+            onClick={() => setTakes_lenguage(takes_science === 1 ? 0 : 1)}>
             {takes_science === 1 ? "Science ON" : "Science OFF"}
           </button>
 
           <button className="btn btn-secondary m-1"
-            onClick={() => setTakes_lenguage(takes_lenguage === 1 ? 0 : 1)}>
+            onClick={() => setTakes_lenguage(takes_social === 1 ? 0 : 1)}>
             {takes_social === 1 ? "Social ON" : "Social OFF"}
           </button>
 
           <button className="btn btn-secondary m-1"
-            onClick={() => setTakes_lenguage(takes_lenguage === 1 ? 0 : 1)}>
+            onClick={() => setTakes_lenguage(takes_tech === 1 ? 0 : 1)}>
             {takes_tech === 1 ? "Tech ON" : "Tech OFF"}
           </button>
 
           <button className="btn btn-secondary m-1"
-            onClick={() => setTakes_lenguage(takes_lenguage === 1 ? 0 : 1)}>
+            onClick={() => setTakes_lenguage(takes_finance === 1 ? 0 : 1)}>
             {takes_finance === 1 ? "Finance ON" : "Finance OFF"}
           </button>
 
           <button className="btn btn-secondary m-1"
-            onClick={() => setTakes_lenguage(takes_lenguage === 1 ? 0 : 1)}>
+            onClick={() => setTakes_lenguage(takes_logic === 1 ? 0 : 1)}>
             {takes_logic === 1 ? "Logic ON" : "Logic OFF"}
           </button>
 
