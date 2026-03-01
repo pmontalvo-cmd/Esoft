@@ -16,6 +16,11 @@ function StudentManagement() {
   const [grade, setGrade] = useState("");
   const [takes_math, setTakes_math] = useState(0);
   const [takes_lenguage, setTakes_lenguage] = useState(0);
+  const [takes_science, setTakes_science] = useState(0);
+  const [takes_social, setTakes_social] = useState(0);
+  const [takes_tech, setTakes_tech] = useState(0);
+  const [takes_finance, setTakes_finance] = useState(0);
+  const [takes_logic, setTakes_logic] = useState(0);
   const [alumnosList, setAlumnos] = useState([]);
 
   // CREATE
@@ -29,7 +34,12 @@ function StudentManagement() {
       age,
       grade,
       takes_math,
-      takes_lenguage
+      takes_lenguage,
+      takes_science,
+      takes_social,
+      takes_tech,
+      takes_finance,
+      takes_logic
     }).then(() => {
       limpiarCampos();
       getAlumnos();
@@ -68,7 +78,12 @@ function StudentManagement() {
       age,
       grade,
       takes_math,
-      takes_lenguage
+      takes_lenguage,
+      takes_science,
+      takes_social,
+      takes_tech,
+      takes_finance,
+      takes_logic
     }).then(() => {
       limpiarCampos();
       getAlumnos();
@@ -117,6 +132,11 @@ function StudentManagement() {
     setGrade("");
     setTakes_math(0);
     setTakes_lenguage(0);
+    setTakes_science(0);
+    setTakes_social(0);
+    setTakes_tech(0);
+    setTakes_finance(0);
+    setTakes_logic(0);
     setEditar(false);
   };
 
@@ -132,6 +152,11 @@ function StudentManagement() {
     setGrade(val.grade);
     setTakes_math(val.takes_math);
     setTakes_lenguage(val.takes_lenguage);
+    setTakes_science(val.takes_science);
+    setTakes_social(val.takes_social);
+    setTakes_tech(val.takes_tech);
+    setTakes_finance(val.takes_finance);
+    setTakes_logic(val.takes_logic);
   };
 
   return (
@@ -142,7 +167,6 @@ function StudentManagement() {
         </div>
 
         <div className="card-body">
-
           <input className="form-control mb-2" placeholder="First Name"
             value={first_name}
             onChange={(e) => setFirst_name(e.target.value)} />
@@ -179,6 +203,32 @@ function StudentManagement() {
           <button className="btn btn-secondary m-1"
             onClick={() => setTakes_lenguage(takes_lenguage === 1 ? 0 : 1)}>
             {takes_lenguage === 1 ? "Language ON" : "Language OFF"}
+          </button>
+
+          <button className="btn btn-secondary m-1"
+            onClick={() => setTakes_lenguage(takes_lenguage === 1 ? 0 : 1)}>
+            {takes_science === 1 ? "Science ON" : "Science OFF"}
+          </button>
+
+          <button className="btn btn-secondary m-1"
+            onClick={() => setTakes_lenguage(takes_lenguage === 1 ? 0 : 1)}>
+            {takes_social === 1 ? "Social ON" : "Social OFF"}
+          </button>
+
+          <button className="btn btn-secondary m-1"
+            onClick={() => setTakes_lenguage(takes_lenguage === 1 ? 0 : 1)}>
+            {takes_tech === 1 ? "Tech ON" : "Tech OFF"}
+          </button>
+
+          <button className="btn btn-secondary m-1"
+            onClick={() => setTakes_lenguage(takes_lenguage === 1 ? 0 : 1)}>
+            {takes_finance === 1 ? "Finance ON" : "Finance OFF"}
+
+          <button className="btn btn-secondary m-1"
+            onClick={() => setTakes_lenguage(takes_lenguage === 1 ? 0 : 1)}>
+            {takes_logic === 1 ? "Logic ON" : "Logic OFF"}
+          </button>
+
           </button>
 
         </div>
@@ -220,6 +270,11 @@ function StudentManagement() {
               <td>{val.grade}</td>
               <td>{val.takes_math}</td>
               <td>{val.takes_lenguage}</td>
+              <td>{val.takes_science}</td>
+              <td>{val.takes_social}</td>
+              <td>{val.takes_tech}</td>
+              <td>{val.takes_finance}</td>
+              <td>{val.takes_logic}</td>
               <td>
                 <button className="btn btn-info m-1"
                   onClick={() => editarAlumno(val)}>Editar</button>
