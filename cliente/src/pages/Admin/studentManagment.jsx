@@ -223,12 +223,11 @@ function StudentManagement() {
           <button className="btn btn-secondary m-1"
             onClick={() => setTakes_lenguage(takes_lenguage === 1 ? 0 : 1)}>
             {takes_finance === 1 ? "Finance ON" : "Finance OFF"}
+          </button>
 
           <button className="btn btn-secondary m-1"
             onClick={() => setTakes_lenguage(takes_lenguage === 1 ? 0 : 1)}>
             {takes_logic === 1 ? "Logic ON" : "Logic OFF"}
-          </button>
-
           </button>
 
         </div>
