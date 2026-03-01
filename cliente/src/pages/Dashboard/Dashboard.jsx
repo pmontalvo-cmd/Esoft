@@ -76,23 +76,27 @@ const runSearch = async (e, forcedQ) => {
 
       const endpoint =
         mode === "recommended"
-          ? `/api/dashboard/${userId}`        // recomendado (ya lo tienes)
-          : `/api/dashboard/${userId}/all`;   // EJEMPLO: ajusta a tu ruta real
+          ? `/api/dashboard/${userId}`
+          : `/api/learningblocks`;
 
-      const res = await API.get(endpoint);
-      if (!res.data?.ok) throw new Error("Respuesta del servidor no OK.");
+    const res = await API.get(endpoint);
+    const data = res.data;
 
-    // Trae Scores y User
-    if (res.data.user) setUser(res.data.user);
-    if (res.data.scores) setScores(res.data.scores);
+    let list;
 
-      // Normaliza: recommendedBlocks o allBlocks -> blocks
-      const list =
-        mode === "recommended"
-          ? (res.data.recommendedBlocks ?? [])
-          : (res.data.blocks ?? res.data.allBlocks ?? []);
+    if (mode === "recommended") {
+      if (!data?.ok) throw new Error("Respuesta del servidor no OK.");
 
-      setBlocks(list);
+      if (data.user) setUser(data.user);
+      if (data.scores) setScores(data.scores);
+
+      list = data.recommendedBlocks ?? [];
+    } else {
+      // /api/learningblocks probablemente devuelve array directo
+      list = Array.isArray(data) ? data : data.blocks ?? [];
+    }
+
+    setBlocks(list);
     } catch (e) {
       setError(e.message || "Error cargando bloques");
     } finally {
