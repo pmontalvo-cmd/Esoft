@@ -1,5 +1,6 @@
 import React, { useEffect, useMemo, useState } from "react";
 import API from "../../services/api";
+import Swal from 'sweetalert2';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 const Account = ({ user }) => {
@@ -94,6 +95,12 @@ const onUpdate = async () => {
     // refresca UI
     setDbUser((prev) => (prev ? { ...prev, ...payload } : prev));
     setSaveMsg("Cambios guardados ✅");
+    Swal.fire({
+        title: "<strong>Cambios guardados</strong>",
+        html: `<i>El alumno ${dbUser.first_name} fue actualizado con éxito</i>`,
+        icon: 'success',
+        timer: 3000
+    });
     } catch (e) {
     setError(e.message || "Error actualizando usuario");
     } finally {
