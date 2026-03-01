@@ -244,47 +244,6 @@ function StudentManagement() {
         </div>
       </div>
 
-      <button className='btn btn-primary mt-3' onClick={getAlumnos}>Cargar Alumnos</button>
-
-      <table className="table table-striped mt-3">
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>First Name</th>
-            <th>Username</th>
-            <th>Age</th>
-            <th>Grade</th>
-            <th>Math</th>
-            <th>Language</th>
-            <th>Acciones</th>
-          </tr>
-        </thead>
-        <tbody>
-          {alumnosList.map((val) => (
-            <tr key={val.id}>
-              <td>{val.id}</td>
-              <td>{val.first_name}</td>
-              <td>{val.username}</td>
-              <td>{val.age}</td>
-              <td>{val.grade}</td>
-              <td>{val.takes_math}</td>
-              <td>{val.takes_lenguage}</td>
-              <td>{val.takes_science}</td>
-              <td>{val.takes_social}</td>
-              <td>{val.takes_tech}</td>
-              <td>{val.takes_finance}</td>
-              <td>{val.takes_logic}</td>
-              <td>
-                <button className="btn btn-info m-1"
-                  onClick={() => editarAlumno(val)}>Editar</button>
-                <button className="btn btn-danger m-1"
-                  onClick={() => deleteAlumno(val)}>Eliminar</button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-
     </div>
   );
 }
