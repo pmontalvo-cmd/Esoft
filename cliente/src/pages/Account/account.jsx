@@ -1,5 +1,6 @@
 import React, { useEffect, useMemo, useState } from "react";
 import API from "../../services/api";
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const Account = ({ user }) => {
 const userId = useMemo(
@@ -11,6 +12,13 @@ const [loading, setLoading] = useState(true);
 const [error, setError] = useState("");
 
 const [dbUser, setDbUser] = useState(null);
+const [takes_math, setTakes_math] = useState(0);
+const [takes_lenguage, setTakes_lenguage] = useState(0);
+const [takes_science, setTakes_science] = useState(0);
+const [takes_social, setTakes_social] = useState(0);
+const [takes_tech, setTakes_tech] = useState(0);
+const [takes_finance, setTakes_finance] = useState(0);
+const [takes_logic, setTakes_logic] = useState(0);
 
 // Form editable (lo que el usuario modifica)
 const [form, setForm] = useState({
@@ -161,6 +169,43 @@ return (
                 <span className="account-k">ID</span>
                 <span className="account-v">{dbUser.id}</span>
             </div>
+
+            {/*Botones De Materias*/} 
+        <button className="btn btn-secondary m-1"
+        onClick={() => setTakes_math(takes_math === 1 ? 0 : 1)}>
+        {takes_math === 1 ? "Math ON" : "Math OFF"}
+        </button>
+
+        <button className="btn btn-secondary m-1"
+        onClick={() => setTakes_lenguage(takes_lenguage === 1 ? 0 : 1)}>
+        {takes_lenguage === 1 ? "Language ON" : "Language OFF"}
+        </button>
+
+        <button className="btn btn-secondary m-1"
+        onClick={() => setTakes_science(takes_science === 1 ? 0 : 1)}>
+        {takes_science === 1 ? "Science ON" : "Science OFF"}
+        </button>
+
+        <button className="btn btn-secondary m-1"
+        onClick={() => setTakes_social(takes_social === 1 ? 0 : 1)}>
+        {takes_social === 1 ? "Social ON" : "Social OFF"}
+        </button>
+
+        <button className="btn btn-secondary m-1"
+        onClick={() => setTakes_tech(takes_tech === 1 ? 0 : 1)}>
+        {takes_tech === 1 ? "Tech ON" : "Tech OFF"}
+        </button>
+
+        <button className="btn btn-secondary m-1"
+        onClick={() => setTakes_finance(takes_finance === 1 ? 0 : 1)}>
+        {takes_finance === 1 ? "Finance ON" : "Finance OFF"}
+        </button>
+
+        <button className="btn btn-secondary m-1"
+        onClick={() => setTakes_logic(takes_logic === 1 ? 0 : 1)}>
+        {takes_logic === 1 ? "Logic ON" : "Logic OFF"}
+        </button>
+
             </div>
 
             {/* EDITAR PERFIL */}
