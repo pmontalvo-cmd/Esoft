@@ -57,7 +57,7 @@ function App() {
         <Route path="/singin" element={<SingIn onLoginSuccess={handleLoginSuccess} />} />
         <Route path="/alumnos" element={<StudentManagement />} />
         <Route path="/blocks/:id" element={<BlockDetail/>}/>
-        <Route path="/account" element={user ? <Account user={user} /> : <Navigate to="/singin" />}/>
+        <Route path="/account" element={user ? <Account user={user} /> : <Navigate to="/account" />}/>
       </Routes>
     </Router>
   );
