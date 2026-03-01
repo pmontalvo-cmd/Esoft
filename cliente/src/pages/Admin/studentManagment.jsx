@@ -42,7 +42,6 @@ function StudentManagement() {
       takes_logic
     }).then(() => {
       limpiarCampos();
-      getAlumnos();
       Swal.fire({
         title: "<strong>Registro exitoso</strong>",
         html: `<i>El alumno ${first_name} fue registrado con éxito</i>`,
@@ -53,17 +52,6 @@ function StudentManagement() {
       console.error(error);
       Swal.fire("Error", "No se pudo registrar", "error");
     });
-  };
-
-  // READ
-  const getAlumnos = () => {
-    API.get("/alumnos")
-      .then((response) => {
-        setAlumnos(response.data);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
   };
 
   // UPDATE
@@ -86,7 +74,6 @@ function StudentManagement() {
       takes_logic
     }).then(() => {
       limpiarCampos();
-      getAlumnos();
       Swal.fire({
         title: "<strong>Actualización exitosa</strong>",
         html: `<i>El alumno ${first_name} fue actualizado</i>`,
@@ -96,29 +83,6 @@ function StudentManagement() {
     }).catch((error) => {
       console.error(error);
       Swal.fire("Error", "No se pudo actualizar", "error");
-    });
-  };
-
-  // DELETE
-  const deleteAlumno = (val) => {
-    Swal.fire({
-      title: "Confirmar eliminado?",
-      html: `<i>¿Desea eliminar a <strong>${val.first_name}</strong>?</i>`,
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonText: "Sí, eliminar"
-    }).then((result) => {
-      if (result.isConfirmed) {
-        API.delete(`/delete/${val.id}`)
-          .then(() => {
-            limpiarCampos();
-            getAlumnos();
-            Swal.fire("Eliminado", "Alumno eliminado correctamente", "success");
-          })
-          .catch((error) => {
-            console.error(error);
-          });
-      }
     });
   };
 
@@ -138,25 +102,6 @@ function StudentManagement() {
     setTakes_finance(0);
     setTakes_logic(0);
     setEditar(false);
-  };
-
-  const editarAlumno = (val) => {
-    setEditar(true);
-    setId(val.id);
-    setFirst_name(val.first_name);
-    setMiddle_name(val.middle_name);
-    setLast_name(val.last_name);
-    setUsername(val.username);
-    setPassword(val.password);
-    setAge(val.age);
-    setGrade(val.grade);
-    setTakes_math(val.takes_math);
-    setTakes_lenguage(val.takes_lenguage);
-    setTakes_science(val.takes_science);
-    setTakes_social(val.takes_social);
-    setTakes_tech(val.takes_tech);
-    setTakes_finance(val.takes_finance);
-    setTakes_logic(val.takes_logic);
   };
 
   return (
