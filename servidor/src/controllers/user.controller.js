@@ -78,28 +78,52 @@ async function getUser(req, res) {
 // Update User Info
 async function updateUser(req, res) {
   try {
-    const {
-      id,
-      first_name,
-      middle_name,
-      last_name,
-      age,
-      grade,
-      takes_math,
-      takes_lenguage,
-      username,
-      password
-    } = req.body;
+    const userId = Number(req.body.id);
+    if (!userId) {
+      return res.status(400).json({ ok: false, message: "Missing/invalid id" });
+    }
 
-    await db.query(
-      "UPDATE datos_usuario SET first_name=?, middle_name=?, last_name=?, age=?, grade=?, takes_math=?, takes_lenguage=?, username=?, password=? WHERE id=?",
-      [first_name, middle_name, last_name, age, grade, takes_math, takes_lenguage, username, password, id]
+    // Solo permitir actualizar estos campos
+    const allowed = [
+      "first_name",
+      "middle_name",
+      "last_name",
+      "age",
+      "grade",
+      "takes_math",
+      "takes_lenguage",
+      "username",
+      "password",
+    ];
+
+    const sets = [];
+    const params = [];
+
+    for (const key of allowed) {
+      if (Object.prototype.hasOwnProperty.call(req.body, key)) {
+        // Si el frontend manda "", lo convertimos a NULL (opcional)
+        const val = req.body[key] === "" ? null : req.body[key];
+        sets.push(`${key} = ?`);
+        params.push(val);
+      }
+    }
+
+    // Si no mandaron nada para actualizar
+    if (sets.length === 0) {
+      return res.status(400).json({ ok: false, message: "No fields to update" });
+    }
+
+    params.push(userId);
+
+    await dbQuery(
+      `UPDATE datos_usuario SET ${sets.join(", ")} WHERE id = ?`,
+      params
     );
 
-    res.send("Actualizado!");
+    return res.json({ ok: true });
   } catch (error) {
-    console.error(error);
-    res.status(500).send("DB error");
+    console.error("updateUser error:", error);
+    return res.status(500).json({ ok: false, message: error.message });
   }
 }
 
