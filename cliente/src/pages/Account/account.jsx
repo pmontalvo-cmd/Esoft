@@ -169,6 +169,20 @@ return (
                 <span className="account-k">ID</span>
                 <span className="account-v">{dbUser.id}</span>
             </div>
+
+            {/* SCORES */}
+            <div className="card account-card" style={{ gridColumn: "1 / -1" }}>
+            <div className="account-card__title">Scores</div>
+            <div className="account-scores">
+                <div className="account-scoreRow"><span>Math</span><b>{dbUser.math_score ?? "—"}</b></div>
+                <div className="account-scoreRow"><span>Science</span><b>{dbUser.science_score ?? "—"}</b></div>
+                <div className="account-scoreRow"><span>Language</span><b>{dbUser.language_score ?? "—"}</b></div>
+                <div className="account-scoreRow"><span>Social</span><b>{dbUser.social_score ?? "—"}</b></div>
+                <div className="account-scoreRow"><span>Tech</span><b>{dbUser.tech_score ?? "—"}</b></div>
+                <div className="account-scoreRow"><span>Finance</span><b>{dbUser.finance_score ?? "—"}</b></div>
+                <div className="account-scoreRow"><span>Logic</span><b>{dbUser.logic_score ?? "—"}</b></div>
+            </div>
+            </div>
             </div>
 
             {/* EDITAR PERFIL */}
@@ -232,21 +246,6 @@ return (
             {takes_logic === 1 ? "Logic ON" : "Logic OFF"}
             </button>
             </div>
-
-            {/* SCORES */}
-            <div className="card account-card" style={{ gridColumn: "1 / -1" }}>
-            <div className="account-card__title">Scores</div>
-            <div className="account-scores">
-                <div className="account-scoreRow"><span>Math</span><b>{dbUser.math_score ?? "—"}</b></div>
-                <div className="account-scoreRow"><span>Science</span><b>{dbUser.science_score ?? "—"}</b></div>
-                <div className="account-scoreRow"><span>Language</span><b>{dbUser.language_score ?? "—"}</b></div>
-                <div className="account-scoreRow"><span>Social</span><b>{dbUser.social_score ?? "—"}</b></div>
-                <div className="account-scoreRow"><span>Tech</span><b>{dbUser.tech_score ?? "—"}</b></div>
-                <div className="account-scoreRow"><span>Finance</span><b>{dbUser.finance_score ?? "—"}</b></div>
-                <div className="account-scoreRow"><span>Logic</span><b>{dbUser.logic_score ?? "—"}</b></div>
-            </div>
-            </div>
-
         </div>
         </div>
     </section>

@@ -78,12 +78,10 @@ async function getUser(req, res) {
 // Update User Info
 async function updateUser(req, res) {
   try {
-    const userId = Number(req.body.id);
-    if (!userId) {
-      return res.status(400).json({ ok: false, message: "Missing/invalid id" });
-    }
+    const { id } = req.body;
+    const userId = Number(id);
+    if (!userId) return res.status(400).send("Missing/invalid id");
 
-    // Solo permitir actualizar estos campos
     const allowed = [
       "first_name",
       "middle_name",
@@ -100,30 +98,34 @@ async function updateUser(req, res) {
     const params = [];
 
     for (const key of allowed) {
-      if (Object.prototype.hasOwnProperty.call(req.body, key)) {
-        // Si el frontend manda "", lo convertimos a NULL (opcional)
-        const val = req.body[key] === "" ? null : req.body[key];
-        sets.push(`${key} = ?`);
-        params.push(val);
-      }
+      if (!Object.prototype.hasOwnProperty.call(req.body, key)) continue;
+
+      const raw = req.body[key];
+      if (raw === undefined) continue; // clave para evitar 500
+
+      // opcional: normalizar strings vacíos
+      const val = raw === "" ? null : raw;
+
+      // seguridad: si password viene vacío, no lo actualices
+      if (key === "password" && (val === null || val === "")) continue;
+
+      sets.push(`${key}=?`);
+      params.push(val);
     }
 
-    // Si no mandaron nada para actualizar
-    if (sets.length === 0) {
-      return res.status(400).json({ ok: false, message: "No fields to update" });
-    }
+    if (sets.length === 0) return res.status(400).send("No fields to update");
 
     params.push(userId);
 
-    await dbQuery(
-      `UPDATE datos_usuario SET ${sets.join(", ")} WHERE id = ?`,
+    await db.query(
+      `UPDATE datos_usuario SET ${sets.join(", ")} WHERE id=?`,
       params
     );
 
-    return res.json({ ok: true });
+    res.send("Actualizado!");
   } catch (error) {
-    console.error("updateUser error:", error);
-    return res.status(500).json({ ok: false, message: error.message });
+    console.error(error);
+    res.status(500).send("DB error");
   }
 }
 
