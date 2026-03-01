@@ -10,11 +10,13 @@ const Dashboard = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
+  const [blocks, setBlocks] = useState([]);
+  const [viewMode, setViewMode] = useState("recommended"); 
+
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [user, setUser] = useState(null);
   const [scores, setScores] = useState(null);
-  const [recommendedBlocks, setRecommendedBlocks] = useState([]);
 
   // Barra de búsqueda
   const [searchQ, setSearchQ] = useState("");
@@ -26,26 +28,23 @@ const Dashboard = () => {
 
   const userId = localStorage.getItem("userId");
 
-const runSearch = async (e) => {
+const runSearch = async (e, forcedQ) => {
   e?.preventDefault?.();
-
   const reqId = ++searchReqRef.current;
 
   try {
     setSearchErr("");
     setSearching(true);
-    setSearchResults([]); // limpia SIEMPRE
+    setSearchResults([]);
 
     if (!userId) throw new Error("No hay userId en localStorage.");
 
-    const q = searchQ.trim();
+    const q = (forcedQ ?? searchQ).trim();
     if (!q) return;
 
-    const res = await API.get(`/api/dashboard/${userId}/search`, {
-      params: { q, limit: 12 }
-    });
+    const res = await API.get(`/api/dashboard/${userId}/search`, { params: { q, limit: 12 } });
 
-    if (reqId !== searchReqRef.current) return; // llegó tarde -> ignora
+    if (reqId !== searchReqRef.current) return;
 
     const blocks = res.data.blocks ?? [];
     const unique = Array.from(new Map(blocks.map(b => [b.id, b])).values());
@@ -60,43 +59,54 @@ const runSearch = async (e) => {
 };
 
   useEffect(() => {
-      if (!searchQ.trim()) setSearchResults([]);
-    const fetchDashboard = async () => {
-      try {
-        setLoading(true);
-        setError("");
-
-        if (!userId) throw new Error("No hay userId en localStorage.");
-
-        const res = await API.get(`/api/dashboard/${userId}`);
-        if (!res.data?.ok) throw new Error("Respuesta del servidor no OK.");
-
-        setUser(res.data.user);
-        setScores(res.data.scores);
-        setRecommendedBlocks(res.data.recommendedBlocks ?? []);
-      } catch (e) {
-        setError(e.message || "Error cargando dashboard");
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchDashboard();
-  }, [userId], [searchQ] );
-
-  useEffect(() => {
   const params = new URLSearchParams(location.search);
   const qFromUrl = params.get("q");
-
   if (qFromUrl) {
     setSearchQ(qFromUrl);
-    // Ejecutar búsqueda automática
-    setTimeout(() => {
-      runSearch();
-    }, 0);
+    runSearch(null, qFromUrl);
   }
 }, [location.search]);
 
+  const fetchBlocks = async (mode) => {
+    try {
+      setLoading(true);
+      setError("");
+
+      if (!userId) throw new Error("No hay userId en localStorage.");
+
+      const endpoint =
+        mode === "recommended"
+          ? `/api/dashboard/${userId}`        // recomendado (ya lo tienes)
+          : `/api/dashboard/${userId}/all`;   // EJEMPLO: ajusta a tu ruta real
+
+      const res = await API.get(endpoint);
+      if (!res.data?.ok) throw new Error("Respuesta del servidor no OK.");
+
+    // Trae Scores y User
+    if (res.data.user) setUser(res.data.user);
+    if (res.data.scores) setScores(res.data.scores);
+
+      // Normaliza: recommendedBlocks o allBlocks -> blocks
+      const list =
+        mode === "recommended"
+          ? (res.data.recommendedBlocks ?? [])
+          : (res.data.blocks ?? res.data.allBlocks ?? []);
+
+      setBlocks(list);
+    } catch (e) {
+      setError(e.message || "Error cargando bloques");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+useEffect(() => {
+  fetchBlocks(viewMode);}, [viewMode, userId]);
+
+
+
+
+// Manage Loading and Error
   if (loading) {
     return (
       <Container className="mt-5 d-flex justify-content-center">
@@ -116,7 +126,6 @@ const runSearch = async (e) => {
       </Container>
     );
   }
-
   return (
     <div className="dashboard-page">
       <Container className="page dashboard-page">
@@ -196,10 +205,22 @@ const runSearch = async (e) => {
         {/* Recommended */}
         <Row className="dashboard-grid">
           <Col md={8}>
-            <h4 className="mb-3">{t("dash_recommended")}</h4>
+            <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 12 }}>
+            <h4 className="mb-3">
+            {viewMode === "recommended" ? t("dash_recommended") : t("dash_all_blocks")}
+            </h4>
+
+            <Button
+            variant="outline-primary"
+            onClick={() => setViewMode(v => (v === "recommended" ? "all" : "recommended"))}
+            >
+            {viewMode === "recommended" ? t("btn_show_all") : t("btn_show_recommended")}
+            </Button>
+            </div>
+            
 
             <Row xs={1} md={2} className="g-3">
-              {recommendedBlocks.map((block) => (
+              {blocks.map((block) => (
                 <Col key={block.id}>
                   <Card className="panel block-card">
                     <Card.Body>
@@ -236,9 +257,13 @@ const runSearch = async (e) => {
               ))}
             </Row>
 
-            {recommendedBlocks.length === 0 && (
+            {blocks.length === 0 && (
               <Card className="p-3">
-                <p className="mb-0">{t("dash_recommended_negate")}</p>
+                <p className="mb-0">
+                  {viewMode === "recommended"
+                    ? t("dash_recommended_negate")
+                    : t("dash_all_negate")}
+                </p>
               </Card>
             )}
           </Col>
