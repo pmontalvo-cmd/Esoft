@@ -7,7 +7,7 @@ import { Container, Card, Button } from 'react-bootstrap';
 function QuizIn() {
   return (
 <div className="page-shell">
-  <div className="hero-band">
+  <div className="hero-band--full">
     <Container className="mt-5">
       <Card>
         <Card.Body>

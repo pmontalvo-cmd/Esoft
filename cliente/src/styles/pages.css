@@ -283,6 +283,12 @@ border-bottom: 1px solid var(--border);
 padding: 44px 0;
 }
 
+.hero-band--full{
+min-height: calc(100vh - 80px); /* ajusta 80px si tu navbar mide distinto */
+display: flex;
+align-items: center;
+}
+
 /* Optional second band like Home’s beige section */
 .section-band--warm{
 background: var(--tint-yellow);
@@ -301,4 +307,18 @@ padding: 56px 0;
 border: 1px solid var(--border);
 border-radius: var(--radius);
 box-shadow: var(--shadow-sm);
+}
+
+/* Page titles like Home */
+.page-title{
+margin: 0 0 12px;
+font-size: 48px;
+font-weight: 900;
+line-height: 1.08;
+letter-spacing: -0.03em;
+color: var(--text);
+}
+.page-subtitle{
+margin: 0;
+color: var(--muted);
 }

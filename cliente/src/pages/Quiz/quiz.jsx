@@ -178,7 +178,7 @@ const Quiz = () => {
 
   return (
 <div className="page-shell">
-<div className="hero-band">
+<div className="hero-band--full">
 <div className="page">
   <div className="container">
     <div className="quiz-shell">
