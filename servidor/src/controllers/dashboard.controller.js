@@ -36,7 +36,13 @@ try {
 
 
 function getAllBlocks(req, res){
-pool.query("SELECT * FROM learning_blocks", (err, rows) => {
+
+    const lang = (req.query.lang || "es").toLowerCase();
+
+    const titleSel = lang === "es" ? "COALESCE(title_es, title) AS title" : "title";
+    const summarySel = lang === "es" ? "COALESCE(summary_es, summary) AS summary" : "summary";
+pool.query(`SELECT id, subject, level, grade_min, grade_max, estimated_minutes, tags_json, 
+    ${titleSel}, ${summarySel} FROM learning_blocks ORDER BY id ASC`, (err, rows) => {
     if (err) return res.status(500).json({ ok: false, error: "DB error" });
 
     return res.status(200).json({ ok: true, blocks: rows });
