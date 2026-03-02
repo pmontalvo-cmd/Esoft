@@ -195,9 +195,11 @@ try {
     const count = perSubjectCount.get(item.subject) ?? 0;
     if (count >= 2) continue;
 
+    const gradeForBlocks = Math.min(Number(u.grade) || 0, 12); // Limita Grade a maximo 12
+
     const rowsBlocks = await fetchBlocksForSubject({
         subject: item.subject,
-        grade: u.grade,
+        grade: gradeForBlocks ,
         targetLevel: item.targetLevel,
         limit: 2 - count
     });
@@ -253,7 +255,7 @@ try {
     const uRows = await dbQuery(`SELECT id, grade FROM datos_usuario WHERE id = ?`, [userId]);
     if (uRows.length === 0) return res.status(404).json({ ok: false, message: "User not found" });
 
-    const grade = uRows[0].grade;
+    const gradeForBlocks = Math.min(Number(uRows[0].grade) || 0, 12); // Limita grade a 12
 
     const like = `%${qRaw}%`;
 
@@ -266,7 +268,7 @@ try {
         title LIKE ? OR summary LIKE ? OR tags_json LIKE ?
         )
     `;
-    const params = [grade, like, like, like];
+    const params = [gradeForBlocks, like, like, like];
 
     if (subject) {
     sql += ` AND subject = ?`;
