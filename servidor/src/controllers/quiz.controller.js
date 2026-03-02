@@ -1,7 +1,13 @@
 const {pool} = require("../config/database")
-const {questions} = require("../data/quizData")
 const quizService =require("../services/quiz.service")
 
+const quizDataEn = require("../data/quizData");
+const quizDataEs = require("../data/quizData_es");
+
+function getQuestions(req) {
+    const lang = (req.query.lang || "es").toLowerCase();
+    return (lang === "en") ? quizDataEn.questions : quizDataEs.questions;
+}
 function nextQuestion(req, res) {
 const userId = Number(req.params.userId);
 console.log(`Fetching next question for userId: ${userId}`);
@@ -18,6 +24,7 @@ pool.query("SELECT * FROM datos_usuario WHERE id = ?", [userId], (err, rows) => 
     const user = rows[0];
 
     try {
+    const questions = getQuestions(req);
     const result = quizService.selectNextQuestion({ userId, user, questions });
 
     if (result?.error) {
@@ -41,10 +48,11 @@ function submitAnswer(req, res) {
     const qId = Number(questionId);
     const uId = Number(userId);
 
+    const questions = getQuestions(req);
     const question = questions.find((q) => q.id === qId);
     if (!question) return res.status(404).json({ error: "Question not found" });
 
-    const isCorrect = question.answer === userAnswer;
+    const isCorrect = String(question.answer).trim() === String(userAnswer).trim();
 
     pool.query(
         "SELECT * FROM datos_usuario WHERE id = ?",[uId],(err, rows) => {
