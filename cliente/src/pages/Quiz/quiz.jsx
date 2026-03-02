@@ -177,6 +177,8 @@ const Quiz = () => {
   const progressQuestions = (questionCount / TOTAL_QUESTIONS) * 100;
 
   return (
+<div className="page-shell">
+<div className="hero-band">
 <div className="page">
   <div className="container">
     <div className="quiz-shell">
@@ -234,6 +236,8 @@ const Quiz = () => {
     </Container>
     </div>
   </div>
+</div>
+</div>
 </div>
   );
 };

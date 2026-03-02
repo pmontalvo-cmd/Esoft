@@ -6,6 +6,8 @@ import { Container, Card, Button } from 'react-bootstrap';
 
 function QuizIn() {
   return (
+<div className="page-shell">
+  <div className="hero-band">
     <Container className="mt-5">
       <Card>
         <Card.Body>
@@ -35,6 +37,8 @@ function QuizIn() {
         </Card.Body>
       </Card>
     </Container>
+  </div>
+</div>
   );
 }
 
