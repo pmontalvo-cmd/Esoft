@@ -92,13 +92,13 @@ const Quiz = () => {
         Swal.fire({
             title: "<strong>Correcto</strong>",
             icon: 'success',
-            timer: 3000
+            timer: 500
         });
       } else {
         Swal.fire({
             title: "Incorrecto",
             icon: 'error',
-            timer: 3000
+            timer: 500
         });
       }
 
