@@ -169,7 +169,7 @@ return (
             <p>Diagnóstico → dashboard → bloques sugeridos. O explora cualquier tema como consulta.</p>
             </div>
             <div className="home-final__actions">
-            <button className="btn btn-outline">Explorar catálogo</button>
+            <Link onClick={navigate("/dashboard?mode=all")} className="btn btn-outline">Explorar catálogo</Link>
             <Link to="/quizIn" className="btn btn-primary">Empezar diagnóstico</Link>
             </div>
         </div>

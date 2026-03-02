@@ -39,9 +39,27 @@ const Dashboard = () => {
   }
 };
 
+  // Define User ID !!IMPORTANTISIMO cambia estado entre dashboard solo catalogo y con seccion de recommendados
   const userId = localStorage.getItem("userId");
+  const isGuest = !userId;
+
+  useEffect(() => {
+  const params = new URLSearchParams(location.search);
+  const mode = params.get("mode");
+  if (mode === "all") setViewMode("all");
+  }, [location.search]);
+
+  useEffect(() => {
+  if (isGuest) {
+    setSearchResults([]);
+    setSearchErr("");
+  }
+}, [isGuest]);
 
 const runSearch = async (e, forcedQ) => {
+
+  if (isGuest) return;
+
   e?.preventDefault?.();
   const reqId = ++searchReqRef.current;
 
@@ -80,48 +98,48 @@ const runSearch = async (e, forcedQ) => {
   }
 }, [location.search]);
 
-  const fetchBlocks = async (mode) => {
-    try {
-      setLoading(true);
-      setError("");
+const fetchBlocks = async (mode) => {
+  try {
+    setLoading(true);
+    setError("");
 
-      if (!userId) throw new Error("No hay userId en localStorage.");
+    // si no hay userId, solo catálogo
+    const effectiveMode = isGuest ? "all" : mode;
 
-      const endpoint =
-        mode === "recommended"
-          ? `/api/dashboard/${userId}`
-          : `/api/learningblocks`;
+    const endpoint =
+      effectiveMode === "recommended"
+        ? `/api/dashboard/${userId}`
+        : `/api/learningblocks`;
 
     const res = await API.get(endpoint);
     const data = res.data;
 
     let list;
 
-    if (mode === "recommended") {
+    if (effectiveMode === "recommended") {
       if (!data?.ok) throw new Error("Respuesta del servidor no OK.");
-
       if (data.user) setUser(data.user);
       if (data.scores) setScores(data.scores);
-
       list = data.recommendedBlocks ?? [];
     } else {
-      // /api/learningblocks probablemente devuelve array directo
       list = Array.isArray(data) ? data : data.blocks ?? [];
+      // en guest, no tienes user/scores
+      if (isGuest) {
+        setUser(null);
+        setScores(null);
+      }
     }
 
     setBlocks(list);
-    } catch (e) {
-      setError(e.message || "Error cargando bloques");
-    } finally {
-      setLoading(false);
-    }
-  };
+  } catch (e) {
+    setError(e.message || "Error cargando bloques");
+  } finally {
+    setLoading(false);
+  }
+};
 
 useEffect(() => {
-  fetchBlocks(viewMode);}, [viewMode, userId]);
-
-
-
+  fetchBlocks(viewMode);}, [viewMode, userId, isGuest]);
 
 // Manage Loading and Error
   if (loading) {
@@ -163,14 +181,21 @@ useEffect(() => {
         <Row className="mb-4">
           <Col>
             <Card className="panel p-3 card--tint-blue">
+              {isGuest && (
+                  <p className="page-subtitle">
+                    Inicia sesión para búsqueda y recomendaciones. Mostrando catálogo.
+                  </p>
+              )}
+
               <Form onSubmit={runSearch}>
                 <div style={{ display: "flex", gap: 10 }}>
                   <Form.Control
                     value={searchQ}
                     onChange={(e) => setSearchQ(e.target.value)}
                     placeholder={t("dash_search_placeholder")}
+                    disabled={isGuest}
                   />
-                  <Button type="submit" disabled={searching}>
+                  <Button type="submit" disabled={searching || isGuest}>
                     {t("dash_search_btn")}
                   </Button>
                 </div>
@@ -232,15 +257,17 @@ useEffect(() => {
           <Col md={12}>
             <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 12 }}>
             <h4 className="mb-3">
-            {viewMode === "recommended" ? t("dash_recommended") : t("dash_all_blocks")}
+              {isGuest ? t("dash_all_blocks") : (viewMode === "recommended" ? t("dash_recommended") : t("dash_all_blocks"))}
             </h4>
 
-            <Button
-            variant="outline-primary"
-            onClick={() => setViewMode(v => (v === "recommended" ? "all" : "recommended"))}
-            >
-            {viewMode === "recommended" ? t("btn_show_all") : t("btn_show_recommended")}
-            </Button>
+            {!isGuest && (
+              <Button
+                variant="outline-primary"
+                onClick={() => setViewMode(v => (v === "recommended" ? "all" : "recommended"))}
+              >
+                {viewMode === "recommended" ? t("btn_show_all") : t("btn_show_recommended")}
+              </Button>
+            )}
             </div>
             
 
