@@ -121,12 +121,12 @@ const levelPlans = [
     [targetLevel, Math.max(1, targetLevel - 1), Math.min(4, targetLevel + 1)],
     [Math.max(1, targetLevel - 2), Math.max(1, targetLevel - 1), targetLevel, Math.min(4, targetLevel + 1), Math.min(4, targetLevel + 2)],
 ];
-
+    const titleSel = lang === "es" ? "COALESCE(title_es, title) AS title" : "title";
+    const summarySel = lang === "es" ? "COALESCE(summary_es, summary) AS summary" : "summary";
 for (const levels of levelPlans) {
     const placeholders = levels.map(() => "?").join(",");
 
-    const titleSel = lang === "es" ? "COALESCE(title_es, title) AS title" : "title";
-    const summarySel = lang === "es" ? "COALESCE(summary_es, summary) AS summary" : "summary";
+
 
     const rows = await dbQuery(
     `SELECT id, subject, level, ${titleSel}, ${summarySel}, estimated_minutes, tags_json
@@ -267,7 +267,7 @@ try {
 
 async function searchBlocks(req, res) {
 try {
-    const lang = (req.query.lang || "es").toLowerCase()
+    const lang = (req.query.lang || "es").toLowerCase();
     const userId = Number(req.params.userId);
     if (!userId) return res.status(400).json({ ok: false, message: "Missing/invalid userId" });
 
