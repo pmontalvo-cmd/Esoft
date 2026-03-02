@@ -34,7 +34,7 @@ export default function Navbar({user,  onLogout}) {
                     <Link to="/account" className="nav-right-link">{t("nav_account")}</Link>
                     <button onClick={onLogout} className="logout-btn">{t("nav_logout")}</button>
             </>)}
-            <Link className="lang-btn" onClick={toggleLang}> {lang === "es" ? "ENGLISH" : "ESPAÑOL"}</Link>
+            <Link to="#" className="lang-btn" onClick={toggleLang}> {lang === "es" ? "ENGLISH" : "ESPAÑOL"}</Link>
         </div>
 
         {/* BOTÓN MÓVIL */}
