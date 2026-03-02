@@ -142,6 +142,8 @@ if (error) return <div className="account-page"><div className="container" style
 if (!dbUser) return <div className="account-page"><div className="container">No hay datos del usuario.</div></div>;
 
 return (
+<div className="page-shell">
+<div className="hero-band--full">
     <div className="account-page">
     <section className="section section--accent">
         <div className="container">
@@ -257,6 +259,8 @@ return (
         </div>
     </section>
     </div>
+</div>
+</div>
 );
 };
 
