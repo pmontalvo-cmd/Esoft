@@ -130,7 +130,12 @@ useEffect(() => {
       </Container>
     );
   }
+
+
+  // Return
   return (
+  <div className="page-shell">
+    <div className="hero-band">
     <div className="dashboard-page">
       <Container className="page dashboard-page">
         {/* Header */}
@@ -205,8 +210,11 @@ useEffect(() => {
             </Card>
           </Col>
         </Row>
+      </Container>
+      </div>
 
         {/* Recommended */}
+        <Container className="py-4">
         <Row className="dashboard-grid">
           <Col md={12}>
             <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 12 }}>
@@ -274,6 +282,7 @@ useEffect(() => {
         </Row>
       </Container>
     </div>
+  </div>
   );
 };
 

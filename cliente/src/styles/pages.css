@@ -268,3 +268,37 @@ font-weight: 900;
 @media (max-width: 900px){
 .account-grid{ grid-template-columns: 1fr; }
 }
+
+/* PAGE COLOR LAYERS (Home-style) */
+.page-shell{
+background: var(--bg);
+min-height: 100vh;
+}
+
+/* Big colored band like Home hero */
+.hero-band{
+background: var(--tint-blue);
+border-top: 3px solid var(--brand-blue);
+border-bottom: 1px solid var(--border);
+padding: 44px 0;
+}
+
+/* Optional second band like Home’s beige section */
+.section-band--warm{
+background: var(--tint-yellow);
+border-top: 1px solid var(--border);
+border-bottom: 1px solid var(--border);
+padding: 56px 0;
+}
+
+/* Tinted cards (same concept as Home quick-access tiles) */
+.card--tint-blue{ background: color-mix(in srgb, var(--tint-blue) 40%, #fff 60%); }
+.card--tint-yellow{ background: color-mix(in srgb, var(--tint-yellow) 55%, #fff 45%); }
+.card--tint-red{ background: color-mix(in srgb, var(--tint-red) 55%, #fff 45%); }
+
+/* make sure cards still look consistent */
+.card--tint-blue, .card--tint-yellow, .card--tint-red{
+border: 1px solid var(--border);
+border-radius: var(--radius);
+box-shadow: var(--shadow-sm);
+}
