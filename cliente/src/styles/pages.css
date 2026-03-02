@@ -284,9 +284,10 @@ padding: 44px 0;
 }
 
 .hero-band--full{
+background: var(--tint-blue);
+padding: 44px 0;
 min-height: calc(100vh - 80px); /* ajusta 80px si tu navbar mide distinto */
 display: flex;
-align-items: center;
 }
 
 /* Optional second band like Home’s beige section */
