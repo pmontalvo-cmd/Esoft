@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "./home.css";
+import { t, subjectLabel } from "../../i18n";
 
 const quickRoutes = [
 { label: "Matemáticas • Nivel 2", note: "Aritmética → interés", tone: "tone-blue", query: "level:2"},
@@ -32,7 +33,7 @@ return (
     <div className="container">
     <div className="home-hero__grid">
         <div>
-        <h1>Conocimiento educativo, claro y organizado.</h1>
+        <h1>{t("home_hero_title")}</h1>
         <div className="home-search card">
             <input
             type="text"
@@ -41,18 +42,18 @@ return (
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             />
-            <Link to={`/dashboard?q=${encodeURIComponent(query)}`} className="btn btn-primary">Buscar</Link>
+            <Link to={`/dashboard?q=${encodeURIComponent(query)}`} className="btn btn-primary">{t("home_btn_search")}</Link>
         </div>
 
         <div className="home-cta">
-            <Link to="/quizIn" className="btn btn-primary">Empezar diagnóstico</Link>
-            <Link to="/dashboard" className="btn btn-outline">Ver dashboard</Link>
+            <Link to="/quizIn" className="btn btn-primary">{t("home_btn_startQuiz")}</Link>
+            <Link to="/dashboard" className="btn btn-outline">{t("home_toDashboard")}</Link>
         </div>
         </div>
 
         <div className="home-quick card">
         <div className="home-quick__head">
-            <h3>Accesos rápidos</h3>
+            <h3>{t("home_quickAcces_title")}</h3>
         </div>
 
         <div className="home-quick__list">
@@ -62,7 +63,7 @@ return (
                 <div className="home-quick__title">{x.label}</div>
                 <div className="home-quick__note">{x.note}</div>
                 </div>
-                <button onClick={() => navigate(`/dashboard?q=${x.query}`)} className="btn btn-outline btn-sm">Abrir</button>
+                <button onClick={() => navigate(`/dashboard?q=${x.query}`)} className="btn btn-outline btn-sm">{t("home_btn_open")}</button>
             </div>
             ))}
         </div>
@@ -71,10 +72,10 @@ return (
 
     {/* STATS */}
     <div className="home-stats">
-        <div className="card home-stat"><div className="home-stat__big">7</div><div className="home-stat__small">materias</div></div>
-        <div className="card home-stat"><div className="home-stat__big">100+</div><div className="home-stat__small">temas base</div></div>
-        <div className="card home-stat"><div className="home-stat__big">3–25</div><div className="home-stat__small">min por bloque</div></div>
-        <div className="card home-stat"><div className="home-stat__big">Nivel 1–4</div><div className="home-stat__small">progresión</div></div>
+        <div className="card home-stat"><div className="home-stat__big">7</div><div className="home-stat__small">{t("home_stats_subjects")}</div></div>
+        <div className="card home-stat"><div className="home-stat__big">100+</div><div className="home-stat__small">{t("home_stats_baseSubjects")}</div></div>
+        <div className="card home-stat"><div className="home-stat__big">3–60</div><div className="home-stat__small">{t("home_stats_minPBloks")}</div></div>
+        <div className="card home-stat"><div className="home-stat__big">Nivel 1–4</div><div className="home-stat__small">{t("home_stats_progresion")}</div></div>
     </div>
     </div>
 </section>
@@ -86,41 +87,40 @@ return (
     <div className="container">
     <div className="home-sectionHead">
             <div>
-            <h2>Explorar bloques por area</h2>
+            <h2>{t("home_catalog_title")}</h2>
             </div>
             <div className="home-sectionHead__actions">
-            <button className="btn btn-outline">Ver todo</button>
-            <button className="btn btn-primary">Recomendado</button>
+            <button className="btn btn-outline">{t("btn_view_all")}</button>
+            <button className="btn btn-primary">{t("btn_recommended")}</button>
             </div>
         </div>
 
     <div className="home-twoCol">
     <div className="card home-levels">
-        <h3>Explorar por área</h3>
+        <h3>{t("home_catalog_subTitle1")}</h3>
 
         <div className="home-quick__list" style={{ marginTop: 10 }}>
         {[
-            { label: "Finanzas", note: "Bloques organizados", tone: "tone-blue", query: "Finance" },
-            { label: "Matemáticas", note: "Bloques organizados", tone: "tone-yellow", query: "Math" },
-            { label: "Lenguaje", note: "Bloques organizados", tone: "tone-red", query: "Language"},
-            { label: "Lógica", note: "Bloques organizados", tone: "tone-blue", query: "Logic"},
-            { label: "Ciencias", note: "Bloques organizados", tone: "tone-yellow", query: "Science" },
-            { label: "Tecnología", note: "Bloques organizados", tone: "tone-blue", query: "Tech"},
-            { label: "Estudios Sociales", note: "Bloques organizados", tone: "tone-red", query: "Social" },
+            { label: t("subject_finance"),  tone: "tone-blue",  query: "Finance" },
+            { label: t("subject_math"),     tone: "tone-yellow",query: "Math" },
+            { label: t("subject_language"), tone: "tone-red",   query: "Language"},
+            { label: t("subject_logic"),    tone: "tone-blue",  query: "Logic"},
+            { label: t("subject_science"),  tone: "tone-yellow",query: "Science" },
+            { label: t("subject_tech"),     tone: "tone-blue",  query: "Tech"},
+            { label: t("subject_social"),   tone: "tone-red",   query: "Social" },
         ].map((x) => (
             <div key={x.label} className={`home-quick__item ${x.tone}`}>
             <div>
                 <div className="home-quick__title">{x.label}</div>
-                <div className="home-quick__note">{x.note}</div>
             </div>
-            <button onClick={() => navigate(`/dashboard?q=${x.query}`)} className="btn btn-outline btn-sm">Abrir</button>
+            <button onClick={() => navigate(`/dashboard?q=${x.query}`)} className="btn btn-outline btn-sm">{t("btn_open")}</button>
             </div>
         ))}
         </div>
     </div>
 
     <div className="card home-levels">
-        <h3>Explorar por nivel</h3>
+        <h3>{t("home_catalog_subTitle2")}</h3>
 
         <div className="home-quick__list" style={{ marginTop: 10 }}>
         {[
@@ -134,7 +134,7 @@ return (
                 <div className="home-quick__title">{x.label}</div>
                 <div className="home-quick__note">{x.note}</div>
             </div>
-            <button onClick={() => navigate(`/dashboard?q=${x.query}`)} className="btn btn-outline btn-sm">Abrir</button>
+            <button onClick={() => navigate(`/dashboard?q=${x.query}`)} className="btn btn-outline btn-sm">{t("btn_open")}</button>
             </div>
         ))}
         </div>
@@ -147,8 +147,8 @@ return (
     {/* Porque Nosotros */}
 <section className="section section--tint-red">
 <div className="container">
-    <h2>Porque EcuMentis</h2>
-    <p className="home-muted">Una enciclopedia gratuita para entender temas en minutos.</p>
+    <h2>{t("home_whyUs_title")}</h2>
+    <p className="home-muted">{t("home_whyUs_subTitle")}</p>
 
     <div className="card home-list" style={{ marginTop: 14 }}>
     <p>
@@ -165,12 +165,12 @@ return (
         <div className="container">
         <div className="card home-final">
             <div>
-            <h2>Empieza Según tu Objetivo</h2>
-            <p>Diagnóstico → dashboard → bloques sugeridos. O explora cualquier tema como consulta.</p>
+            <h2>{t("home_btn_startQuiz")}</h2>
+            <p>{t("home_cta_subTitle")}</p>
             </div>
             <div className="home-final__actions">
-            <Link onClick={navigate("/dashboard?mode=all")} className="btn btn-outline">Explorar catálogo</Link>
-            <Link to="/quizIn" className="btn btn-primary">Empezar diagnóstico</Link>
+            <Link onClick={navigate("/dashboard?mode=all")} className="btn btn-outline">{t("home_cta_exploreCatalog")}</Link>
+            <Link to="/quizIn" className="btn btn-primary">{t("home_btn_startQuiz")}</Link>
             </div>
         </div>
         </div>
@@ -182,9 +182,7 @@ return (
     <div className="footer-grid">
     <div>
         <div className="footer-title">ECUMENTIS</div>
-        <p className="footer-muted">
-        Plataforma educativa para consulta rápida estilo enciclopedia + rutas recomendadas por diagnóstico.
-        </p>
+        <p className="footer-muted">{t("home_footer_subTitle")}</p>
         <div style={{ display:"flex", gap:10, flexWrap:"wrap" }}>
         </div>
     </div>
@@ -192,16 +190,16 @@ return (
     <div>
         <div className="footer-title">Producto</div>
         <div className="footer-links">
-        <Link to="/home">Inicio</Link>
-        <Link to="/quizIn">Diagnóstico</Link>
-        <Link to="/dashboard">Inicio</Link>
+        <Link to="/home">{t("nav_home")}</Link>
+        <Link to="/quizIn">{t("nav_quiz")}</Link>
+        <Link to="/dashboard">{t("nav_dashboard")}</Link>
         </div>
     </div>
 
     <div>
         <div className="footer-title">Recursos</div>
         <div className="footer-links">
-        <Link to="#">Catálogo de temas</Link>
+        <Link onClick={navigate("/dashboard?mode=all")}>{t("home_subject_catalog")}</Link>
         <Link to="#">Metodología</Link>
         <Link to="#">Soporte</Link>
         </div>
