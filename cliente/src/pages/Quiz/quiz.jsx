@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, {  useRef, useEffect, useState } from "react";
 import { Container, Card, Button, Spinner, ProgressBar } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import API from "../../services/api";
@@ -29,6 +29,14 @@ const Quiz = () => {
   const [logicScore, setLogicScore] = useState(0);
   const [techScore, setTechScore] = useState(0);
   const [socialScore, setSocialScore] = useState(0);
+
+  const mathScoreRef = useRef(0);
+  const languageScoreRef = useRef(0);
+  const scienceScoreRef = useRef(0);
+  const socialScoreRef = useRef(0);
+  const techScoreRef = useRef(0);
+  const financeScoreRef = useRef(0);
+  const logicScoreRef = useRef(0);
 
   useEffect(() => {
     const id = localStorage.getItem("userId");
@@ -103,13 +111,61 @@ const Quiz = () => {
       }
 
       if (correct) {
-        if (question.category === "math") setMathScore((s) => s + 1);
-        if (question.category === "language") setLanguageScore((s) => s + 1);
-        if (question.category === "science") setScienceScore((s) => s + 1);
-        if (question.category === "social") setSocialScore((s) => s + 1);
-        if (question.category === "tech") setTechScore((s) => s + 1);
-        if (question.category === "finance") setFinanceScore((s) => s + 1);
-        if (question.category === "logic") setLogicScore((s) => s + 1);
+        if (question.category === "math") {
+          setMathScore((s) => {
+            const next = s + 1;
+            mathScoreRef.current = next;
+            return next;
+          });
+        }
+
+        if (question.category === "language") {
+          setLanguageScore((s) => {
+            const next = s + 1;
+            languageScoreRef.current = next;
+            return next;
+          });
+        }
+
+        if (question.category === "science") {
+          setScienceScore((s) => {
+            const next = s + 1;
+            scienceScoreRef.current = next;
+            return next;
+          });
+        }
+
+        if (question.category === "social") {
+          setSocialScore((s) => {
+            const next = s + 1;
+            socialScoreRef.current = next;
+            return next;
+          });
+        }
+
+        if (question.category === "tech") {
+          setTechScore((s) => {
+            const next = s + 1;
+            techScoreRef.current = next;
+            return next;
+          });
+        }
+
+        if (question.category === "finance") {
+          setFinanceScore((s) => {
+            const next = s + 1;
+            financeScoreRef.current = next;
+            return next;
+          });
+        }
+
+        if (question.category === "logic") {
+          setLogicScore((s) => {
+            const next = s + 1;
+            logicScoreRef.current = next;
+            return next;
+          });
+        }
       }
 
       // Avanza conteo
@@ -134,25 +190,21 @@ const Quiz = () => {
 
   const finishQuiz = async (id) => {
     try {
-      setLoading(true);
-      setError("");
-
       await API.post("/api/diagnostic/submit", {
         userId: Number(id),
-        math_score: mathScore,
-        language_score: languageScore,
-        science_score: scienceScore,
-        social_score: socialScore,
-        tech_score: techScore,
-        finance_score: financeScore,
-        logic_score: logicScore,
+        math_score: mathScoreRef.current,
+        language_score: languageScoreRef.current,
+        science_score: scienceScoreRef.current,
+        social_score: socialScoreRef.current,
+        tech_score: techScoreRef.current,
+        finance_score: financeScoreRef.current,
+        logic_score: logicScoreRef.current,
       });
-    } catch (e) {
-      console.error(e);
-      // no bloquees navegación si falla, pero sí muestra error si quieres
-    } finally {
-      setLoading(false);
-      navigate("/dashboard");
+
+      navigate(`/results/${id}`);
+    } catch (err) {
+      console.error("Error submitting diagnostic:", err);
+      alert("Could not submit your answers. Please try again.");
     }
   };
 
