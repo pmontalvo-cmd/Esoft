@@ -114,7 +114,7 @@ return new Promise((resolve, reject) => {
 });
 }
 
-async function fetchBlocksForSubject({ subject, grade, targetLevel, limit }) {
+async function fetchBlocksForSubject({ subject, grade, targetLevel, limit, lang }) {
 // Intentos: primero target y target-1; si no hay, expandimos.
 const levelPlans = [
     [targetLevel, Math.max(1, targetLevel - 1)],
@@ -124,8 +124,12 @@ const levelPlans = [
 
 for (const levels of levelPlans) {
     const placeholders = levels.map(() => "?").join(",");
+
+    const titleSel = lang === "es" ? "COALESCE(title_es, title) AS title" : "title";
+    const summarySel = lang === "es" ? "COALESCE(summary_es, summary) AS summary" : "summary";
+
     const rows = await dbQuery(
-    `SELECT id, subject, level, title, summary, estimated_minutes, tags_json
+    `SELECT id, subject, level, ${titleSel}, ${summarySel}, estimated_minutes, tags_json
     FROM learning_blocks
     WHERE subject = ?
         AND ? BETWEEN grade_min AND grade_max
@@ -148,6 +152,7 @@ try { return JSON.parse(tags_json); } catch { return tags_json; }
 async function getDashboard(req, res) {
 try {
     const userId = Number(req.params.userId);
+    const lang = (req.query.lang || "es").toLowerCase();
     if (!userId) return res.status(400).json({ ok: false, message: "Missing/invalid userId" });
 
     const rows = await dbQuery(
@@ -221,7 +226,9 @@ try {
         subject: item.subject,
         grade: gradeForBlocks ,
         targetLevel: item.targetLevel,
-        limit: 2 - count
+        limit: 2 - count,
+        lang
+
     });
 
     for (const b of rowsBlocks) {
