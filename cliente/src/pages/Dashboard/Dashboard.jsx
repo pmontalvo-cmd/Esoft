@@ -26,17 +26,18 @@ const Dashboard = () => {
   const [searchReqId, setSearchReqId] = useState(0);
   const searchReqRef = useRef(0);
 
-
-  //Estados para Cards de colores
-  const tintClass =
-  b.subject === "math" ? "card--tint-blue" :
-  b.subject === "science" ? "card--tint-yellow" :
-  b.subject === "language" ? "card--tint-red" :
-  b.subject === "social" ? "card--tint-yellow" :
-  b.subject === "finance" ? "card--tint-yellow" :
-  b.subject === "tech" ? "card--tint-blue" :
-  b.subject === "logic" ? "card--tint-red" :
-  "";
+  const getTintClass = (subject) => {
+  switch ((subject ?? "").toLowerCase()) {
+    case "math": return "card--tint-blue";
+    case "science": return "card--tint-yellow";
+    case "language": return "card--tint-red";
+    case "social": return "card--tint-yellow";
+    case "finance": return "card--tint-yellow";
+    case "tech": return "card--tint-blue";
+    case "logic": return "card--tint-red";
+    default: return "";
+  }
+};
 
   const userId = localStorage.getItem("userId");
 
@@ -52,7 +53,7 @@ const runSearch = async (e, forcedQ) => {
     if (!userId) throw new Error("No hay userId en localStorage.");
 
     const q = (forcedQ ?? searchQ).trim();
-    if (!q) return;
+    if (!q) throw new Error("Escribe algo para buscar.");
 
     const res = await API.get(`/api/dashboard/${userId}/search`, { params: { q, limit: 12 } });
 
@@ -183,7 +184,7 @@ useEffect(() => {
                   <Row xs={1} md={2} lg={3} className="g-3">
                     {searchResults.map((block) => (
                       <Col key={block.id}>
-                        <Card className={`panel block-card ${tintClass}`}>
+                        <Card className={`panel block-card ${getTintClass(block.subject)}`}>
                           <Card.Body>
                             <Card.Title>{block.title}</Card.Title>
                             <Card.Subtitle className="mb-2 text-muted">
@@ -246,7 +247,7 @@ useEffect(() => {
             <Row xs={1} md={2} lg={3} className="g-3">
               {blocks.map((block) => (
                 <Col key={block.id}>
-                  <Card className="panel block-card">
+                  <Card className={`panel block-card ${getTintClass(block.subject)}`}>
                     <Card.Body>
                       <Card.Title>{block.title}</Card.Title>
                       <Card.Subtitle className="mb-2 text-muted">
