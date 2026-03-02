@@ -46,7 +46,7 @@ const Quiz = () => {
       setTimeLeft((t) => {
         if (t <= 1) {
           clearInterval(timer);
-          finishQuiz(userId)
+          finishQuiz(id)
           return 0;
         }
         return t - 1;
