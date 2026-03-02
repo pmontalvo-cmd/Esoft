@@ -26,6 +26,18 @@ const Dashboard = () => {
   const [searchReqId, setSearchReqId] = useState(0);
   const searchReqRef = useRef(0);
 
+
+  //Estados para Cards de colores
+  const tintClass =
+  b.subject === "math" ? "card--tint-blue" :
+  b.subject === "science" ? "card--tint-yellow" :
+  b.subject === "language" ? "card--tint-red" :
+  b.subject === "social" ? "card--tint-yellow" :
+  b.subject === "finance" ? "card--tint-yellow" :
+  b.subject === "tech" ? "card--tint-blue" :
+  b.subject === "logic" ? "card--tint-red" :
+  "";
+
   const userId = localStorage.getItem("userId");
 
 const runSearch = async (e, forcedQ) => {
@@ -141,8 +153,8 @@ useEffect(() => {
         {/* Header */}
         <Row className="mb-3">
           <Col>
-            <h2>{t("dash_title")}</h2>
-            {user && <p>Usuario ID: {user.id} | Grado: {user.grade}</p>}
+            <h1 className="page-title">{t("dash_title")}</h1>
+            {user && <p className="page-subtitle">Usuario ID: {user.id} | Grado: {user.grade}</p>}
           </Col>
         </Row>
 
@@ -171,7 +183,7 @@ useEffect(() => {
                   <Row xs={1} md={2} lg={3} className="g-3">
                     {searchResults.map((block) => (
                       <Col key={block.id}>
-                        <Card className="panel block-card">
+                        <Card className={`panel block-card ${tintClass}`}>
                           <Card.Body>
                             <Card.Title>{block.title}</Card.Title>
                             <Card.Subtitle className="mb-2 text-muted">
