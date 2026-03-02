@@ -49,29 +49,43 @@ pool.query(`SELECT id, subject, level, grade_min, grade_max, estimated_minutes, 
 });
 }
 
-function getBlockById(req, res){
+function getBlockById(req, res) {
     const id = Number(req.params.id);
     if (!id) return res.status(400).json({ ok: false, error: "Invalid id" });
 
-    pool.query("SELECT * FROM learning_blocks WHERE id=?", [id], (err, rows) =>{
-        if(err) return res.status(500).json({ ok: false, error: "DB error"});
-        if(rows.length === 0) return res.status(404).json({of: false, error: "Block Not Found"});
+    const lang = (req.query.lang || "es").toLowerCase();
 
-        const block = { ...rows[0] };
+    pool.query(
+        `SELECT id, subject, level, estimated_minutes,
+                title, summary, content_json,
+                title_es, summary_es, content_json_es
+        FROM learning_blocks
+        WHERE id=?`,
+        [id],
+        (err, rows) => {
+        if (err) return res.status(500).json({ ok: false, error: "DB error" });
+        if (rows.length === 0) return res.status(404).json({ ok: false, error: "Block Not Found" });
+
+        const b = rows[0];
+
+        const title = (lang === "es" && b.title_es) ? b.title_es : b.title;
+        const summary = (lang === "es" && b.summary_es) ? b.summary_es : b.summary;
+        const content = (lang === "es" && b.content_json_es) ? b.content_json_es : b.content_json;
 
         return res.status(200).json({
-        ok: true,
-        block: {
-            id: block.id,
-            subject: block.subject,
-            level: block.level,
-            title: block.title,
-            summary: block.summary,
-            estimated_minutes: block.estimated_minutes,
-            content: block.content_json
-            }
-        });
+            ok: true,
+            block: {
+            id: b.id,
+            subject: b.subject,
+            level: b.level,
+            title,
+            summary,
+            estimated_minutes: b.estimated_minutes,
+            content
+        }
     });
+    }
+);
 }
 
 
