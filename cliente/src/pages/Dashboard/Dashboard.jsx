@@ -162,7 +162,7 @@ useEffect(() => {
         {/* Search */}
         <Row className="mb-4">
           <Col>
-            <Card className="panel p-3">
+            <Card className="panel p-3 card--tint-blue">
               <Form onSubmit={runSearch}>
                 <div style={{ display: "flex", gap: 10 }}>
                   <Form.Control
