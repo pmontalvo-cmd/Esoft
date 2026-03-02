@@ -267,6 +267,7 @@ try {
 
 async function searchBlocks(req, res) {
 try {
+    const lang = (req.query.lang || "es").toLowerCase()
     const userId = Number(req.params.userId);
     if (!userId) return res.status(400).json({ ok: false, message: "Missing/invalid userId" });
 
@@ -287,12 +288,20 @@ try {
     const like = `%${qRaw}%`;
 
     // SQL dinámico simple
+    const titleSel = lang === "es" ? "COALESCE(title_es, title)" : "title";
+    const summarySel = lang === "es" ? "COALESCE(summary_es, summary)" : "summary";
+
     let sql = `
-    SELECT id, subject, level, title, summary, estimated_minutes, tags_json
+    SELECT id, subject, level,
+            ${titleSel} AS title,
+            ${summarySel} AS summary,
+            estimated_minutes, tags_json
     FROM learning_blocks
     WHERE ? BETWEEN grade_min AND grade_max
         AND (
-        title LIKE ? OR summary LIKE ? OR tags_json LIKE ?
+        ${titleSel} LIKE ? OR
+        ${summarySel} LIKE ? OR
+        tags_json LIKE ?
         )
     `;
     const params = [gradeForBlocks, like, like, like];
