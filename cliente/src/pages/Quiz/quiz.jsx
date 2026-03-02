@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Container, Card, Button, Spinner, ProgressBar } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import API from "../../services/api";
+import Swal from 'sweetalert2';
 
 const QUIZ_SECONDS = 60;
 const TOTAL_QUESTIONS = 40; 
@@ -87,6 +88,19 @@ const Quiz = () => {
 
       const correct = !!res.data?.correct;
       setFeedback(correct ? "Correcto ✅" : "Incorrecto ❌");
+      if (correct){
+        Swal.fire({
+            title: "<strong>Correcto</strong>",
+            icon: 'success',
+            timer: 3000
+        });
+      } else {
+        Swal.fire({
+            title: "Incorrecto",
+            icon: 'error',
+            timer: 3000
+        });
+      }
 
       if (correct) {
         if (question.category === "math") setMathScore((s) => s + 1);
