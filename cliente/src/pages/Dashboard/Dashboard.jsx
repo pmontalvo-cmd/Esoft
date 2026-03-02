@@ -163,7 +163,7 @@ useEffect(() => {
               {searchResults.length > 0 && (
                 <div style={{ marginTop: 14 }}>
                   <h5 className="mb-2">{t("dash_results")}</h5>
-                  <Row xs={1} md={2} className="g-3">
+                  <Row xs={1} md={2} lg={3} className="g-3">
                     {searchResults.map((block) => (
                       <Col key={block.id}>
                         <Card className="panel block-card">
@@ -208,7 +208,7 @@ useEffect(() => {
 
         {/* Recommended */}
         <Row className="dashboard-grid">
-          <Col md={8}>
+          <Col md={12}>
             <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 12 }}>
             <h4 className="mb-3">
             {viewMode === "recommended" ? t("dash_recommended") : t("dash_all_blocks")}
@@ -223,7 +223,7 @@ useEffect(() => {
             </div>
             
 
-            <Row xs={1} md={2} className="g-3">
+            <Row xs={1} md={2} lg={3} className="g-3">
               {blocks.map((block) => (
                 <Col key={block.id}>
                   <Card className="panel block-card">
