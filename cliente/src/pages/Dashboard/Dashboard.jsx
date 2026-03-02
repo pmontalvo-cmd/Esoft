@@ -180,7 +180,7 @@ useEffect(() => {
 
               {searchResults.length > 0 && (
                 <div style={{ marginTop: 14 }}>
-                  <h5 className="mb-2 page-title">{t("dash_results")}</h5>
+                  <h4 className="mb-2 page-title">{t("dash_results")}</h4>
                   <Row xs={1} md={2} lg={3} className="g-3">
                     {searchResults.map((block) => (
                       <Col key={block.id}>
