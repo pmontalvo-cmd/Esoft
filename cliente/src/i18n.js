@@ -76,7 +76,7 @@ en: {
     dash_results: "Results",
 
     home_subject_catalog: "Catalog Of Subjects" ,
-    home_hero_title: "Educational knowledge, clear and organiced.",
+    home_hero_title: "Educational knowledge, clear and organized.",
     home_quickAcces_title: "Quick Links",
     home_btn_search: "Search",
     home_btn_startQuiz: "Start Diagnostic",
