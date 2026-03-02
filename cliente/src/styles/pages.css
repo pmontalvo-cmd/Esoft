@@ -286,12 +286,18 @@ padding: 44px 0;
 
 .hero-band--full{
 background: var(--tint-blue);
-padding: 44px 0;
-min-height: calc(100vh - 80px); /* ajusta 80px si tu navbar mide distinto */
-width: 100%;
+min-height: calc(100vh - 80px); /* adjust navbar height */
 display: flex;
-justify-content: center; /* centers the inner Container */
-align-items: center;
+justify-content: center;
+align-items: flex-start;          /* <-- key change */
+padding: 64px 0;    
+}
+
+@media (max-width: 768px){
+.hero-band--full{
+    align-items: center;            /* mobile*/
+    padding: 32px 0;
+}
 }
 
 /* Optional second band like Home’s beige section */
