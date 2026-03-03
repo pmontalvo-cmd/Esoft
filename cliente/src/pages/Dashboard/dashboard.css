@@ -10,7 +10,7 @@ position: relative;
 .dashboard-shell::after {
 content: "";
 position: fixed;
-top: 150px; /* ajusta a la altura de tu navbar */
+top: 80px; /* ajusta a la altura de tu navbar */
 bottom: 0;
 width: clamp(12px, calc((100vw - var(--container)) / 2 - var(--side-gap)), 260px);
 pointer-events: none;
