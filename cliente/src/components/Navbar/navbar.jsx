@@ -7,11 +7,15 @@ export default function Navbar({user,  onLogout}) {
     const [menuOpen, setMenuOpen] = useState(false);
     const [lang, setLangState] = useState(getLang());
 
-    const toggleLang = () => {
+    const toggleLang = (e) => {
+    e?.preventDefault?.();
+    e?.stopPropagation?.();
     const next = lang === "es" ? "en" : "es";
+    const here = window.location.pathname + window.location.search + window.location.hash;
     setLang(next);
     setLangState(next);
-    window.location.reload(); 
+    // Fuerza refresh manteniendo la ruta exacta
+    window.location.assign(here);
     };
 
     return (
