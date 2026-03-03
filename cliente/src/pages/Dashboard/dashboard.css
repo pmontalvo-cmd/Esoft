@@ -1,41 +1,40 @@
-/* Barras laterales fijas alineadas al padding del container */
-.dashboard-page{
+/* wrapper general del dashboard */
+.dashboard-shell {
+--container: 1120px; /* iguala al max-width real de tu contenido */
+--side-gap: 14px;    /* espacio entre barra y cards */
 position: relative;
---side-pad: 24px; /* coincide con .container padding-left/right */
 }
 
-/* Barras laterales (no afectan layout) */
-.dashboard-page::before,
-.dashboard-page::after{
-content:"";
+/* barras */
+.dashboard-shell::before,
+.dashboard-shell::after {
+content: "";
 position: fixed;
-top: 64px;                 /* ajusta a tu navbar */
+top: 80px; /* ajusta a la altura de tu navbar */
 bottom: 0;
-width: var(--side-pad);    /* <-- clave: cubre todo el padding */
+width: clamp(12px, calc((100vw - var(--container)) / 2 - var(--side-gap)), 260px);
 pointer-events: none;
 z-index: 0;
+border-radius: 12px;
 opacity: 0.9;
 }
 
-.dashboard-page::before{
+/* izquierda */
+.dashboard-shell::before {
 left: 0;
-background: rgba(0, 90, 140, 0.18);
-border-right: 1px solid rgba(15, 23, 42, 0.06);
+background: linear-gradient(to bottom, #1f6feb, #1f6feb00);
 }
 
-.dashboard-page::after{
+/* derecha */
+.dashboard-shell::after {
 right: 0;
-background: rgba(180, 50, 60, 0.14);
-border-left: 1px solid rgba(15, 23, 42, 0.06);
+background: linear-gradient(to bottom, #ff4d4d, #ff4d4d00);
 }
 
-/* contenido por encima */
-.dashboard-page > *{
+/* asegura contenido encima */
+.dashboard-shell .container,
+.dashboard-shell .dashboard-content {
 position: relative;
 z-index: 1;
-}
-
-/* móvil: reduce padding y por tanto barra */
-@media (max-width: 640px){
-.dashboard-page{ --side-pad: 10px; }
+max-width: var(--container);
 }

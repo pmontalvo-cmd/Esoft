@@ -166,7 +166,7 @@ useEffect(() => {
 
   // Return
   return (
-  <div className="page-shell">
+  <div className="dashboard-shell">
     <div className="hero-band">
     <div className="dashboard-page">
       <Container className="page dashboard-page">
