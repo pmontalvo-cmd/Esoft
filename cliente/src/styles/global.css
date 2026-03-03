@@ -47,3 +47,13 @@ color: #0F172A;
 html, body{
     overflow-x: hidden;
 }
+
+/*Esconde el crollBar Manteniendo scroll*/
+html, body{
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+html::-webkit-scrollbar, body::-webkit-scrollbar{
+    width: 0;
+    height: 0;
+}
