@@ -11,7 +11,7 @@ position: relative;
 .section--topband{
 position: relative;
 overflow: hidden; /* opcional */
---band-h: 64px;   /* <--- AQUI aumentas/disminuyes la “fila” */
+--band-h: 500px;
 --band-color: #15526d; /* azul oscuro */
 }
 
