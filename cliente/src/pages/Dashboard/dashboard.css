@@ -3,22 +3,34 @@
 --container: 1120px; /* iguala al max-width real de tu contenido */
 --side-gap: 14px;    /* espacio entre barra y cards */
 position: relative;
---nav-h: 64px;           /* ~64px según tu ruler (ajusta si tu navbar no mide eso) */
---topbar-h: 64px;        /* ~64px según tu ruler */
---topbar: #15526d;       /* azul más oscuro que #1EA7D8 */
-
+--nav-h: 64px;
+--topbar-h: 64px;
+--topbar: #15526d;
 }
-/* Barra superior que rellena el “espacio negativo” */
-.dash-topbar{
-position: fixed;
-left: 0;
-right: 0;
-top: var(--nav-h);
-height: var(--topbar-h);
-background: var(--topbar);
+/* Franja sólida detrás del contenido */
+.section--topband{
+position: relative;
+overflow: hidden; /* opcional */
+--band-h: 64px;   /* <--- AQUI aumentas/disminuyes la “fila” */
+--band-color: #15526d; /* azul oscuro */
+}
+
+.section--topband::before{
+content:"";
+position:absolute;
+left:0; right:0; top:0;
+height: var(--band-h);
+background: var(--band-color);
 z-index: 0;
 pointer-events: none;
 }
+
+/* Asegura que el contenido quede encima */
+.section--topband > *{
+position: relative;
+z-index: 1;
+}
+
 /* barras */
 .dashboard-shell::before,
 .dashboard-shell::after {

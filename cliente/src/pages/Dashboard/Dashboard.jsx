@@ -168,7 +168,7 @@ useEffect(() => {
   return (
   <div className="dashboard-shell">
     <div className="hero-band">
-    <div className="dashboard-page dash-topbar" aria-hidden="true">
+  <section className="section section--topband">
       <Container className="page dashboard-page">
         {/* Header */}
         <Row className="mb-3">
@@ -250,7 +250,7 @@ useEffect(() => {
           </Col>
         </Row>
       </Container>
-      </div>
+  </section>
 
         {/* Recommended */}
         <Container className="py-4">
