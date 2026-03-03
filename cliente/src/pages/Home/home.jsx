@@ -4,9 +4,9 @@ import "./home.css";
 import { t, subjectLabel } from "../../i18n";
 
 const quickRoutes = [
-{ label: "Matemáticas • Nivel 2", note: "Aritmética → interés", tone: "tone-blue", query: "level:2"},
-{ label: "Ciencias • Nivel 3", note: "Fuerza y movimiento", tone: "tone-yellow", query: "level:3" },
-{ label: "Lenguaje • Nivel 2", note: "Lectura crítica", tone: "tone-red", query: "level:2" },
+{ label: t("subject_math") + "Nivel 2", note: "Aritmética → interés", tone: "tone-blue", query: "level:2"},
+{ label: t("subject_science") + "Nivel 3", note: "Fuerza y movimiento", tone: "tone-yellow", query: "level:3" },
+{ label: t("subject_language") + "Nivel 2", note: "Lectura crítica", tone: "tone-red", query: "level:2" },
 ];
 
 const subjects = [
