@@ -108,7 +108,7 @@ function StudentManagement() {
     <div className='container'>
       <div className="card text-center">
         <div className="card-header">
-          GESTIÓN DE ALUMNOS
+          Bienvenido a EcuMentis. Ingresa Tus datos para registrarte
         </div>
 
         <div className="card-body">
