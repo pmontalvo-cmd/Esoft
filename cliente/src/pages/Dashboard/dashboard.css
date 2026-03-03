@@ -12,7 +12,7 @@ z-index: 0;
 .section--topband{
 position: relative;
 overflow: visible;     /* importante si luego mueves top negativo */
---band-h: 500px;       /* <- ESTE es el alto EXACTO que quieres ver */
+--band-h: 450px;       /* <- ESTE es el alto EXACTO que quieres ver */
 --band-top: -64px;       /* <- sube/baja la franja sin cambiar su alto */
 --band-color: #15526d;
 }
