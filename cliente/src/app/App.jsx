@@ -58,6 +58,7 @@ function App() {
         <Route path="/alumnos" element={<StudentManagement />} />
         <Route path="/blocks/:id" element={<BlockDetail/>}/>
         <Route path="/account" element={user ? <Account user={user} /> : <Navigate to="/account" />}/>
+        <Route path="/quiz/done" element={<QuizDone />} />
       </Routes>
     </Router>
   );

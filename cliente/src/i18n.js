@@ -1,5 +1,6 @@
 export const STRINGS = {
 es: {
+    // Navegation Bar
     nav_home: "Inicio",
     nav_quiz: "Diagnóstico",
     nav_dashboard: "Panel",
@@ -8,6 +9,7 @@ es: {
     nav_signup: "Registrarse",
     nav_logout: "Cerrar sesión",
 
+    // Dashboard
     dash_title: "Panel",
     dash_recommended: "Bloques recomendados",
     dash_recommended_negate: "No Hay Bloques Recomendados",
@@ -17,6 +19,7 @@ es: {
     dash_search_btn: "Buscar",
     dash_results: "Resultados",
 
+    //Home
     home_subject_catalog: "Catálogo de temas" ,
     home_hero_title: "Conocimiento educativo, claro y organizado.",
     home_quickAcces_title: "Accesos rápidos",
@@ -37,6 +40,13 @@ es: {
     home_cta_exploreCatalog: "Explorar Catalogo",
     home_footer_subTitle: "Plataforma educativa para consulta rápida estilo enciclopedia + rutas recomendadas por diagnóstico.",
 
+    //QUIZ
+    quiz_done_title: "Diagnóstico completado",
+    quiz_done_subtitle: "Listo. Ya generamos tus bloques recomendados según tus resultados. Puedes revisarlos ahora o explorar todo el catálogo.",
+    quiz_done_cta: "Ver mis recomendados",
+    quiz_done_catalog: "Explorar catálogo",
+
+    // Global
     btn_open: "Abrir",
     btn_start: "Empezar",
     btn_show_all: "Mostrar Todos",
@@ -58,6 +68,7 @@ es: {
     minutes: "min",
 },
 en: {
+    //Navegation Bar
     nav_home: "Home",
     nav_quiz: "Quiz",
     nav_dashboard: "Dashboard",
@@ -66,6 +77,7 @@ en: {
     nav_signup: "Sign Up",
     nav_logout: "Logout",
 
+    // Dashboard
     dash_title: "Dashboard",
     dash_recommended: "Recommended Learning Blocks",
     dash_recommended_negate: "No Recomended Learning Blocks",
@@ -75,6 +87,7 @@ en: {
     dash_search_btn: "Search",
     dash_results: "Results",
 
+    // Home
     home_subject_catalog: "Catalog Of Subjects" ,
     home_hero_title: "Educational knowledge, clear and organized.",
     home_quickAcces_title: "Quick Links",
@@ -95,6 +108,13 @@ en: {
     home_cta_exploreCatalog: "Explore Catalog",
     home_footer_subTitle: "Educational platform for rapid and recommendation-based learning.",
 
+    //QUIZ
+    quiz_done_title: "Diagnostic complete",
+    quiz_done_subtitle: "All set. We\'ve generated recommended learning blocks based on your results. You can view them now or browse the full catalog.",
+    quiz_done_cta: "View my recommendations",
+    quiz_done_catalog: "Browse catalog",
+
+    // Global
     btn_open: "Open",
     btn_start: "Start",
     btn_show_all: "Show All",

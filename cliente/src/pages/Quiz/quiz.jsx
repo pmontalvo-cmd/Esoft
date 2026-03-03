@@ -201,7 +201,7 @@ const Quiz = () => {
         logic_score: logicScoreRef.current,
       });
 
-      navigate(`/results/${id}`);
+      navigate("/quiz/done");
     } catch (err) {
       console.error("Error submitting diagnostic:", err);
       alert("Could not submit your answers. Please try again.");
