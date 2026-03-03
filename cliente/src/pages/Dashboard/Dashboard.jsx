@@ -168,7 +168,7 @@ useEffect(() => {
   return (
   <div className="dashboard-shell">
     <div className="hero-band">
-    <div className="dashboard-page">
+    <div className="dashboard-page dash-topbar" aria-hidden="true">
       <Container className="page dashboard-page">
         {/* Header */}
         <Row className="mb-3">
