@@ -169,7 +169,7 @@ return (
             <p>{t("home_cta_subTitle")}</p>
             </div>
             <div className="home-final__actions">
-            <Link onClick={navigate("/dashboard?mode=all")} className="btn btn-outline">{t("home_cta_exploreCatalog")}</Link>
+            <Link to="/dashboard?mode=all" className="btn btn-outline">{t("home_cta_exploreCatalog")}</Link>
             <Link to="/quizIn" className="btn btn-primary">{t("home_btn_startQuiz")}</Link>
             </div>
         </div>
@@ -199,7 +199,7 @@ return (
     <div>
         <div className="footer-title">Recursos</div>
         <div className="footer-links">
-        <Link onClick={navigate("/dashboard?mode=all")}>{t("home_subject_catalog")}</Link>
+        <Link to="/dashboard?mode=all">{t("home_subject_catalog")}</Link>
         <Link to="#">Metodología</Link>
         <Link to="#">Soporte</Link>
         </div>
