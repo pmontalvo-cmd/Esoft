@@ -34,7 +34,7 @@ export default function Navbar({user,  onLogout}) {
                     <Link to="/account" className="nav-right-link">{t("nav_account")}</Link>
                     <button onClick={onLogout} className="logout-btn">{t("nav_logout")}</button>
             </>)}
-            <Link to="#" className="lang-btn" onClick={toggleLang}> {lang === "es" ? "ENGLISH" : "ESPAÑOL"}</Link>
+            <button className="lang-btn" onClick={toggleLang}> {lang === "es" ? "ENGLISH" : "ESPAÑOL"}</button>
         </div>
 
         {/* BOTÓN MÓVIL */}
@@ -55,7 +55,7 @@ export default function Navbar({user,  onLogout}) {
                 <li><Link to="/account" onClick={() => setMenuOpen(false)}>{t("nav_account")}</Link></li>
                 <li><button className="logout-btn" onClick={() => { setMenuOpen(false); onLogout(); }}>{t("nav_logout")}</button></li>
             </>)}
-                <li><Link className="lang-btn" onClick={toggleLang}> {lang === "es" ? "ENGLISH" : "ESPAÑOL"}</Link></li>
+                <li><button className="lang-btn" onClick={toggleLang}> {lang === "es" ? "ENGLISH" : "ESPAÑOL"}</button></li>
             </ul>
         </div>
         </div>
