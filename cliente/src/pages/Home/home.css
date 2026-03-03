@@ -471,3 +471,45 @@ Responsive
 .home-subjects{ grid-template-columns: 1fr; }
 .footer-grid{ grid-template-columns: 1fr; }
 }
+
+/* ====== FOTO DE FONDO POR SECCIÓN (mezclada + fade) ====== */
+.section--photo {
+position: relative;
+overflow: hidden; /* evita que la foto se salga */
+}
+
+/* capa de imagen */
+.section--photo::before {
+content: "";
+position: absolute;
+inset: 0;
+pointer-events: none;
+z-index: 0;
+
+background-image: var(--section-photo);
+background-size: cover;
+background-position: center;
+
+opacity: 0.14;                 /* sube/baja: 0.10 - 0.22 */
+filter: grayscale(1) contrast(1.05);
+
+mix-blend-mode: multiply;       /* se “mezcla” con tu color */
+
+/* fade vertical (arriba fuerte → abajo desaparece) */
+-webkit-mask-image: linear-gradient(to bottom,
+    rgba(0,0,0,1) 0%,
+    rgba(0,0,0,0.65) 35%,
+    rgba(0,0,0,0.00) 85%
+);
+mask-image: linear-gradient(to bottom,
+    rgba(0,0,0,1) 0%,
+    rgba(0,0,0,0.65) 35%,
+    rgba(0,0,0,0.00) 85%
+);
+}
+
+/* asegura que el contenido quede arriba */
+.section--photo > * {
+position: relative;
+z-index: 1;
+}
