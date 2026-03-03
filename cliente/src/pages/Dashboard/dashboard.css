@@ -3,6 +3,7 @@
 --container: 1120px; /* iguala al max-width real de tu contenido */
 --side-gap: 14px;    /* espacio entre barra y cards */
 position: relative;
+isolation: isolate;
 --nav-h: 64px;
 --topbar-h: 64px;
 --topbar: #15526d;
