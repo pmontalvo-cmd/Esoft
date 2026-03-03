@@ -10,7 +10,7 @@ position: relative;
 .dashboard-shell::after {
 content: "";
 position: fixed;
-top: 80px; /* ajusta a la altura de tu navbar */
+top: 90px; /* ajusta a la altura de tu navbar */
 bottom: 0;
 width: clamp(12px, calc((100vw - var(--container)) / 2 - var(--side-gap)), 260px);
 pointer-events: none;
@@ -22,13 +22,13 @@ opacity: 0.9;
 /* izquierda */
 .dashboard-shell::before {
 left: 0;
-background: linear-gradient(to bottom, #1f6feb, #1f6feb00);
+background: #FFC523;
 }
 
 /* derecha */
 .dashboard-shell::after {
 right: 0;
-background: linear-gradient(to bottom, #ff4d4d, #ff4d4d00);
+background: #EF4444;
 }
 
 /* asegura contenido encima */
