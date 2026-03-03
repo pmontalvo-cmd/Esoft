@@ -1,0 +1,41 @@
+/* Barras laterales fijas alineadas al padding del container */
+.dashboard-page{
+position: relative;
+--side-pad: 24px; /* coincide con .container padding-left/right */
+}
+
+/* Barras laterales (no afectan layout) */
+.dashboard-page::before,
+.dashboard-page::after{
+content:"";
+position: fixed;
+top: 64px;                 /* ajusta a tu navbar */
+bottom: 0;
+width: var(--side-pad);    /* <-- clave: cubre todo el padding */
+pointer-events: none;
+z-index: 0;
+opacity: 0.9;
+}
+
+.dashboard-page::before{
+left: 0;
+background: rgba(0, 90, 140, 0.18);
+border-right: 1px solid rgba(15, 23, 42, 0.06);
+}
+
+.dashboard-page::after{
+right: 0;
+background: rgba(180, 50, 60, 0.14);
+border-left: 1px solid rgba(15, 23, 42, 0.06);
+}
+
+/* contenido por encima */
+.dashboard-page > *{
+position: relative;
+z-index: 1;
+}
+
+/* móvil: reduce padding y por tanto barra */
+@media (max-width: 640px){
+.dashboard-page{ --side-pad: 10px; }
+}

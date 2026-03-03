@@ -4,6 +4,7 @@ import { Container, Row, Col, Card, Button, Spinner, Form } from "react-bootstra
 import { useNavigate, useLocation } from "react-router-dom";
 import API from "../../services/api";
 import { t, subjectLabel } from "../../i18n";
+import './dashboard.css'
 
 
 const Dashboard = () => {
