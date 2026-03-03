@@ -11,6 +11,7 @@ import Home from '../pages/Home/home';
 import Dashboard from '../pages/Dashboard/Dashboard';
 import Quiz from '../pages/Quiz/quiz';
 import QuizIn from '../pages/Quiz/quizInstrucciones';
+import QuizDone from '../pages/Quiz/quizDone'
 import BlockDetail from '../pages/LearningBlocks/BlockDetails';
 import Account from '../pages/Account/account';
 
