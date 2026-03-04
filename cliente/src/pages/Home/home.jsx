@@ -83,7 +83,8 @@ return (
 
     {/* CATALOGO */}
 <div className="section section--tint-yellow">
-    <div className="container section--photo"  style={{ "--section-photo": "url(/images/home/explore.jpg)" }}>
+<section className="section--photo"  style={{ "--section-photo": "url(/images/home/explore.jpg)" }}>
+    <div className="container">
     <div className="home-sectionHead">
             <div>
             <h2>{t("home_catalog_title")}</h2>
@@ -141,11 +142,13 @@ return (
     </div>
 
     </div>
+</section>
 </div>
 
     {/* Porque Nosotros */}
 <section className="section section--tint-red">
-<div className="container section--photo"  style={{ "--section-photo": "url(/images/home/why.jpg)" }}>
+<section className="section--photo" style={{ "--section-photo": "url(/images/home/why.jpg)" }}>
+<div className="container">
     <h2>{t("home_how_title")}</h2>
     <p className="home-muted">{t("home_how_subtitle")}</p>
     <div className="home-howItWorks">
@@ -186,6 +189,7 @@ return (
     </div>
     </div>
 </div>
+</section>
 </section>
 
     {/* CTA FINAL */}
