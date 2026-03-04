@@ -146,59 +146,43 @@ return (
     {/* Porque Nosotros */}
 <section className="section section--tint-red">
 <div className="container">
-    <h2>How it Works</h2>
-    <p className="home-muted">
-    Usa EcuMentis de dos formas: explorar libremente o desbloquear una ruta recomendada.
-    </p>
-
+    <h2>{t("home_how_title")}</h2>
+    <p className="home-muted">{t("home_how_subtitle")}</p>
     <div className="home-howItWorks">
     <div className="card home-howCard tone-blue">
         <div className="home-howCard__step">1</div>
-        <h3>Explore freely</h3>
-        <p>
-        Usa la búsqueda o entra al catálogo para abrir bloques por tema o nivel.
-        No necesitas cuenta para consultar contenido.
-        </p>
+        <h3>{t("home_how_step1_title")}</h3>
+        <p>{t("home_how_step1_text")}</p>
     </div>
 
     <div className="card home-howCard tone-yellow">
         <div className="home-howCard__step">2</div>
-        <h3>Create your route</h3>
-        <p>
-        Regístrate, inicia sesión y toma el quiz diagnóstico para definir tu nivel
-        por materia.
-        </p>
+        <h3>{t("home_how_step2_title")}</h3>
+        <p>{t("home_how_step2_text")}</p>
     </div>
 
     <div className="card home-howCard tone-red">
         <div className="home-howCard__step">3</div>
-        <h3>Get recommendations</h3>
-        <p>
-        Ve al Dashboard para ver bloques recomendados según tu base,
-        o consulta todos los bloques si solo quieres explorar.
-        </p>
+        <h3>{t("home_how_step3_title")}</h3>
+        <p>{t("home_how_step3_text")}</p>
     </div>
     </div>
 
     <div className="card home-list home-howSummary">
     <div className="home-list__item">
         <div>
-        <div className="home-list__title">Quick path</div>
-        <div className="home-list__meta">Search or Dashboard → open blocks immediately</div>
+        <div className="home-list__title">{t("home_how_path1_title")}</div>
+        <div className="home-list__meta">{t("home_how_path1_text")}</div>
         </div>
-        <Link to="/dashboard?mode=all" className="btn btn-outline btn-sm">
-        Explore
-        </Link>
+        <Link to="/dashboard?mode=all" className="btn btn-outline btn-sm">{t("btn_explore")}</Link>
     </div>
 
     <div className="home-list__item">
         <div>
-        <div className="home-list__title">Personalized path</div>
-        <div className="home-list__meta">Register → Login → Diagnostic Quiz → Dashboard</div>
+        <div className="home-list__title">{t("home_how_path2_title")}</div>
+        <div className="home-list__meta">{t("home_how_path2_text")}</div>
         </div>
-        <Link to="/quizIn" className="btn btn-primary btn-sm">
-        Start
-        </Link>
+        <Link to="/quizIn" className="btn btn-primary btn-sm">{t("btn_start")}</Link>
     </div>
     </div>
 </div>
@@ -232,7 +216,7 @@ return (
     </div>
 
     <div>
-        <div className="footer-title">Producto</div>
+        <div className="footer-title">{t("footer_col_product")}</div>
         <div className="footer-links">
         <Link to="/home">{t("nav_home")}</Link>
         <Link to="/quizIn">{t("nav_quiz")}</Link>
@@ -241,25 +225,25 @@ return (
     </div>
 
     <div>
-        <div className="footer-title">Recursos</div>
+        <div className="footer-title">{t("footer_col_resources")}</div>
         <div className="footer-links">
         <Link to="/dashboard?mode=all">{t("home_subject_catalog")}</Link>
-        <Link to="/Contact">Soporte</Link>
+        <Link to="/Contact">{t("footer_link_support")}</Link>
         </div>
     </div>
 
     <div>
-        <div className="footer-title">Legal</div>
+        <div className="footer-title">{t("footer_col_legal")}</div>
         <div className="footer-links">
-        <Link to="/Privacy">Privacidad</Link>
-        <Link to="/Terms">Términos</Link>
-        <Link to="/Contact">Contacto</Link>
+        <Link to="/Privacy">{t("footer_link_privacy")}</Link>
+        <Link to="/Terms">{t("footer_link_terms")}</Link>
+        <Link to="/Contact">{t("footer_link_contact")}</Link>
         </div>
     </div>
     </div>
 
     <div className="footer-bottom">
-    <div>© {new Date().getFullYear()} Ecumentis. All rights reserved.</div>
+    <div>© {new Date().getFullYear()}{t("footer_rights")}</div>
     </div>
 </div>
 </footer>
