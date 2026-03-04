@@ -6,6 +6,6 @@ router.get("/alumnos", usersController.getAllUsers);
 router.put("/update", usersController.updateUser);
 router.delete("/delete/:id", usersController.deleteUser);
 router.get("/user/:id", usersController.getUser);
-router.patch("/api/users/:id/takes", userController.updateTakes);
+router.patch("/api/users/:id/takes", usersController.updateTakes);
 
 module.exports = router;
