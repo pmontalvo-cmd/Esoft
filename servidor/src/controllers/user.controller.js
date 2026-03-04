@@ -129,6 +129,34 @@ async function updateUser(req, res) {
   }
 }
 
+// Update Takes
+function updateTakes(req, res) {
+  const userId = Number(req.params.id);
+  if (!userId) return res.status(400).json({ ok: false, message: "Invalid user id" });
+
+  const {
+    takes_math = 0,
+    takes_lenguage = 0,
+    takes_science = 0,
+    takes_social = 0,
+    takes_tech = 0,
+    takes_finance = 0,
+    takes_logic = 0,
+  } = req.body;
+
+  db.query(
+    `UPDATE datos_usuario
+    SET takes_math=?, takes_lenguage=?, takes_science=?, takes_social=?, takes_tech=?, takes_finance=?, takes_logic=?
+    WHERE id=?`,
+    [takes_math, takes_lenguage, takes_science, takes_social, takes_tech, takes_finance, takes_logic, userId],
+    (err, r) => {
+      if (err) return res.status(500).json({ ok: false, message: "DB error" });
+      if (r.affectedRows === 0) return res.status(404).json({ ok: false, message: "User not found" });
+      return res.json({ ok: true });
+    }
+  );
+}
+
 // Delete User
 async function deleteUser(req, res) {
   try {
@@ -146,4 +174,5 @@ module.exports = {
   getUser,
   updateUser,
   deleteUser,
+  updateTakes,
 };
