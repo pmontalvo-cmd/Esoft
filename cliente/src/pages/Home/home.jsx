@@ -83,8 +83,8 @@ return (
 
     {/* CATALOGO */}
 <div className="section section--tint-yellow">
-    <div className="container">
-    <div className="home-sectionHead section--photo"  style={{ "--section-photo": "url(/images/home/explore.jpg)" }}>
+    <div className="container section--photo"  style={{ "--section-photo": "url(/images/home/explore.jpg)" }}>
+    <div className="home-sectionHead">
             <div>
             <h2>{t("home_catalog_title")}</h2>
             </div>
