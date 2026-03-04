@@ -305,3 +305,74 @@ color: var(--muted);
     margin-left: -24px;
     margin-right: -24px;
 }
+
+/* ===== Legal pages polish (uses existing tokens) ===== */
+.legal-meta{
+margin-top: 14px;
+display:flex;
+gap:10px;
+flex-wrap: wrap;
+align-items: center;
+}
+
+.legal-grid{
+display:grid;
+grid-template-columns: repeat(3, 1fr);
+gap: 16px;
+margin-bottom: 16px;
+}
+
+.legal-card{
+padding: 16px;
+}
+
+.legal-card h3{
+margin: 0 0 8px;
+font-weight: 900;
+letter-spacing: -0.01em;
+}
+
+.legal-list{
+margin: 10px 0 0;
+color: var(--muted);
+}
+
+.legal-body h2{
+margin-top: 18px;
+margin-bottom: 8px;
+letter-spacing: -0.01em;
+}
+
+@media (max-width: 900px){
+.legal-grid{ grid-template-columns: 1fr; }
+}
+
+/* Contact form */
+.legal-formGrid{
+display:grid;
+gap: 12px;
+}
+
+.legal-field{ display:block; }
+
+.legal-input{
+width: 100%;
+margin-top: 6px;
+padding: 10px 12px;
+border-radius: 12px;
+border: 1px solid var(--border);
+background: rgba(255,255,255,0.85);
+color: var(--text);
+font-family: var(--font);
+}
+
+.legal-input:focus{
+outline: none;
+}
+
+.legal-actions{
+display:flex;
+gap: 10px;
+flex-wrap: wrap;
+margin-top: 6px;
+}
