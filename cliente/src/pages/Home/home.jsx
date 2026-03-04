@@ -146,15 +146,60 @@ return (
     {/* Porque Nosotros */}
 <section className="section section--tint-red">
 <div className="container">
-    <h2>{t("home_whyUs_title")}</h2>
-    <p className="home-muted">{t("home_whyUs_subTitle")}</p>
-
-    <div className="card home-list" style={{ marginTop: 14 }}>
-    <p>
-        EcuMentis organiza el conocimiento en <strong>bloques cortos</strong>, claros y ordenados por
-        <strong> área</strong> y <strong>nivel</strong>. Puedes explorar libremente o usar el
-        <strong> diagnóstico</strong> para recibir recomendaciones según tu base y avanzar con una progresión definida.
+    <h2>How it Works</h2>
+    <p className="home-muted">
+    Usa EcuMentis de dos formas: explorar libremente o desbloquear una ruta recomendada.
     </p>
+
+    <div className="home-howItWorks">
+    <div className="card home-howCard tone-blue">
+        <div className="home-howCard__step">1</div>
+        <h3>Explore freely</h3>
+        <p>
+        Usa la búsqueda o entra al catálogo para abrir bloques por tema o nivel.
+        No necesitas cuenta para consultar contenido.
+        </p>
+    </div>
+
+    <div className="card home-howCard tone-yellow">
+        <div className="home-howCard__step">2</div>
+        <h3>Create your route</h3>
+        <p>
+        Regístrate, inicia sesión y toma el quiz diagnóstico para definir tu nivel
+        por materia.
+        </p>
+    </div>
+
+    <div className="card home-howCard tone-red">
+        <div className="home-howCard__step">3</div>
+        <h3>Get recommendations</h3>
+        <p>
+        Ve al Dashboard para ver bloques recomendados según tu base,
+        o consulta todos los bloques si solo quieres explorar.
+        </p>
+    </div>
+    </div>
+
+    <div className="card home-list home-howSummary">
+    <div className="home-list__item">
+        <div>
+        <div className="home-list__title">Quick path</div>
+        <div className="home-list__meta">Search or Dashboard → open blocks immediately</div>
+        </div>
+        <Link to="/dashboard?mode=all" className="btn btn-outline btn-sm">
+        Explore
+        </Link>
+    </div>
+
+    <div className="home-list__item">
+        <div>
+        <div className="home-list__title">Personalized path</div>
+        <div className="home-list__meta">Register → Login → Diagnostic Quiz → Dashboard</div>
+        </div>
+        <Link to="/quizIn" className="btn btn-primary btn-sm">
+        Start
+        </Link>
+    </div>
     </div>
 </div>
 </section>
