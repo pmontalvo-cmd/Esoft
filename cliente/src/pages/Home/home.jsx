@@ -199,17 +199,16 @@ return (
         <div className="footer-title">Recursos</div>
         <div className="footer-links">
         <Link to="/dashboard?mode=all">{t("home_subject_catalog")}</Link>
-        <Link to="#">Metodología</Link>
-        <Link to="#">Soporte</Link>
+        <Link to="Contact">Soporte</Link>
         </div>
     </div>
 
     <div>
         <div className="footer-title">Legal</div>
         <div className="footer-links">
-        <Link to="#">Privacidad</Link>
-        <Link to="#">Términos</Link>
-        <Link to="#">Contacto</Link>
+        <Link to="Privacy">Privacidad</Link>
+        <Link to="Terms">Términos</Link>
+        <Link to="Contact">Contacto</Link>
         </div>
     </div>
     </div>

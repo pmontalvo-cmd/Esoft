@@ -14,6 +14,9 @@ import QuizIn from '../pages/Quiz/quizInstrucciones';
 import QuizDone from '../pages/Quiz/quizDone'
 import BlockDetail from '../pages/LearningBlocks/BlockDetails';
 import Account from '../pages/Account/account';
+import Privacy from '../pages/Legal/Privacy';
+import Terms from '../pages/Legal/Terms';
+import Contact from '../pages/Legal/Contact';
 
 
 
@@ -60,6 +63,9 @@ function App() {
         <Route path="/blocks/:id" element={<BlockDetail/>}/>
         <Route path="/account" element={user ? <Account user={user} /> : <Navigate to="/account" />}/>
         <Route path="/quiz/done" element={<QuizDone />} />
+        <Route path="/Privacy" element={<Privacy />} />
+        <Route path="/Terms" element={<Terms />} />
+        <Route path="Contact" element={<Contact />} />
       </Routes>
     </Router>
   );
