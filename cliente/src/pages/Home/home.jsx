@@ -4,9 +4,9 @@ import "./home.css";
 import { t, subjectLabel } from "../../i18n";
 
 const quickRoutes = [
-{ label: t("subject_math") + "Nivel 2", note: "Aritmética → interés", tone: "tone-blue", query: "level:2"},
-{ label: t("subject_science") + "Nivel 3", note: "Fuerza y movimiento", tone: "tone-yellow", query: "level:3" },
-{ label: t("subject_language") + "Nivel 2", note: "Lectura crítica", tone: "tone-red", query: "level:2" },
+{ label: t("subject_math") + " Nivel 2", tone: "tone-blue", query: "level:2"},
+{ label: t("subject_science") + " Nivel 3", tone: "tone-yellow", query: "level:3" },
+{ label: t("subject_language") + " Nivel 2", tone: "tone-red", query: "level:2" },
 ];
 
 const subjects = [
@@ -29,7 +29,7 @@ return (
 
 {/* HERO */}
 <div className="section section--tint-blue section--accent">
-<section className="home-hero">
+<section className="home-hero"  style={{ "--section-photo": "url(/images/home/hero.jpg)" }}>
     <div className="container">
     <div className="home-hero__grid">
         <div>
@@ -61,7 +61,6 @@ return (
             <div key={x.label} className={`home-quick__item ${x.tone}`}>
                 <div>
                 <div className="home-quick__title">{x.label}</div>
-                <div className="home-quick__note">{x.note}</div>
                 </div>
                 <button onClick={() => navigate(`/dashboard?q=${x.query}`)} className="btn btn-outline btn-sm">{t("home_btn_open")}</button>
             </div>
