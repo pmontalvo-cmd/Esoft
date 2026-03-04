@@ -4,9 +4,9 @@ import "./home.css";
 import { t, subjectLabel } from "../../i18n";
 
 const quickRoutes = [
-{ label: t("subject_math") + " Nivel 2", tone: "tone-blue", query: "level:2"},
-{ label: t("subject_science") + " Nivel 3", tone: "tone-yellow", query: "level:3" },
-{ label: t("subject_language") + " Nivel 2", tone: "tone-red", query: "level:2" },
+{ label: t("subject_math") + " "    + t("level") + ": 2", tone: "tone-blue", query: "math + level:2"},
+{ label: t("subject_science") + " " + t("level") +": 3", tone: "tone-yellow", query: "science + level:3" },
+{ label: t("subject_language") + " "+ t("level") +": 2", tone: "tone-red", query: "language + level:2" },
 ];
 
 const subjects = [
@@ -28,7 +28,7 @@ return (
 <div className="home">
 
 {/* HERO */}
-<div className="section section--tint-blue section--accent">
+<div className="section">
 <section className="home-hero  section--photo"  style={{ "--section-photo": "url(/images/home/hero.jpg)" }}>
     <div className="container">
     <div className="home-hero__grid">
