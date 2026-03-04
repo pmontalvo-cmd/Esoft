@@ -29,7 +29,7 @@ return (
 
 {/* HERO */}
 <div className="section section--tint-blue section--accent">
-<section className="home-hero"  style={{ "--section-photo": "url(/images/home/hero.jpg)" }}>
+<section className="home-hero  section--photo"  style={{ "--section-photo": "url(/images/home/hero.jpg)" }}>
     <div className="container">
     <div className="home-hero__grid">
         <div>
