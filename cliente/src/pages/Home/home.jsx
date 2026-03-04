@@ -89,8 +89,8 @@ return (
             <h2>{t("home_catalog_title")}</h2>
             </div>
             <div className="home-sectionHead__actions">
-            <button className="btn btn-outline">{t("btn_view_all")}</button>
-            <button className="btn btn-primary">{t("btn_recommended")}</button>
+            <Link to="/dashboard?mode=all" className="btn btn-outline">{t("btn_view_all")}</Link>
+            <Link to="/dashboard?mode=recommended" className="btn btn-primary">{t("btn_recommended")}</Link>
             </div>
         </div>
 
