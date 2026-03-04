@@ -90,14 +90,18 @@ const runSearch = async (e, forcedQ) => {
   }
 };
 
-  useEffect(() => {
+useEffect(() => {
   const params = new URLSearchParams(location.search);
-  const qFromUrl = params.get("q");
-  if (qFromUrl) {
-    setSearchQ(qFromUrl);
-    runSearch(null, qFromUrl);
+  const mode = params.get("mode");
+
+  if (mode === "all") {
+    setViewMode("all");
+  } else if (mode === "recommended") {
+    setViewMode("recommended");
+  } else {
+    setViewMode(isGuest ? "all" : "recommended");
   }
-}, [location.search]);
+}, [location.search, isGuest]);
 
 const fetchBlocks = async (mode) => {
   try {
