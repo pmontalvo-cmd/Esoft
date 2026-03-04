@@ -145,7 +145,7 @@ return (
 <div className="page-shell">
 <div className="hero-band--full">
     <div className="account-page">
-    <section className="section section--accent">
+    <section className="section">
         <div className="container">
         <header className="account-head">
             <h1 className="section-title">Mi Cuenta</h1>
