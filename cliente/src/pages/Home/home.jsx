@@ -150,7 +150,6 @@ return (
 <section className="section--photo" style={{ "--section-photo": "url(/images/home/why.jpg)" }}>
 <div className="container">
     <h2>{t("home_how_title")}</h2>
-    <p className="home-muted">{t("home_how_subtitle")}</p>
     <div className="home-howItWorks">
     <div className="card home-howCard tone-blue">
         <div className="home-howCard__step">1</div>
