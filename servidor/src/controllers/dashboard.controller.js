@@ -258,14 +258,14 @@ try {
     if (!userId) return res.status(400).json({ ok: false, message: "Missing/invalid userId" });
 
     const qRaw = (req.query.q ?? "").toString().trim();
-    const subject = (req.query.subject ?? "").toString().trim(); // opcional
-    const level = req.query.level != null && req.query.level !== "" ? Number(req.query.level) : null; // opcional
+    const subject = (req.query.subject ?? "").toString().trim(); 
+    const level = req.query.level != null && req.query.level !== "" ? Number(req.query.level) : null
     const limit = req.query.limit != null ? Math.min(50, Math.max(1, Number(req.query.limit))) : 12;
 
-    // Si no hay query, no busques nada (evita retornar todo el catálogo)
+    // Si no hay query no busca nada evita retornar todo el catálogo
     if (!qRaw) return res.status(200).json({ ok: true, blocks: [] });
 
-    // Trae grade del usuario (para filtrar por grade_min/grade_max)
+    // Trae grade del usuario para filtrar por grade_min/grade_max
     const uRows = await dbQuery(`SELECT id, grade FROM datos_usuario WHERE id = ?`, [userId]);
     if (uRows.length === 0) return res.status(404).json({ ok: false, message: "User not found" });
 

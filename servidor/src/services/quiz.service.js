@@ -1,4 +1,3 @@
-// servidor/src/services/quiz.service.js
 const shuffle = require("../utils/shuffle");
 
 // Memoria RAM por sesión
@@ -21,7 +20,7 @@ return sessionAnsweredQuestions.get(userId);
 function getAllowedCategoriesFromTakes(user) {
 const allowed = [];
 
-// En DB: takes_lenguage | En quiz: language
+
 if (Number(user.takes_math) === 1) allowed.push("math");
 if (Number(user.takes_lenguage) === 1) allowed.push("language");
 if (Number(user.takes_science) === 1) allowed.push("science");
