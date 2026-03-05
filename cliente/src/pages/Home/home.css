@@ -1,7 +1,3 @@
-/* =========================
-HOME (IXL + Wiki vibe)
-Match exacto con tu JSX
-========================= */
 
 .home{
 /* Brand */
@@ -417,7 +413,7 @@ color: #334155;
 .chip--red{ background: rgba(239,68,68,0.10); }
 
 /* =========================
-Bootstrap overrides (solo dentro de Home)
+Bootstrap overrides solo dentro de Home
 Sin gradientes.
 ========================= */
 .home .btn{
@@ -472,10 +468,10 @@ Responsive
 .footer-grid{ grid-template-columns: 1fr; }
 }
 
-/* ====== FOTO DE FONDO POR SECCIÓN (mezclada + fade) ====== */
+/* ====== FOTO DE FONDO POR SECCIÓN====== */
 .section--photo {
 position: relative;
-overflow: hidden; /* evita que la foto se salga */
+overflow: hidden;
 }
 
 /* capa de imagen */
@@ -490,12 +486,12 @@ background-image: var(--section-photo);
 background-size: cover;
 background-position: center;
 
-opacity: 0.14;                 /* sube/baja: 0.10 - 0.22 */
+opacity: 0.14;          
 filter: grayscale(1) contrast(1.05);
 
-mix-blend-mode: multiply;       /* se “mezcla” con tu color */
+mix-blend-mode: multiply;
 
-/* fade vertical (arriba fuerte → abajo desaparece) */
+/* fade vertical */
 -webkit-mask-image: linear-gradient(to bottom,
 rgba(0,0,0,0.95) 0%,
 rgba(0,0,0,0.70) 30%,

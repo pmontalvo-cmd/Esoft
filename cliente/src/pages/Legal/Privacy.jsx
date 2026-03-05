@@ -1,4 +1,3 @@
-// cliente/src/pages/Legal/Privacy.jsx
 import React from "react";
 import { Link } from "react-router-dom";
 

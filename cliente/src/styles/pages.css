@@ -20,7 +20,7 @@ max-width:58ch;
 }
 
 .page.page--center{
-min-height: calc(100vh - 80px); /* ajusta 80px si tu navbar es más alto/bajo */
+min-height: calc(100vh - 80px);
 display: flex;
 align-items: center;
 justify-content: center;
@@ -34,12 +34,12 @@ max-width: 420px; /* login width */
 
 
 
-/* ===== Section backgrounds (marca visible sin perder seriedad) ===== */
+/* ===== Section background ===== */
 .section--tint-blue { background: var(--tint-blue); }
 .section--tint-red { background: var(--tint-red); }
 .section--tint-yellow { background: var(--tint-yellow); }
 
-/* Sección “con barra” tipo IXL (muy útil para identidad) */
+/* Sección */
 .section--accent{
 position: relative;
 }
@@ -52,7 +52,7 @@ background: linear-gradient(90deg, var(--brand-blue), var(--brand-yellow), var(-
 opacity: 0.95;
 }
 
-/* Títulos más “editoriales” (Wikipedia-ish) */
+/* Títulos*/
 .section-title{
 margin: 0;
 letter-spacing: -0.02em;
@@ -83,7 +83,7 @@ row-gap: 16px;
 
 .dashboard-side{
 position: sticky;
-top: 88px; /* ajusta si tu navbar es más alto/bajo */
+top: 88px;
 }
 
 .panel{

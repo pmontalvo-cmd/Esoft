@@ -21,7 +21,7 @@ const [takes_tech, setTakes_tech] = useState(0);
 const [takes_finance, setTakes_finance] = useState(0);
 const [takes_logic, setTakes_logic] = useState(0);
 
-// Form editable (lo que el usuario modifica)
+// Form editable
 const [form, setForm] = useState({
     first_name: "",
     middle_name: "",
@@ -29,7 +29,6 @@ const [form, setForm] = useState({
     username: "",
     grade: "",
     age: "",
-    // password: ""  // si lo permites (ojo: idealmente endpoint separado)
 });
 
 const [saving, setSaving] = useState(false);
@@ -66,7 +65,7 @@ useEffect(() => {
             takes_logic: Number(u.takes_logic ?? 0),
         }));
 
-        // Inicializa form con lo que viene de DB (importante)
+        // Inicializa form con lo que viene de DB
         setForm({
         first_name: u.first_name ?? "",
         middle_name: u.middle_name ?? "",
@@ -74,7 +73,6 @@ useEffect(() => {
         username: u.username ?? "",
         grade: u.grade ?? "",
         age: u.age ?? "",
-        // password: ""
         });
     } catch (e) {
         setError(e.message || "Error cargando usuario");

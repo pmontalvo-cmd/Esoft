@@ -96,7 +96,7 @@ function VideoSection({ section }) {
   const url = section?.url;
   const title = section?.title;
 
-  // ✅ hook siempre al inicio del componente (no condicional)
+  // hook siempre al inicio del componente
   const embedUrl = useMemo(() => {
     if (!url) return null;
     try {
@@ -285,7 +285,7 @@ export default function BlockDetail() {
     };
   }, [id]);
 
-  // ✅ hooks antes de returns
+  // hooks antes de returns
   const contentObj = useMemo(() => normalizeContent(block?.content), [block]);
   const sections = useMemo(() => contentObj.sections || [], [contentObj]);
 

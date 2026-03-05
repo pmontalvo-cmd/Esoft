@@ -1,7 +1,7 @@
 /* wrapper general del dashboard */
 .dashboard-shell {
---container: 1120px; /* iguala al max-width real de tu contenido */
---side-gap: 14px;    /* espacio entre barra y cards */
+--container: 1120px; 
+--side-gap: 14px; 
 position: relative;
 isolation: isolate;
 --nav-h: 64px;
@@ -9,12 +9,12 @@ isolation: isolate;
 --topbar: #15526d;
 z-index: 0;
 }
-/* Franja sólida detrás del contenido (pero delante de barras laterales) */
+/* Franja sólida  del contenido*/
 .section--topband{
 position: relative;
-overflow: visible;     /* importante si luego mueves top negativo */
---band-h: 450px;       /* <- ESTE es el alto EXACTO que quieres ver */
---band-top: -64px;       /* <- sube/baja la franja sin cambiar su alto */
+overflow: visible;     
+--band-h: 450px;      
+--band-top: -64px;     
 --band-color: #15526d;
 }
 
@@ -23,11 +23,11 @@ overflow: visible;     /* importante si luego mueves top negativo */
 content:"";
 position:absolute;
 left:0; right:0;
-top: var(--band-top);          /* 0px por defecto */
-height: var(--band-h);         /* EXACTO: no suma nada */
+top: var(--band-top);    
+height: var(--band-h);        
 background: var(--band-color);
 
-z-index: 1;                    /* franja detrás del contenido */
+z-index: 1;                   
 pointer-events: none;
 }
 
@@ -43,7 +43,7 @@ overflow: visible;
 .dashboard-shell::after {
 content: "";
 position: fixed;
-top: var(--nav-h); /* ajusta a la altura de tu navbar */
+top: var(--nav-h);
 bottom: 0;
 width: clamp(12px, calc((100vw - var(--container)) / 2 - var(--side-gap)), 260px);
 pointer-events: none;

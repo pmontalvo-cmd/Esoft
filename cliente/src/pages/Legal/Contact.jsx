@@ -1,4 +1,3 @@
-// src/pages/Contact.jsx
 import React, { useState } from "react";
 
 export default function Contact() {
@@ -11,7 +10,7 @@ function onChange(e) {
 
 function onSubmit(e) {
     e.preventDefault();
-    // Placeholder: conecta tu endpoint real (POST /api/contact)
+    // Placeholder API En Progreso
     setSent(true);
 }
 

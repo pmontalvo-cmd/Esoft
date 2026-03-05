@@ -46,7 +46,7 @@
   box-shadow:var(--shadow-sm);
 }
 
-/* ===== Buttons: que NO se vean “bootstrap default” ===== */
+/* ===== Buttons: SObreescribe Bootsratp ===== */
 .btn{
   border-radius: 12px;
   font-weight: 800;
@@ -71,7 +71,7 @@
   background: rgba(255,255,255,0.95);
 }
 
-/* Chips: etiqueta de materia (estilo “catalog”) */
+/* Chips: etiqueta de materia */
 .chip{
   font-size: 12px;
   font-weight: 900;
@@ -85,7 +85,7 @@
 .chip--yellow{ background: var(--tint-yellow); }
 .chip--red{ background: var(--tint-red); }
 
-/* ===== Footer (tipo IXL: columnas + links) ===== */
+/* ===== Footer ===== */
 .site-footer{
   border-top: 1px solid var(--border);
   background: var(--surface);
