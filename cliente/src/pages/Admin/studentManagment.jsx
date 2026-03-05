@@ -24,67 +24,86 @@ function StudentManagement() {
   const [alumnosList, setAlumnos] = useState([]);
 
   // CREATE
-  const add = () => {
-    API.post("/create", {
-      first_name,
-      middle_name,
-      last_name,
-      username,
-      password,
-      age,
-      grade,
-      takes_math,
-      takes_lenguage,
-      takes_science,
-      takes_social,
-      takes_tech,
-      takes_finance,
-      takes_logic
-    }).then(() => {
-      limpiarCampos();
-      Swal.fire({
-        title: "<strong>Registro exitoso</strong>",
-        html: `<i>El alumno ${first_name} fue registrado con éxito</i>`,
-        icon: 'success',
-        timer: 3000
-      });
-    }).catch((error) => {
-      console.error(error);
-      Swal.fire("Error", "No se pudo registrar", "error");
-    });
+const add = () => {
+  const takesPayload = {
+    takes_math,
+    takes_lenguage,
+    takes_science,
+    takes_social,
+    takes_tech,
+    takes_finance,
+    takes_logic
   };
 
-  // UPDATE
-  const update = () => {
-    API.put("/update", {
-      id,
-      first_name,
-      middle_name,
-      last_name,
-      username,
-      password,
-      age,
-      grade,
-      takes_math,
-      takes_lenguage,
-      takes_science,
-      takes_social,
-      takes_tech,
-      takes_finance,
-      takes_logic
-    }).then(() => {
-      limpiarCampos();
-      Swal.fire({
-        title: "<strong>Actualización exitosa</strong>",
-        html: `<i>El alumno ${first_name} fue actualizado</i>`,
-        icon: 'success',
-        timer: 3000
-      });
-    }).catch((error) => {
-      console.error(error);
-      Swal.fire("Error", "No se pudo actualizar", "error");
+  API.post("/create", {
+    first_name,
+    middle_name,
+    last_name,
+    username,
+    password,
+    age,
+    grade,
+    ...takesPayload
+  }).then((res) => {
+    localStorage.setItem("takes", JSON.stringify(takesPayload));
+
+    // opcional, solo si tu backend devuelve id
+    if (res?.data?.id) {
+      localStorage.setItem("userId", String(res.data.id));
+    }
+
+    limpiarCampos();
+
+    Swal.fire({
+      title: "<strong>Registro exitoso</strong>",
+      html: `<i>El alumno ${first_name} fue registrado con éxito</i>`,
+      icon: "success",
+      timer: 3000
     });
+  }).catch((error) => {
+    console.error(error);
+    Swal.fire("Error", "No se pudo registrar", "error");
+  });
+};
+
+  // UPDATE
+const update = () => {
+  const takesPayload = {
+    takes_math,
+    takes_lenguage,
+    takes_science,
+    takes_social,
+    takes_tech,
+    takes_finance,
+    takes_logic
   };
+
+  API.put("/update", {
+    id,
+    first_name,
+    middle_name,
+    last_name,
+    username,
+    password,
+    age,
+    grade,
+    ...takesPayload
+  }).then(() => {
+    localStorage.setItem("takes", JSON.stringify(takesPayload));
+
+    limpiarCampos();
+
+    Swal.fire({
+      title: "<strong>Actualización exitosa</strong>",
+      html: `<i>El alumno ${first_name} fue actualizado</i>`,
+      icon: "success",
+      timer: 3000
+    });
+  }).catch((error) => {
+    console.error(error);
+    Swal.fire("Error", "No se pudo actualizar", "error");
+  });
+};
 
   const limpiarCampos = () => {
     setFirst_name("");
