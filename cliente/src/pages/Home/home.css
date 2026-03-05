@@ -557,3 +557,27 @@ padding: 14px;
 grid-template-columns: 1fr;
 }
 }
+
+/* ===== Porque Nosotros: cards tipo “glass” + texto blanco ===== */
+.section--tint-red.section--photo h2{
+color: #fff;
+}
+
+.section--tint-red.section--photo .home-howCard{
+background: rgba(255,255,255,0.14);
+border-color: rgba(255,255,255,0.22);
+box-shadow: 0 10px 26px rgba(0,0,0,0.18);
+backdrop-filter: blur(6px);
+}
+
+.section--tint-red.section--photo .home-howCard h3,
+.section--tint-red.section--photo .home-howCard p{
+color: #fff;
+}
+
+/* el círculo del número se mantiene claro para contraste */
+.section--tint-red.section--photo .home-howCard__step{
+background: rgba(255,255,255,0.85);
+border-color: rgba(255,255,255,0.35);
+color: #0F172A;
+}
