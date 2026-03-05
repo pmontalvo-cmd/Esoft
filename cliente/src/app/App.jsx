@@ -2,6 +2,8 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import Swal from 'sweetalert2';
+
 
 
 import StudentManagement from '../pages/Admin/studentManagment';
@@ -49,16 +51,19 @@ function App() {
     setUser(loggedInUser);
     localStorage.setItem("user", JSON.stringify(loggedInUser)); // <-- importante
 
-  const SignalLogIn = () => {
+function SignalLogIn() {
+    useEffect(() => {
         Swal.fire({
-          title: "Inicia Sesión",
-          html: `<i>Please Log In to take quiz`,
-          icon: "warning",
-          timer: 3000
+            title: "Inicia Sesión",
+            html: `<i>Please Log In to take quiz`,
+            icon: "warning",
+            timer: 3000,
         });
+    }, []);
+    return (
         <div>Please log in before taking the quiz.</div>
+    );
   }
-  };
   return (
     <Router>
       <Navbar vprueba={vprueba} user={user} onLogout={handleLogout} />
@@ -67,7 +72,7 @@ function App() {
         <Route path="/home" element={<Home />} />
 {/*Rutas*/}
         <Route path="/quizIn" element={<QuizIn />} />
-        <Route path="/quiz" element={user ? <Quiz userId={user.id} />: SignalLogIn()}/>
+        <Route path="/quiz" element={user ? <Quiz userId={user.id} />: <SignalLogIn />}/>
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/singin" element={<SingIn onLoginSuccess={handleLoginSuccess} />} />
         <Route path="/alumnos" element={<StudentManagement />} />
@@ -81,5 +86,5 @@ function App() {
     </Router>
   );
 }
-
+}
 export default App;
