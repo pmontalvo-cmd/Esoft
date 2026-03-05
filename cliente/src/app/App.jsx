@@ -58,7 +58,6 @@ function App() {
               title: "Inicia Sesión Para Tomar La Prueba",
               html: `<i>Please Log In to take quiz`,
               icon: "warning",
-              timer: 3000,
           });
       }, []);  // Dependency array is empty, so it runs once when mounted.
 
