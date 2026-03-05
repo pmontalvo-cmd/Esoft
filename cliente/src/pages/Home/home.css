@@ -486,7 +486,7 @@ background-image: var(--section-photo);
 background-size: cover;
 background-position: center;
 
-opacity: 0.85;          
+opacity: 0.95;          
 filter: grayscale(1) contrast(1.05);
 
 mix-blend-mode: multiply;
