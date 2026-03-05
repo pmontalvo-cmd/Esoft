@@ -21,7 +21,30 @@ import Terms from '../pages/Legal/Terms';
 import Contact from '../pages/Legal/Contact';
 
 
+const APP_VERSION = "1.0.1";
 
+useEffect(() => {
+  const savedVersion = localStorage.getItem("appVersion");
+
+  if (savedVersion !== APP_VERSION) {
+    localStorage.removeItem("takes");
+    localStorage.removeItem("user");
+    localStorage.removeItem("userId");
+    localStorage.removeItem("username");
+    localStorage.removeItem("grade");
+    localStorage.setItem("appVersion", APP_VERSION);
+    window.location.reload();
+    return;
+  }
+
+  const id = localStorage.getItem("userId");
+  const username = localStorage.getItem("username");
+  const grade = localStorage.getItem("grade");
+
+  if (id) {
+    setUser({ id: Number(id), username, grade: grade ? Number(grade) : null });
+  }
+}, []);
 
 
 function App() {
