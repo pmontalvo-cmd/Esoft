@@ -50,20 +50,24 @@ function App() {
   const handleLoginSuccess = (loggedInUser) => {
     setUser(loggedInUser);
     localStorage.setItem("user", JSON.stringify(loggedInUser)); // <-- importante
-
-function SignalLogIn() {
-    useEffect(() => {
-        Swal.fire({
-            title: "Inicia Sesión",
-            html: `<i>Please Log In to take quiz`,
-            icon: "warning",
-            timer: 3000,
-        });
-    }, []);
-    return (
-        <div>Please log in before taking the quiz.</div>
-    );
   }
+  
+  function SignalLogIn(){
+  useEffect(() => {
+          Swal.fire({
+              title: "Inicia Sesión",
+              html: `<i>Please Log In to take quiz`,
+              icon: "warning",
+              timer: 3000,
+          });
+      }, []);  // Dependency array is empty, so it runs once when mounted.
+
+      return (
+          <div>Please log in before taking the quiz.</div>
+      );
+  };
+
+  
   return (
     <Router>
       <Navbar vprueba={vprueba} user={user} onLogout={handleLogout} />
@@ -72,7 +76,7 @@ function SignalLogIn() {
         <Route path="/home" element={<Home />} />
 {/*Rutas*/}
         <Route path="/quizIn" element={<QuizIn />} />
-        <Route path="/quiz" element={user ? <Quiz userId={user.id} />: <div>Hola</div>}/>
+        <Route path="/quiz" element={user ? <Quiz userId={user.id} />: <SignalLogIn />}/>
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/singin" element={<SingIn onLoginSuccess={handleLoginSuccess} />} />
         <Route path="/alumnos" element={<StudentManagement />} />
@@ -86,5 +90,5 @@ function SignalLogIn() {
     </Router>
   );
 }
-}
+
 export default App;
