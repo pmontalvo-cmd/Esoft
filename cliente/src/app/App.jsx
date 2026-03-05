@@ -51,11 +51,11 @@ function App() {
     setUser(loggedInUser);
     localStorage.setItem("user", JSON.stringify(loggedInUser)); // <-- importante
   }
-  
+
   function SignalLogIn(){
   useEffect(() => {
           Swal.fire({
-              title: "Inicia Sesión",
+              title: "Inicia Sesión Para Tomar La Prueba",
               html: `<i>Please Log In to take quiz`,
               icon: "warning",
               timer: 3000,
