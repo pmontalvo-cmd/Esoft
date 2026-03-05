@@ -51,9 +51,9 @@ function App() {
 
   const SignalLogIn = () => {
         Swal.fire({
-          title: "<strong>Actualización exitosa</strong>",
-          html: `<i>El alumno ${first_name} fue actualizado</i>`,
-          icon: "success",
+          title: "Inicia Sesión",
+          html: `<i>Please Log In to take quiz`,
+          icon: "warning",
           timer: 3000
         });
         <div>Please log in before taking the quiz.</div>
