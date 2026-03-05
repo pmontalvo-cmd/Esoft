@@ -558,44 +558,39 @@ grid-template-columns: 1fr;
 }
 }
 
-/* ===== Porque Nosotros: cards tipo “glass” + texto blanco ===== */
-.section--tint-red.section--photo h2{
+/* ===== Glass UI para TODAS las secciones con foto ===== */
+.section--photo h2{
 color: #fff;
 }
 
-.section--tint-red.section--photo .home-howCard{
-background: rgba(255,255,255,0.14);
-border-color: rgba(255,255,255,0.22);
-box-shadow: 0 10px 26px rgba(0,0,0,0.18);
-backdrop-filter: blur(1.5px);
-}
-
-.section--tint-red.section--photo .home-howCard h3,
-.section--tint-red.section--photo .home-howCard p{
-color: #fff;
-}
-
-/* el círculo del número se mantiene claro para contraste */
-.section--tint-red.section--photo .home-howCard__step{
-background: rgba(255,255,255,0.85);
-border-color: rgba(255,255,255,0.35);
-color: #0F172A;
-}
-
-.section--tint-red.section--photo .home-howSummary{
+/* cards dentro de secciones con foto */
+.section--photo .card{
 background: rgba(255,255,255,0.10);
 border-color: rgba(255,255,255,0.18);
 box-shadow: 0 10px 26px rgba(0,0,0,0.14);
 backdrop-filter: blur(1.5px);
 }
 
-.section--tint-red.section--photo .home-howSummary .home-list__title,
-.section--tint-red.section--photo .home-howSummary .home-list__meta{
+/* texto dentro de cards */
+.section--photo .card h3,
+.section--photo .card p{
 color: #fff;
 }
 
-/* opcional: que los items internos no vuelvan a blanco sólido */
-.section--tint-red.section--photo .home-howSummary .home-list__item{
+/* listas dentro de cards (como tu card grande de abajo) */
+.section--photo .home-list__title,
+.section--photo .home-list__meta{
+color: #fff;
+}
+
+.section--photo .home-list__item{
 background: rgba(255,255,255,0.06);
 border-color: rgba(255,255,255,0.14);
+}
+
+/* circulito 1/2/3 (por si cambias fondos) */
+.section--photo .home-howCard__step{
+background: rgba(255,255,255,0.85);
+border-color: rgba(255,255,255,0.35);
+color: #0F172A;
 }
