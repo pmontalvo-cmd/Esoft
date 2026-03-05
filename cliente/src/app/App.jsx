@@ -21,6 +21,22 @@ import Terms from '../pages/Legal/Terms';
 import Contact from '../pages/Legal/Contact';
 
 
+
+function App() {
+  const [vprueba,] = useState("");
+  const [user, setUser] = useState(null);
+  
+  const handleLogout = () => {
+  localStorage.removeItem("takes");
+  localStorage.removeItem("user");
+  localStorage.removeItem("userId");
+  localStorage.removeItem("username");
+  localStorage.removeItem("grade");
+
+  setUser(null);
+};
+
+
 const APP_VERSION = "1.0.1";
 
 useEffect(() => {
@@ -46,20 +62,6 @@ useEffect(() => {
   }
 }, []);
 
-
-function App() {
-  const [vprueba,] = useState("");
-  const [user, setUser] = useState(null);
-  
-  const handleLogout = () => {
-  localStorage.removeItem("takes");
-  localStorage.removeItem("user");
-  localStorage.removeItem("userId");
-  localStorage.removeItem("username");
-  localStorage.removeItem("grade");
-
-  setUser(null);
-};
   useEffect(() => {
     const id = localStorage.getItem("userId");
     const username = localStorage.getItem("username");
