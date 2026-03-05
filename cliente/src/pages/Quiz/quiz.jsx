@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import API from "../../services/api";
 import Swal from 'sweetalert2';
 
-const QUIZ_SECONDS = 60;
+const QUIZ_SECONDS = 120;
 const TOTAL_QUESTIONS = 40; 
 
 const Quiz = () => {
