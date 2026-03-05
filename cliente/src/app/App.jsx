@@ -48,6 +48,16 @@ function App() {
   const handleLoginSuccess = (loggedInUser) => {
     setUser(loggedInUser);
     localStorage.setItem("user", JSON.stringify(loggedInUser)); // <-- importante
+
+  const SignalLogIn = () => {
+        Swal.fire({
+          title: "<strong>Actualización exitosa</strong>",
+          html: `<i>El alumno ${first_name} fue actualizado</i>`,
+          icon: "success",
+          timer: 3000
+        });
+        <div>Please log in before taking the quiz.</div>
+  }
   };
   return (
     <Router>
@@ -57,7 +67,7 @@ function App() {
         <Route path="/home" element={<Home />} />
 {/*Rutas*/}
         <Route path="/quizIn" element={<QuizIn />} />
-        <Route path="/quiz" element={user? <Quiz userId={user.id} />: <div>Please log in before taking the quiz.</div>}/>
+        <Route path="/quiz" element={user ? <Quiz userId={user.id} />: SignalLogIn()}/>
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/singin" element={<SingIn onLoginSuccess={handleLoginSuccess} />} />
         <Route path="/alumnos" element={<StudentManagement />} />
