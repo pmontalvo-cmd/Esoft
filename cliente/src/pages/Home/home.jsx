@@ -28,8 +28,8 @@ return (
 <div className="home">
 
 {/* HERO */}
-<div className="section section--tint-blue">
-<section className="home-hero  section--photo"  style={{ "--section-photo": "url(/images/home/hero.jpg)" }}>
+<div className="section section--tint-blue section--photo"  style={{ "--section-photo": "url(/images/home/hero.jpg)" }}>
+<section className="home-hero ">
     <div className="container">
     <div className="home-hero__grid">
         <div>
@@ -82,8 +82,8 @@ return (
 
 
     {/* CATALOGO */}
-<div className="section section--tint-yellow">
-<section className="section--photo"  style={{ "--section-photo": "url(/images/home/explore.jpg)" }}>
+<div className="section section--tint-yellow section--photo"  style={{ "--section-photo": "url(/images/home/explore.jpg)" }}>
+<section className="">
     <div className="container">
     <div className="home-sectionHead">
             <div>
@@ -146,8 +146,8 @@ return (
 </div>
 
     {/* Porque Nosotros */}
-<section className="section section--tint-red">
-<section className="section--photo" style={{ "--section-photo": "url(/images/home/why.jpg)" }}>
+<section className="section section--tint-red section--photo" style={{ "--section-photo": "url(/images/home/why.jpg)" }}>
+<section className="">
 <div className="container">
     <h2>{t("home_how_title")}</h2>
     <div className="home-howItWorks">
