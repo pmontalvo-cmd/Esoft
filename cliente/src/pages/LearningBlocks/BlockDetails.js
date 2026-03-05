@@ -2,6 +2,8 @@ import React, { useEffect, useMemo, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { Container, Card, Button, Spinner, Alert, Badge, Form } from "react-bootstrap";
 import API from "../../services/api";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 
 /* ---------- utils ---------- */
 function safeParseJSON(v) {
@@ -37,13 +39,12 @@ function SectionTypeBadge({ type }) {
 /* ---------- sections ---------- */
 function TextSection({ section }) {
   const text = (section?.markdown ?? "").toString();
+
   return (
     <div style={{ marginBottom: 16 }}>
-      {text.split("\n").map((line, i) => (
-        <p key={i} style={{ marginBottom: 10 }}>
-          {line}
-        </p>
-      ))}
+      <ReactMarkdown remarkPlugins={[remarkGfm]}>
+        {text}
+      </ReactMarkdown>
     </div>
   );
 }
