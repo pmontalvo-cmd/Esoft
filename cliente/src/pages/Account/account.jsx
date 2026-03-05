@@ -150,6 +150,10 @@ const onUpdate = async () => {
         icon: 'success',
         timer: 3000
     });
+
+    setTimeout(() => {
+        window.location.reload();
+    }, 1200);
     } catch (e) {
     setError(e.message || "Error actualizando usuario");
     } finally {
