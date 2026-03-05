@@ -46,8 +46,25 @@ useEffect(() => {
 
         const res = await API.get(`/user/${userId}`);
         const u = res.data;
-
         setDbUser(u);
+
+        setTakes_math(Number(u.takes_math ?? 0));
+        setTakes_lenguage(Number(u.takes_lenguage ?? 0));
+        setTakes_science(Number(u.takes_science ?? 0));
+        setTakes_social(Number(u.takes_social ?? 0));
+        setTakes_tech(Number(u.takes_tech ?? 0));
+        setTakes_finance(Number(u.takes_finance ?? 0));
+        setTakes_logic(Number(u.takes_logic ?? 0));
+
+        localStorage.setItem("takes", JSON.stringify({
+            takes_math: Number(u.takes_math ?? 0),
+            takes_lenguage: Number(u.takes_lenguage ?? 0),
+            takes_science: Number(u.takes_science ?? 0),
+            takes_social: Number(u.takes_social ?? 0),
+            takes_tech: Number(u.takes_tech ?? 0),
+            takes_finance: Number(u.takes_finance ?? 0),
+            takes_logic: Number(u.takes_logic ?? 0),
+        }));
 
         // Inicializa form con lo que viene de DB (importante)
         setForm({
@@ -73,13 +90,45 @@ const onChange = (key) => (e) => {
     setForm((prev) => ({ ...prev, [key]: e.target.value }));
 };
 
+const saveTakes = async () => {
+try {
+    const payload = {
+    takes_math,
+    takes_lenguage,
+    takes_science,
+    takes_social,
+    takes_tech,
+    takes_finance,
+    takes_logic,
+    };
+
+    await API.patch(`/api/users/${userId}/takes`, payload);
+
+    localStorage.setItem("takes", JSON.stringify(payload));
+
+    setDbUser((prev) => prev ? { ...prev, ...payload } : prev);
+
+    Swal.fire({
+    title: "<strong>Materias guardadas</strong>",
+    html: `<i>Las materias activas fueron actualizadas correctamente</i>`,
+    icon: "success",
+    timer: 2000
+    });
+} catch (e) {
+    console.error(e);
+    Swal.fire("Error", "No se pudieron guardar las materias", "error");
+    throw e;
+}
+};
+
 const onUpdate = async () => {
     try {
     setSaving(true);
     setError("");
     setSaveMsg("");
 
-    // Payload: reutiliza tu endpoint existente PUT /update (requiere id)
+    await saveTakes();
+
     const payload = {
         id: userId,
         first_name: form.first_name,
@@ -92,12 +141,12 @@ const onUpdate = async () => {
 
     await API.put("/update", payload);
 
-    // refresca UI
+    // refresca IU
     setDbUser((prev) => (prev ? { ...prev, ...payload } : prev));
-    setSaveMsg("Cambios guardados ✅");
+    setSaveMsg("Cambios guardados");
     Swal.fire({
         title: "<strong>Cambios guardados</strong>",
-        html: `<i>El alumno ${dbUser.first_name} fue actualizado con éxito</i>`,
+        html: `<i>El alumno ${form.first_name} fue actualizado con éxito</i>`,
         icon: 'success',
         timer: 3000
     });
@@ -122,6 +171,7 @@ const onDeleteAccount = async () => {
     await API.delete(`/delete/${userId}`);
 
     // logout local
+    localStorage.removeItem("takes");
     localStorage.removeItem("user");
     localStorage.removeItem("userId");
     localStorage.removeItem("username");

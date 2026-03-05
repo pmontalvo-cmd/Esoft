@@ -189,17 +189,31 @@ const Quiz = () => {
   };
 
   const finishQuiz = async (id) => {
-    try {
-      await API.post("/api/diagnostic/submit", {
-        userId: Number(id),
-        math_score: mathScoreRef.current,
-        language_score: languageScoreRef.current,
-        science_score: scienceScoreRef.current,
-        social_score: socialScoreRef.current,
-        tech_score: techScoreRef.current,
-        finance_score: financeScoreRef.current,
-        logic_score: logicScoreRef.current,
-      });
+  try {
+    const takes = JSON.parse(localStorage.getItem("takes") || "{}");
+
+    const takesBySubject = {
+      math: Number(takes.takes_math ?? 0),
+      language: Number(takes.takes_lenguage ?? 0), // en DB/localStorage sigue con typo
+      science: Number(takes.takes_science ?? 0),
+      social: Number(takes.takes_social ?? 0),
+      tech: Number(takes.takes_tech ?? 0),
+      finance: Number(takes.takes_finance ?? 0),
+      logic: Number(takes.takes_logic ?? 0),
+    };
+
+    await API.post("/api/diagnostic/submit", {
+      userId: Number(id),
+
+      math_score: takesBySubject.math ? Math.max(1, mathScoreRef.current) : 0,
+      language_score: takesBySubject.language ? Math.max(1, languageScoreRef.current) : 0,
+      science_score: takesBySubject.science ? Math.max(1, scienceScoreRef.current) : 0,
+      social_score: takesBySubject.social ? Math.max(1, socialScoreRef.current) : 0,
+      tech_score: takesBySubject.tech ? Math.max(1, techScoreRef.current) : 0,
+      finance_score: takesBySubject.finance ? Math.max(1, financeScoreRef.current) : 0,
+      logic_score: takesBySubject.logic ? Math.max(1, logicScoreRef.current) : 0,
+    });
+
 
       navigate("/quiz/done");
     } catch (err) {

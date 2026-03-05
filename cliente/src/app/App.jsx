@@ -27,6 +27,7 @@ function App() {
   const [user, setUser] = useState(null);
   
   const handleLogout = () => {
+  localStorage.removeItem("takes");
   localStorage.removeItem("user");
   localStorage.removeItem("userId");
   localStorage.removeItem("username");
