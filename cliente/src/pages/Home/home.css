@@ -567,7 +567,7 @@ color: #fff;
 background: rgba(255,255,255,0.14);
 border-color: rgba(255,255,255,0.22);
 box-shadow: 0 10px 26px rgba(0,0,0,0.18);
-backdrop-filter: blur(6px);
+backdrop-filter: blur(1.5px);
 }
 
 .section--tint-red.section--photo .home-howCard h3,
@@ -580,4 +580,22 @@ color: #fff;
 background: rgba(255,255,255,0.85);
 border-color: rgba(255,255,255,0.35);
 color: #0F172A;
+}
+
+.section--tint-red.section--photo .home-howSummary{
+background: rgba(255,255,255,0.10);
+border-color: rgba(255,255,255,0.18);
+box-shadow: 0 10px 26px rgba(0,0,0,0.14);
+backdrop-filter: blur(1.5px);
+}
+
+.section--tint-red.section--photo .home-howSummary .home-list__title,
+.section--tint-red.section--photo .home-howSummary .home-list__meta{
+color: #fff;
+}
+
+/* opcional: que los items internos no vuelvan a blanco sólido */
+.section--tint-red.section--photo .home-howSummary .home-list__item{
+background: rgba(255,255,255,0.06);
+border-color: rgba(255,255,255,0.14);
 }
