@@ -72,7 +72,7 @@ function SignalLogIn() {
         <Route path="/home" element={<Home />} />
 {/*Rutas*/}
         <Route path="/quizIn" element={<QuizIn />} />
-        <Route path="/quiz" element={user ? <Quiz userId={user.id} />: <SignalLogIn />}/>
+        <Route path="/quiz" element={user ? <Quiz userId={user.id} />: <div>Hola</div>}/>
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/singin" element={<SingIn onLoginSuccess={handleLoginSuccess} />} />
         <Route path="/alumnos" element={<StudentManagement />} />
