@@ -1,7 +1,8 @@
+// servidor/src/services/quiz.service.js
 const shuffle = require("../utils/shuffle");
 
+// Memoria RAM por sesión
 const sessionAnsweredQuestions = new Map();
-const sessionCategoryCounts = new Map();
 
 function mapGradeToDifficulty(grade) {
 if (grade <= 3) return 1;
@@ -17,76 +18,87 @@ if (!sessionAnsweredQuestions.has(userId)) {
 return sessionAnsweredQuestions.get(userId);
 }
 
-function getCategoryCounts(userId) {
-if (!sessionCategoryCounts.has(userId)) sessionCategoryCounts.set(userId, {});
-return sessionCategoryCounts.get(userId);
+function getAllowedCategoriesFromTakes(user) {
+const allowed = [];
+
+// En DB: takes_lenguage | En quiz: language
+if (Number(user.takes_math) === 1) allowed.push("math");
+if (Number(user.takes_lenguage) === 1) allowed.push("language");
+if (Number(user.takes_science) === 1) allowed.push("science");
+if (Number(user.takes_social) === 1) allowed.push("social");
+if (Number(user.takes_tech) === 1) allowed.push("tech");
+if (Number(user.takes_finance) === 1) allowed.push("finance");
+if (Number(user.takes_logic) === 1) allowed.push("logic");
+
+// Fallback si todo está en 0
+if (allowed.length === 0) return ["math", "language"];
+return allowed;
 }
 
 function selectNextQuestion({ userId, user, questions }) {
 let { current_difficulty, grade } = user;
 
+current_difficulty = Number(current_difficulty);
+grade = Number(grade);
+
 if (!current_difficulty || current_difficulty < 1 || current_difficulty > 4) {
     current_difficulty = mapGradeToDifficulty(grade);
 }
 
-const answered = getAnsweredSet(userId);
-const counts = getCategoryCounts(userId);
+let answered = getAnsweredSet(userId);
+const allowedCategories = getAllowedCategoriesFromTakes(user);
 
+// 1) Misma dificultad + categorías permitidas + no respondidas
 let available = questions.filter(
-    (q) => q.difficulty === current_difficulty && !answered.has(q.id)
+    (q) =>
+    allowedCategories.includes(q.category) &&
+    Number(q.difficulty) === current_difficulty &&
+    !answered.has(q.id)
 );
 
+// 2) Si no hay, reinicia preguntas respondidas y vuelve a intentar misma dificultad
 if (available.length === 0) {
     sessionAnsweredQuestions.set(userId, new Set());
-    sessionCategoryCounts.set(userId, {});
-    const answered2 = getAnsweredSet(userId);
+    answered = getAnsweredSet(userId);
 
     available = questions.filter(
-    (q) => q.difficulty === current_difficulty && !answered2.has(q.id)
+    (q) =>
+        allowedCategories.includes(q.category) &&
+        Number(q.difficulty) === current_difficulty &&
+        !answered.has(q.id)
     );
+}
 
-    available = shuffle(available);
-    if (available.length === 0) {
+// 3) Último fallback: cualquier dificultad dentro de categorías permitidas
+if (available.length === 0) {
+    available = questions.filter(
+    (q) =>
+        allowedCategories.includes(q.category) &&
+        !answered.has(q.id)
+    );
+}
+
+available = shuffle(available);
+
+if (available.length === 0) {
     return { error: "No new questions available. Try again later." };
-    }
-
-    const question = available[0];
-    answered2.add(question.id);
-    const counts2 = getCategoryCounts(userId);
-    counts2[question.category] = (counts2[question.category] || 0) + 1;
-    return { question, current_difficulty };
 }
 
-const categories = [...new Set(available.map((q) => q.category))];
-if (categories.length === 0) return { error: "No categories available." };
-
-let pickCat = categories[0];
-let best = counts[pickCat] || 0;
-
-for (const cat of categories) {
-    const c = counts[cat] || 0;
-    if (c < best) {
-    best = c;
-    pickCat = cat;
-    }
-}
-
-const candidates = shuffle(available.filter((q) => q.category === pickCat));
-const question = candidates[0];
-
+const question = available[0];
 answered.add(question.id);
-counts[question.category] = (counts[question.category] || 0) + 1;
 
 return { question, current_difficulty };
 }
 
 function gradeAnswerAndAdjustDifficulty({ currentDiff, isCorrect }) {
-let newDiff = currentDiff;
+let newDiff = Number(currentDiff);
+
 if (isCorrect) {
     if (newDiff < 4) newDiff++;
 } else {
     if (newDiff > 1) newDiff--;
 }
+
 return newDiff;
 }
 

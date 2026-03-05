@@ -1,40 +1,6 @@
 
 const { pool } = require("../config/database")
 
-function CheckInput(req, res){
-try {
-        const {userId} = req.body;
-        if(userId == null){
-            return res.status(400).json({
-                ok: false,
-                message: "Mising userId"
-        });
-    }
-    // Check if User Id exists in database
-    pool.query("SELECT * FROM datos_usuario WHERE id = ?", [userId], (err,rows) => {
-        if (err) return res.status(500).json({ error: "DB error" });
-        if (rows.length === 0) return res.status(404).json({ error: "User not found" })
-        
-        // Check If Scores Exist in User
-    pool.query("SELECT math_score, language_score FROM datos_usuario WHERE id = ?", [userId], (err,rows) => {
-        if (err) return res.status(500).json({ error: "DB error"});
-        if (rows.length === 0) return res.status(404).json({ error: "User Scores not found"})
-
-        const {math_score, language_score} = rows[0];
-        return res.status(200).json({userId, math_score, language_score})
-
-        
-    })});
-
-}catch (err) {
-    console.error(err);
-    return res.status(500).json({
-    ok: false,
-    message: "Internal server error",
-    });
-}};
-
-
 function getAllBlocks(req, res){
 
     const lang = (req.query.lang || "es").toLowerCase();
@@ -97,6 +63,7 @@ function scoreTOlevel(score){
     if(score <= 50) return 2;
     if(score <=75) return 3;
     if(score <=100) return 4;
+    return 4;
     /*
 if (score == null) return 4;
 if (score <= 12) return 1;
@@ -177,19 +144,38 @@ try {
     };
 
     // Clasificar subjects por tier
-    const subjectsInfo = SUBJECTS.map((subject) => {
-    const s = scores[subject];
-    return {
+    const subjectsInfo = SUBJECTS
+    .map((subject) => {
+        const s = scores[subject];
+        return {
         subject,
         score: s,
         targetLevel: scoreTOlevel(s),
         tier: s == null ? "mid" : (s < 40 ? "low" : (s <= 70 ? "mid" : "high"))
-    };
-    });
+        };
+    })
+    .filter((x) => Number(x.score ?? 0) > 0);
 
-    const low = subjectsInfo.filter(x => x.tier === "low").sort((a,b)=> (a.score??999)-(b.score??999));
-    const mid = subjectsInfo.filter(x => x.tier === "mid").sort((a,b)=> (a.score??999)-(b.score??999));
-    const high = subjectsInfo.filter(x => x.tier === "high").sort((a,b)=> (a.score??999)-(b.score??999));
+const sourcePool = subjectsInfo.length > 0
+? subjectsInfo
+: SUBJECTS.map((subject) => ({
+    subject,
+    score: 50,
+    targetLevel: 2,
+    tier: "mid",
+    }));
+
+const low = sourcePool
+.filter((x) => x.tier === "low")
+.sort((a, b) => (a.score ?? 999) - (b.score ?? 999));
+
+const mid = sourcePool
+.filter((x) => x.tier === "mid")
+.sort((a, b) => (a.score ?? 999) - (b.score ?? 999));
+
+const high = sourcePool
+.filter((x) => x.tier === "high")
+.sort((a, b) => (a.score ?? 999) - (b.score ?? 999));
 
     // Plan balanced: 4 low, 3 mid, 1 high (total 8)
     const TOTAL = 8;
